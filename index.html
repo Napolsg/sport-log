@@ -69,7 +69,7 @@
     .pr:active{border-color:var(--ac);color:var(--ac);}
     .pr.active-preset{border-color:var(--ac2);color:var(--ac2);}
     .custom-timer{display:flex;align-items:center;gap:6px;}
-    .custom-timer input{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:11px;padding:4px 7px;border-radius:4px;width:52px;text-align:center;outline:none;-moz-appearance:textfield;}
+    .custom-timer input{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:11px;padding:4px 7px;border-radius:4px;width:48px;text-align:center;outline:none;-moz-appearance:textfield;}
     .custom-timer input::-webkit-inner-spin-button,.custom-timer input::-webkit-outer-spin-button{-webkit-appearance:none;}
     .custom-timer input:focus{border-color:var(--ac2);}
     .custom-timer span{font-size:10px;color:var(--mu);}
@@ -77,17 +77,17 @@
     .bt-go:active{opacity:.8;}
 
     /* ADD EXO */
-    .add-exo{display:flex;gap:8px;margin-bottom:10px;position:relative;}
-    .exo-wrap{flex:1;position:relative;min-width:0;}
+    .add-exo{display:flex;gap:8px;margin-bottom:10px;}
+    .exo-wrap{flex:1;position:relative;min-width:0;z-index:100;}
     .add-exo input{background:var(--sf);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:13px;padding:10px 12px;border-radius:var(--r);width:100%;outline:none;}
     .add-exo input:focus{border-color:var(--ac2);}
     .add-exo input::placeholder{color:var(--mu);}
-    .dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);z-index:50;max-height:180px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,.4);}
-    .ddi{padding:9px 12px;font-size:12px;cursor:pointer;color:var(--tx);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;}
+    .dropdown{position:absolute;top:calc(100% + 2px);left:0;right:0;background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);z-index:200;max-height:200px;overflow-y:auto;}
+    .ddi{padding:11px 12px;font-size:13px;cursor:pointer;color:var(--tx);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;}
     .ddi:last-child{border-bottom:none;}
     .ddi:active{background:var(--sf3);}
     .ddi.new{color:var(--ac);font-style:italic;}
-    .ddx{color:var(--mu);font-size:11px;padding:2px 6px;}
+    .ddx{color:var(--mu);font-size:14px;padding:4px 10px;}
     .btn-acc{background:var(--ac);color:#1e1e2e;border:none;font-family:var(--mono);font-size:18px;font-weight:700;padding:10px 16px;border-radius:var(--r);cursor:pointer;flex-shrink:0;line-height:1;}
     .btn-acc:active{opacity:.8;}
     .save-st{font-size:11px;color:var(--ac2);text-align:right;min-height:16px;margin-bottom:4px;}
@@ -382,21 +382,16 @@ function renderLog(){
 
 function buildExoCard(exo,ei){
   const card=document.createElement('div');card.className='exo-card';
-  // Header
+  // Header — name + weight inline + delete
   const hdr=document.createElement('div');hdr.className='exo-hdr';
   const nameSpan=document.createElement('span');nameSpan.className='exo-name';nameSpan.textContent=exo.name;
-  const delBtn=document.createElement('button');delBtn.className='bdel';delBtn.textContent='✕';
-  delBtn.onclick=()=>{if(!confirm('Supprimer ?'))return;getSess(currentDate).exercises.splice(ei,1);scheduleSave();renderLog();};
-  hdr.appendChild(nameSpan);hdr.appendChild(delBtn);
-  card.appendChild(hdr);
-  // Weight row
-  const wRow=document.createElement('div');wRow.className='weight-row';
-  wRow.innerHTML='<span class="weight-label">Charge</span>';
-  const wInp=document.createElement('input');wInp.type='number';wInp.className='weight-input';wInp.inputMode='decimal';wInp.min='0';wInp.step='0.5';wInp.placeholder='—';wInp.value=exo.kg||'';
+  const wInp=document.createElement('input');wInp.type='number';wInp.className='weight-input';wInp.inputMode='decimal';wInp.min='0';wInp.step='0.5';wInp.placeholder='kg';wInp.value=exo.kg||'';
   wInp.addEventListener('input',()=>{exo.kg=wInp.value;scheduleSave();});
   const wUnit=document.createElement('span');wUnit.className='weight-unit';wUnit.textContent='kg';
-  wRow.appendChild(wInp);wRow.appendChild(wUnit);
-  card.appendChild(wRow);
+  const delBtn=document.createElement('button');delBtn.className='bdel';delBtn.textContent='✕';
+  delBtn.onclick=()=>{if(!confirm('Supprimer ?'))return;getSess(currentDate).exercises.splice(ei,1);scheduleSave();renderLog();};
+  hdr.appendChild(nameSpan);hdr.appendChild(wInp);hdr.appendChild(wUnit);hdr.appendChild(delBtn);
+  card.appendChild(hdr);
   // Series label
   const slbl=document.createElement('div');slbl.className='series-label';slbl.textContent='Reps';card.appendChild(slbl);
   // Series inline
@@ -439,8 +434,10 @@ function updDD(){
   matches.forEach(name=>{
     const item=document.createElement('div');item.className='ddi';
     item.innerHTML='<span>'+esc(name)+'</span><span class="ddx">✕</span>';
-    item.querySelector('.ddx').addEventListener('mousedown',e=>{e.preventDefault();e.stopPropagation();savedExos=savedExos.filter(x=>x!==name);updDD();});
-    item.addEventListener('mousedown',e=>{if(e.target.classList.contains('ddx'))return;e.preventDefault();inp.value=name;hideDD();addExo();});
+    ['mousedown','touchstart'].forEach(ev=>{
+      item.querySelector('.ddx').addEventListener(ev,e=>{e.preventDefault();e.stopPropagation();savedExos=savedExos.filter(x=>x!==name);updDD();});
+      item.addEventListener(ev,e=>{if(e.target.classList.contains('ddx'))return;e.preventDefault();inp.value=name;hideDD();addExo();});
+    });
     dd.appendChild(item);
   });
   if(val&&!savedExos.map(e=>e.toLowerCase()).includes(val)){
