@@ -161,6 +161,8 @@
     .empty{text-align:center;color:var(--mu);font-size:12px;padding:48px 20px;line-height:1.8;}
     .token-link{text-align:center;margin-top:24px;padding-bottom:8px;}
     .token-link button{background:transparent;border:none;color:var(--mu);font-family:var(--mono);font-size:11px;cursor:pointer;text-decoration:underline;}
+    .footer-btns{display:flex;justify-content:center;gap:16px;margin-top:24px;padding-bottom:8px;}
+    .footer-btns button{background:transparent;border:none;color:var(--mu);font-family:var(--mono);font-size:11px;cursor:pointer;text-decoration:underline;}
   </style>
 </head>
 <body>
@@ -375,7 +377,7 @@ function renderLog(){
     });
     c.appendChild(ps);
   }
-  const tl=document.createElement('div');tl.className='token-link';tl.innerHTML='<button onclick="resetToken()">changer le token</button>';c.appendChild(tl);
+  const tl=document.createElement('div');tl.className='footer-btns';tl.innerHTML='<button onclick="resetToken()">changer le token</button><button onclick="forceUpdate()">mise a jour</button>';c.appendChild(tl);
 }
 
 function buildExoCard(exo,ei){
@@ -514,6 +516,18 @@ function renderChart(name){
   const wrap=document.createElement('div');wrap.className='chart-wrap';
   wrap.innerHTML='<div class="chart-title">'+esc(name)+' -- reps par seance</div><svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:'+H+'px;display:block;">'+yAxis+bars+'<path d="'+line+'" fill="none" stroke="#e07a7a" stroke-width="2"/>'+dots+labels+'</svg><div class="chart-legend"><div class="legend-item"><div class="legend-dot" style="background:rgba(168,216,168,0.6);"></div>total reps</div><div class="legend-item"><div class="legend-dot" style="background:#e07a7a;border-radius:50%;"></div>max serie</div></div>';
   area.appendChild(wrap);
+}
+
+function forceUpdate(){
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.getRegistrations().then(regs=>{
+      Promise.all(regs.map(r=>r.unregister())).then(()=>{
+        caches.keys().then(keys=>Promise.all(keys.map(k=>caches.delete(k)))).then(()=>location.reload(true));
+      });
+    });
+  } else {
+    location.reload(true);
+  }
 }
 
 loadLocal();
