@@ -1,4 +1,20 @@
 {
-  "sessions": {},
-  "savedExos": []
+  "sessions": {
+    "2026-04-23": {
+      "exercises": [
+        {
+          "name": "Traction",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "savedExos": [
+    "Traction"
+  ]
 }
