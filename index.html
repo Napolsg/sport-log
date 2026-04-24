@@ -516,14 +516,15 @@ function renderChart(name){
 }
 
 function forceUpdate(){
+  const reload=()=>{location.href=location.href.split('?')[0]+'?v='+Date.now();};
   if('serviceWorker' in navigator){
     navigator.serviceWorker.getRegistrations().then(regs=>{
       Promise.all(regs.map(r=>r.unregister())).then(()=>{
-        caches.keys().then(keys=>Promise.all(keys.map(k=>caches.delete(k)))).then(()=>location.reload(true));
-      });
-    });
+        caches.keys().then(keys=>Promise.all(keys.map(k=>caches.delete(k)))).then(reload).catch(reload);
+      }).catch(reload);
+    }).catch(reload);
   } else {
-    location.reload(true);
+    reload();
   }
 }
 
