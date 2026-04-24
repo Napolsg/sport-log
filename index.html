@@ -57,10 +57,10 @@
     /* TIMER — compact countdown only */
     .timer-bar{background:#0d2240;border:1px solid #1a4a7a;border-radius:var(--r);padding:10px 14px;margin-bottom:12px;--sf2:#1a3a5a;--bd:#2a5a8a;--mu:#4a8aaa;--tx:#c0d8f0;}
     .timer-top{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
-    .timer-display-wrap{display:flex;align-items:center;gap:2px;}
-    .td-part{font-size:28px;font-weight:600;color:var(--ac);width:2.2ch;letter-spacing:0;font-variant-numeric:tabular-nums;background:transparent;border:none;outline:none;font-family:var(--mono);text-align:center;cursor:text;-webkit-appearance:none;}
-    .td-part.run{color:var(--ac2);}
-    .td-part.alr{color:var(--red);}
+    .timer-display-wrap{display:flex;align-items:center;gap:4px;}
+    .td-select{font-size:26px;font-weight:600;color:var(--ac);background:transparent;border:none;outline:none;font-family:var(--mono);cursor:pointer;-webkit-appearance:none;appearance:none;text-align:center;width:2.4ch;color-scheme:dark;}
+    .td-select.run{color:var(--ac2);}
+    .td-select.alr{color:var(--red);}
     .td-colon{font-size:28px;font-weight:600;color:var(--ac);line-height:1;}
     .td-colon.run{color:var(--ac2);}
     .td-colon.alr{color:var(--red);}
@@ -72,7 +72,6 @@
     .pr{background:var(--sf2);border:1px solid var(--bd);color:var(--mu);font-family:var(--mono);font-size:10px;padding:4px 9px;border-radius:4px;cursor:pointer;white-space:nowrap;}
     .pr:active{border-color:var(--ac);color:var(--ac);}
     .pr.active-preset{border-color:var(--ac2);color:var(--ac2);}
-    .timer-select{background:var(--sf2);border:1px solid var(--bd);color:var(--mu);font-family:var(--mono);font-size:10px;padding:4px 6px;border-radius:4px;cursor:pointer;outline:none;color-scheme:dark;}
 
     /* ADD EXO */
     .add-exo{display:flex;gap:8px;margin-bottom:14px;}
@@ -95,7 +94,7 @@
     .exo-card:last-of-type{border-bottom:none;}
     .exo-row{display:flex;align-items:center;gap:4px;}
     .exo-name-wrap{display:flex;align-items:center;gap:4px;width:15ch;flex-shrink:0;}
-    .exo-chips-wrap{display:flex;align-items:center;gap:3px;flex:1;flex-wrap:wrap;}
+    .exo-chips-wrap{display:flex;align-items:center;gap:2px;flex:1;}
     .exo-name{font-size:14px;font-weight:600;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px;}
 
     /* WEIGHT — inline in exo header */
@@ -104,14 +103,14 @@
     .weight-input:focus{border-color:var(--ac2);}
 
     /* SERIES — inline chips */
-    .serie-chip-input{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:13px;padding:5px 4px;border-radius:5px;width:40px;text-align:center;outline:none;}
+    .serie-chip-input{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:12px;padding:4px 2px;border-radius:5px;width:34px;text-align:center;outline:none;}
     .serie-chip-input::-webkit-inner-spin-button,.serie-chip-input::-webkit-outer-spin-button{-webkit-appearance:none;}
     .serie-chip-input:focus{border-color:var(--ac2);}
     .serie-chip-wrap{position:relative;display:inline-flex;flex-direction:column;align-items:center;gap:2px;}
-    .serie-chip-num{font-size:9px;color:var(--mu);text-align:center;}
+    .serie-chip-num{font-size:8px;color:var(--mu);text-align:center;}
     .btn-del-serie{background:transparent;border:none;color:var(--mu);font-size:10px;cursor:pointer;padding:0;line-height:1;}
     .btn-del-serie:active{color:var(--red);}
-    .btn-add-serie{background:transparent;border:1px dashed var(--bd);color:var(--mu);font-family:var(--mono);font-size:11px;padding:5px 7px;border-radius:5px;cursor:pointer;white-space:nowrap;}
+    .btn-add-serie{background:transparent;border:1px dashed var(--bd);color:var(--mu);font-family:var(--mono);font-size:11px;padding:4px 5px;border-radius:5px;cursor:pointer;white-space:nowrap;}
     .btn-add-serie:active{border-color:var(--ac2);color:var(--ac);}
 
     .bdel{background:transparent;border:none;cursor:pointer;color:var(--mu);font-size:14px;padding:2px 4px;line-height:1;flex-shrink:0;}
@@ -169,7 +168,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v9.0</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v9.1</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -288,9 +287,9 @@ function resetTimer(){stopTimer();tSecs=tTarget;updT();}
 function updT(){
   const mEl=document.getElementById('td-min'),sEl=document.getElementById('td-sec');if(!mEl||!sEl)return;
   const s=Math.max(0,tSecs);
-  mEl.value=String(Math.floor(s/60)).padStart(2,'0');
-  sEl.value=String(s%60).padStart(2,'0');
-  const cls='td-part'+(tRunning?' run':'')+(tSecs<=5&&tRunning?' alr':'');
+  mEl.value=Math.floor(s/60);
+  sEl.value=s%60;
+  const cls='td-select'+(tRunning?' run':'')+(tSecs<=5&&tRunning?' alr':'');
   mEl.className=cls;sEl.className=cls;
   const colon=document.querySelector('.td-colon');
   if(colon)colon.className='td-colon'+(tRunning?' run':'')+(tSecs<=5&&tRunning?' alr':'');
@@ -321,24 +320,26 @@ function renderTimerWidget(){
   const div=document.createElement('div');div.className='timer-bar';
   const top=document.createElement('div');top.className='timer-top';
 
-  // mm:ss display
+  // mm:ss selects
   const timeWrap=document.createElement('div');timeWrap.className='timer-display-wrap';
-  const mInp=document.createElement('input');mInp.type='text';mInp.className='td-part';mInp.id='td-min';
-  mInp.inputMode='numeric';mInp.pattern='[0-9]*';mInp.value=String(Math.floor(tSecs/60)).padStart(2,'0');
+
+  const mSel=document.createElement('select');mSel.className='td-select';mSel.id='td-min';
+  for(let i=0;i<=99;i++){const o=document.createElement('option');o.value=i;o.textContent=String(i).padStart(2,'0');if(i===Math.floor(tSecs/60))o.selected=true;mSel.appendChild(o);}
+
   const colon=document.createElement('span');colon.className='td-colon';colon.textContent=':';
-  const sInp=document.createElement('input');sInp.type='text';sInp.className='td-part';sInp.id='td-sec';
-  sInp.inputMode='numeric';sInp.pattern='[0-9]*';sInp.value=String(tSecs%60).padStart(2,'0');
 
-  function applyInput(){
-    const m=parseInt(mInp.value)||0,s=parseInt(sInp.value)||0,total=m*60+s;
+  const sSel=document.createElement('select');sSel.className='td-select';sSel.id='td-sec';
+  for(let i=0;i<=59;i++){const o=document.createElement('option');o.value=i;o.textContent=String(i).padStart(2,'0');if(i===tSecs%60)o.selected=true;sSel.appendChild(o);}
+
+  function applySelect(){
+    const total=parseInt(mSel.value)*60+parseInt(sSel.value);
     if(total>0){tTarget=total;tSecs=total;}
-    mInp.value=String(Math.floor(tSecs/60)).padStart(2,'0');
-    sInp.value=String(tSecs%60).padStart(2,'0');
+    updT();
   }
-  mInp.addEventListener('change',applyInput);sInp.addEventListener('change',applyInput);
-  mInp.addEventListener('focus',()=>mInp.select());sInp.addEventListener('focus',()=>sInp.select());
+  mSel.addEventListener('change',applySelect);
+  sSel.addEventListener('change',applySelect);
 
-  timeWrap.appendChild(mInp);timeWrap.appendChild(colon);timeWrap.appendChild(sInp);
+  timeWrap.appendChild(mSel);timeWrap.appendChild(colon);timeWrap.appendChild(sSel);
 
   const ctrls=document.createElement('div');ctrls.className='timer-controls';
   const bStart=document.createElement('button');bStart.className='bt on';bStart.id='bt-s';bStart.textContent='Start';
@@ -350,9 +351,8 @@ function renderTimerWidget(){
   top.appendChild(timeWrap);top.appendChild(ctrls);
   div.appendChild(top);
 
-  // Presets row + select
+  // Presets
   const presetsRow=document.createElement('div');presetsRow.className='timer-presets';
-
   [[60,'1min'],[90,'1:30'],[120,'2min'],[150,'2:30']].forEach(([s,lbl])=>{
     const b=document.createElement('button');
     b.className='pr'+(s===activePreset?' active-preset':'');
@@ -365,21 +365,6 @@ function renderTimerWidget(){
     };
     presetsRow.appendChild(b);
   });
-
-  // Dropdown for custom durations
-  const sel=document.createElement('select');sel.className='timer-select';
-  const opts=[[0,'+'],[180,'3min'],[240,'4min'],[300,'5min'],[360,'6min'],[420,'7min'],[480,'8min'],[600,'10min']];
-  opts.forEach(([s,lbl])=>{
-    const o=document.createElement('option');o.value=s;o.textContent=lbl;sel.appendChild(o);
-  });
-  sel.addEventListener('change',()=>{
-    const s=parseInt(sel.value);if(!s)return;
-    stopTimer();tSecs=s;tTarget=s;activePreset=s;
-    document.querySelectorAll('.pr').forEach(x=>x.classList.remove('active-preset'));
-    sel.value=0;updT();
-  });
-  presetsRow.appendChild(sel);
-
   div.appendChild(presetsRow);
   updTimerBtns();
   return div;
