@@ -2,9 +2,28 @@
   "sessions": {
     "2026-04-23": {
       "exercises": []
+    },
+    "2026-04-24": {
+      "exercises": [
+        {
+          "name": "Traction supination",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        }
+      ]
     }
   },
   "savedExos": [
-    "Traction"
+    "Traction supination"
   ]
 }
