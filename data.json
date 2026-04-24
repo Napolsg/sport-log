@@ -34,12 +34,28 @@
               "reps": ""
             }
           ]
+        },
+        {
+          "name": "Traction pronation",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
         }
       ]
     }
   },
   "savedExos": [
     "Traction supination",
-    "Dips"
+    "Dips",
+    "Traction pronation"
   ]
 }
