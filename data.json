@@ -49,6 +49,21 @@
               "reps": ""
             }
           ]
+        },
+        {
+          "name": "Pompes",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
         }
       ]
     }
@@ -56,6 +71,7 @@
   "savedExos": [
     "Traction supination",
     "Dips",
-    "Traction pronation"
+    "Traction pronation",
+    "Pompes"
   ]
 }
