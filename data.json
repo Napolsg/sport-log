@@ -19,11 +19,27 @@
               "reps": ""
             }
           ]
+        },
+        {
+          "name": "Dips",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
         }
       ]
     }
   },
   "savedExos": [
-    "Traction supination"
+    "Traction supination",
+    "Dips"
   ]
 }
