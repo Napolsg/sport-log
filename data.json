@@ -4,7 +4,23 @@
       "exercises": []
     },
     "2026-04-25": {
-      "exercises": []
+      "exercises": [
+        {
+          "name": "Traction supination",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        }
+      ]
     }
   },
   "savedExos": [
