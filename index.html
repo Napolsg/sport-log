@@ -44,7 +44,7 @@
     .setup{padding:32px 20px;display:flex;flex-direction:column;gap:16px;}
     .setup h2{font-size:14px;font-weight:600;color:var(--ac);letter-spacing:.08em;}
     .setup p{font-size:12px;color:var(--mu);line-height:1.7;}
-    .setup input{background:var(--sf);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:13px;padding:10px 12px;border-radius:var(--r);width:100%;outline:none;}
+    .setup input{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:13px;padding:10px 12px;border-radius:var(--r);width:100%;outline:none;}
     .setup input:focus{border-color:var(--ac2);}
     .setup input::placeholder{color:var(--mu);}
     .btn-primary{background:var(--ac);color:#1e1e2e;border:none;font-family:var(--mono);font-size:13px;font-weight:600;padding:12px;border-radius:var(--r);cursor:pointer;width:100%;}
@@ -53,7 +53,7 @@
 
     /* DATE */
     .day-label{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:11px;color:var(--mu);}
-    .day-label input[type=date]{background:var(--sf);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:11px;padding:5px 9px;border-radius:4px;outline:none;color-scheme:dark;}
+    .day-label input[type=date]{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:11px;padding:5px 9px;border-radius:4px;outline:none;color-scheme:dark;}
 
     /* TIMER — compact countdown only */
     .timer-bar{background:#0d2240;border:1px solid #1a4a7a;border-radius:var(--r);padding:10px 14px;margin-bottom:12px;--sf2:#1a3a5a;--bd:#2a5a8a;--mu:#4a8aaa;--tx:#c0d8f0;}
@@ -67,19 +67,19 @@
 
     .bt{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:11px;padding:6px 10px;border-radius:4px;cursor:pointer;flex:1;}
     .bt.on{border-color:var(--ac);color:var(--ac);}
-    .bt:active{background:var(--sf3);}
+    .bt:active{background:#3a3a52;}
     .timer-sel{background:transparent;border:none;color:var(--ac);font-family:'IBM Plex Mono',monospace;font-size:28px;font-weight:600;padding:0;outline:none;color-scheme:dark;cursor:pointer;width:100px;height:40px;-webkit-appearance:none;appearance:none;}
 
     /* ADD EXO */
     .add-exo{display:flex;gap:8px;margin-bottom:14px;}
     .exo-wrap{flex:1;position:relative;min-width:0;z-index:100;}
-    .add-exo input{background:var(--sf);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:13px;padding:10px 12px;border-radius:var(--r);width:100%;outline:none;}
+    .add-exo input{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:13px;padding:10px 12px;border-radius:var(--r);width:100%;outline:none;}
     .add-exo input:focus{border-color:var(--ac2);}
     .add-exo input::placeholder{color:var(--mu);}
     .dropdown{position:absolute;top:calc(100% + 2px);left:0;right:0;background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);z-index:200;max-height:200px;overflow-y:auto;}
     .ddi{padding:11px 12px;font-size:13px;cursor:pointer;color:var(--tx);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;}
     .ddi:last-child{border-bottom:none;}
-    .ddi:active{background:var(--sf3);}
+    .ddi:active{background:#3a3a52;}
     .ddi.new{color:var(--ac);font-style:italic;}
     .ddx{color:var(--mu);font-size:14px;padding:4px 10px;}
     .btn-acc{background:#3a4255;color:#a8b8d0;border:1px solid #505868;font-family:var(--mono);font-size:18px;font-weight:700;padding:10px 14px;border-radius:var(--r);cursor:pointer;flex-shrink:0;line-height:1;}
@@ -115,11 +115,11 @@
     .past-section{margin-top:12px;}
     .past-day{background:#1e0e0e;border:1px solid #4a1a1a;border-radius:var(--r);padding:10px 12px;margin-bottom:8px;--sf2:#2a1818;--bd:#4a1a1a;--mu:#905050;--ac:#e07070;--tx:#e0c0c0;}
     .past-title{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--mu);text-transform:uppercase;margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--bd);}
-    .past-day-lbl{font-size:11px;font-weight:600;color:#e07070;margin-bottom:6px;}
+    .past-day-lbl{font-size:11px;font-weight:600;color:#e07070;margin-bottom:0;}
 
     /* HISTORY TABLE */
     .hist-day{background:#1e0e0e;border:1px solid #4a1a1a;border-radius:var(--r);padding:12px 14px;margin-bottom:12px;--sf2:#2a1818;--bd:#4a1a1a;--mu:#905050;--ac:#e07070;--tx:#e0c0c0;}
-    .hist-day-title{font-size:11px;font-weight:600;letter-spacing:.1em;color:#e07070;text-transform:uppercase;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid #3a1818;}
+    .hist-day-title{font-size:11px;font-weight:600;letter-spacing:.1em;color:#e07070;text-transform:uppercase;}
     .hist-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px;table-layout:fixed;}
     .hist-table tr{border-bottom:1px solid var(--bd);}
     .hist-table tr:last-child{border-bottom:none;}
@@ -129,7 +129,7 @@
 
     /* STATS */
     .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
-    .stat-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px 12px;}
+    .stat-card{background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:14px 12px;}
     .stat-lbl{font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
     .stat-val{font-size:26px;font-weight:600;color:var(--ac);}
     .sec-title{font-size:11px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;margin-top:18px;}
@@ -137,8 +137,8 @@
     .freq-row:last-child{border-bottom:none;}
     .freq-cnt{color:var(--ac);font-weight:600;}
     .exo-sel{margin-bottom:12px;}
-    .exo-sel select{background:var(--sf);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:12px;padding:8px 10px;border-radius:var(--r);width:100%;outline:none;color-scheme:dark;}
-    .chart-wrap{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:14px;margin-bottom:14px;}
+    .exo-sel select{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:12px;padding:8px 10px;border-radius:var(--r);width:100%;outline:none;color-scheme:dark;}
+    .chart-wrap{background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:14px;margin-bottom:14px;}
     .chart-title{font-size:11px;color:var(--tx);margin-bottom:12px;font-weight:500;}
     .chart-legend{display:flex;gap:12px;margin-top:10px;}
     .legend-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--mu);}
@@ -154,12 +154,15 @@
     .arch-title{font-size:11px;font-weight:600;color:#5ad4a0;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid #1a4a30;}
     .btn-reopen{margin-top:10px;background:transparent;border:1px solid var(--bd);color:var(--mu);font-family:var(--mono);font-size:11px;padding:5px 12px;border-radius:4px;cursor:pointer;}
     .btn-reopen:active{border-color:var(--ac);color:var(--ac);}
+    .hist-day-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid #3a1818;}
+    .btn-del-day{background:transparent;border:none;color:#905050;font-family:var(--mono);font-size:14px;cursor:pointer;padding:0 2px;line-height:1;}
+    .btn-del-day:active{color:var(--red);}
   </style>
 </head>
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v11.3</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v11.8</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -369,6 +372,9 @@ function renderLog(){
     const reopenBtn=document.createElement('button');reopenBtn.className='btn-reopen';reopenBtn.textContent='Modifier';
     reopenBtn.addEventListener('click',()=>{getSess(currentDate).done=false;scheduleSave();renderLog();});
     archCard.appendChild(reopenBtn);
+    const delArchBtn=document.createElement('button');delArchBtn.className='btn-del-day';delArchBtn.textContent='✕';
+    delArchBtn.addEventListener('click',()=>{delete sessions[currentDate];scheduleSave();renderLog();});
+    archCard.appendChild(delArchBtn);
     c.appendChild(archCard);
   } else {
     // Active session card
@@ -425,15 +431,21 @@ function renderLog(){
     ps.innerHTML='<div class="past-title">Historique des séances</div>';
     pastKeys.forEach(k=>{
       const s2=sessions[k],dd=document.createElement('div');dd.className='past-day';
-      let h='<div class="past-day-lbl">'+fmtS(k)+'</div>';
-      h+='<table class="hist-table">';
+      const phdr=document.createElement('div');phdr.className='hist-day-header';
+      const plbl=document.createElement('span');plbl.className='past-day-lbl';plbl.textContent=fmtS(k);
+      const pDel=document.createElement('button');pDel.className='btn-del-day';pDel.textContent='✕';
+      pDel.addEventListener('click',()=>{delete sessions[k];scheduleSave();renderLog();});
+      phdr.appendChild(plbl);phdr.appendChild(pDel);
+      dd.appendChild(phdr);
+      let t='<table class="hist-table">';
       s2.exercises.forEach(exo=>{
-        h+='<tr><td class="ht-name">'+esc(exo.name)+'</td><td class="ht-kg">'+(exo.kg?exo.kg+'kg':'')+'</td>';
-        exo.series.forEach(s=>{h+='<td class="ht-rep">'+(s.reps||'—')+'</td>';});
-        h+='</tr>';
+        t+='<tr><td class="ht-name">'+esc(exo.name)+'</td><td class="ht-kg">'+(exo.kg?exo.kg+'kg':'')+'</td>';
+        exo.series.forEach(s=>{t+='<td class="ht-rep">'+(s.reps||'—')+'</td>';});
+        t+='</tr>';
       });
-      h+='</table>';
-      dd.innerHTML=h;ps.appendChild(dd);
+      t+='</table>';
+      const tbl=document.createElement('div');tbl.innerHTML=t;dd.appendChild(tbl);
+      ps.appendChild(dd);
     });
     c.appendChild(ps);
   }
@@ -487,8 +499,6 @@ function buildSerieChip(exo,ei,si){
   wrap.appendChild(num);wrap.appendChild(sel);wrap.appendChild(delBtn);
   return wrap;
 }
-
-
 function updDD(){
   const inp=document.getElementById('nei'),dd=document.getElementById('dd');if(!inp||!dd)return;
   const val=inp.value.trim().toLowerCase();
@@ -525,15 +535,21 @@ function renderHistory(){
   if(keys.length===0){c.innerHTML='<div class="empty">Aucune séance enregistrée.</div>';return;}
   keys.forEach(k=>{
     const block=document.createElement('div');block.className='hist-day session-card';
-    let h='<div class="hist-day-title">'+fmtKey(k)+'</div>';
-    h+='<table class="hist-table">';
+    const hdr=document.createElement('div');hdr.className='hist-day-header';
+    const ttl=document.createElement('span');ttl.className='hist-day-title';ttl.textContent=fmtKey(k);
+    const delDay=document.createElement('button');delDay.className='btn-del-day';delDay.textContent='✕';
+    delDay.addEventListener('click',()=>{delete sessions[k];scheduleSave();renderHistory();});
+    hdr.appendChild(ttl);hdr.appendChild(delDay);
+    block.appendChild(hdr);
+    let t='<table class="hist-table">';
     sessions[k].exercises.forEach(exo=>{
-      h+='<tr><td class="ht-name">'+esc(exo.name)+'</td><td class="ht-kg">'+(exo.kg?exo.kg+'kg':'')+'</td>';
-      exo.series.forEach(s=>{h+='<td class="ht-rep">'+(s.reps||'—')+'</td>';});
-      h+='</tr>';
+      t+='<tr><td class="ht-name">'+esc(exo.name)+'</td><td class="ht-kg">'+(exo.kg?exo.kg+'kg':'')+'</td>';
+      exo.series.forEach(s=>{t+='<td class="ht-rep">'+(s.reps||'—')+'</td>';});
+      t+='</tr>';
     });
-    h+='</table>';
-    block.innerHTML=h;c.appendChild(block);
+    t+='</table>';
+    const tbl=document.createElement('div');tbl.innerHTML=t;block.appendChild(tbl);
+    c.appendChild(block);
   });
 }
 
