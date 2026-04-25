@@ -56,22 +56,19 @@
 
     /* TIMER — compact countdown only */
     .timer-bar{background:#0d2240;border:1px solid #1a4a7a;border-radius:var(--r);padding:10px 14px;margin-bottom:12px;--sf2:#1a3a5a;--bd:#2a5a8a;--mu:#4a8aaa;--tx:#c0d8f0;}
-    .timer-top{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
-    .timer-display-wrap{display:flex;align-items:center;gap:4px;}
-    .td-select{font-size:26px;font-weight:600;color:var(--ac);background:transparent;border:none;outline:none;font-family:var(--mono);cursor:pointer;-webkit-appearance:menulist-button;appearance:menulist-button;text-align:center;min-width:52px;color-scheme:dark;}
-    .td-select.run{color:var(--ac2);}
-    .td-select.alr{color:var(--red);}
+    .timer-top{display:flex;align-items:center;gap:8px;}
+    .td-part{font-size:28px;font-weight:600;color:var(--ac);letter-spacing:0;font-variant-numeric:tabular-nums;font-family:var(--mono);}
+    .td-part.run{color:var(--ac2);}
+    .td-part.alr{color:var(--red);}
     .td-colon{font-size:28px;font-weight:600;color:var(--ac);line-height:1;}
     .td-colon.run{color:var(--ac2);}
     .td-colon.alr{color:var(--red);}
-    .timer-controls{display:flex;gap:6px;flex:1;}
+
     .bt{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:11px;padding:6px 10px;border-radius:4px;cursor:pointer;flex:1;}
     .bt.on{border-color:var(--ac);color:var(--ac);}
     .bt:active{background:var(--sf3);}
     .timer-presets{display:flex;gap:5px;align-items:center;flex-wrap:wrap;}
-    .pr{background:var(--sf2);border:1px solid var(--bd);color:var(--mu);font-family:var(--mono);font-size:10px;padding:4px 9px;border-radius:4px;cursor:pointer;white-space:nowrap;}
-    .pr:active{border-color:var(--ac);color:var(--ac);}
-    .pr.active-preset{border-color:var(--ac2);color:var(--ac2);}
+    .timer-sel{background:transparent;border:none;color:var(--ac);font-family:var(--mono);font-size:28px;font-weight:600;padding:0;outline:none;color-scheme:dark;cursor:pointer;width:100px;height:40px;}
 
     /* ADD EXO */
     .add-exo{display:flex;gap:8px;margin-bottom:14px;}
@@ -168,7 +165,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v9.5</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v10.4</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -285,14 +282,19 @@ function startTimer(target){
 function stopTimer(){tRunning=false;clearInterval(tInterval);updTimerBtns();}
 function resetTimer(){stopTimer();tSecs=tTarget;updT();}
 function updT(){
-  const mEl=document.getElementById('td-min'),sEl=document.getElementById('td-sec');if(!mEl||!sEl)return;
+  const mEl=document.getElementById('td-min'),sEl=document.getElementById('td-sec'),sel=document.getElementById('timer-sel'),colon=document.getElementById('td-colon');
+  if(!mEl||!sEl)return;
   const s=Math.max(0,tSecs);
-  mEl.value=Math.floor(s/60);
-  sEl.value=s%60;
-  const cls='td-select'+(tRunning?' run':'')+(tSecs<=5&&tRunning?' alr':'');
+  mEl.textContent=String(Math.floor(s/60)).padStart(2,'0');
+  sEl.textContent=String(s%60).padStart(2,'0');
+  const cls='td-part'+(tRunning?' run':'')+(tSecs<=5&&tRunning?' alr':'');
   mEl.className=cls;sEl.className=cls;
-  const colon=document.querySelector('.td-colon');
   if(colon)colon.className='td-colon'+(tRunning?' run':'')+(tSecs<=5&&tRunning?' alr':'');
+  // Show dropdown when stopped, countdown when running
+  if(sel){sel.style.display=tRunning?'none':'block';}
+  mEl.style.display=tRunning?'inline':'none';
+  sEl.style.display=tRunning?'inline':'none';
+  if(colon)colon.style.display=tRunning?'inline':'none';
 }
 function updTimerBtns(){
   const bs=document.getElementById('bt-s'),br=document.getElementById('bt-r');
@@ -318,55 +320,36 @@ function beep(){
 
 function renderTimerWidget(){
   const div=document.createElement('div');div.className='timer-bar';
-  const top=document.createElement('div');top.className='timer-top';
+  const row=document.createElement('div');row.className='timer-top';
 
-  // mm:ss selects
-  const timeWrap=document.createElement('div');timeWrap.className='timer-display-wrap';
+  // Fixed-width display zone
+  const displayZone=document.createElement('div');displayZone.style.cssText='width:100px;height:40px;flex-shrink:0;display:flex;align-items:center;';
 
-  const mSel=document.createElement('select');mSel.className='td-select';mSel.id='td-min';
-  for(let i=0;i<=99;i++){const o=document.createElement('option');o.value=i;o.textContent=String(i).padStart(2,'0');if(i===Math.floor(tSecs/60))o.selected=true;mSel.appendChild(o);}
+  // Dropdown
+  const sel=document.createElement('select');sel.className='timer-sel';sel.id='timer-sel';
+  [[60,'1:00'],[90,'1:30'],[120,'2:00'],[150,'2:30'],[180,'3:00'],[240,'4:00'],[300,'5:00'],[360,'6:00'],[420,'7:00'],[480,'8:00'],[600,'10:00']].forEach(([s,lbl])=>{
+    const o=document.createElement('option');o.value=s;o.textContent=lbl;
+    if(s===tTarget)o.selected=true;
+    sel.appendChild(o);
+  });
+  sel.addEventListener('change',()=>{const s=parseInt(sel.value);stopTimer();tSecs=s;tTarget=s;activePreset=s;updT();});
 
-  const colon=document.createElement('span');colon.className='td-colon';colon.textContent=':';
+  // Countdown spans — hidden by default
+  const mEl=document.createElement('span');mEl.className='td-part';mEl.id='td-min';mEl.style.display='none';
+  const colon=document.createElement('span');colon.className='td-colon';colon.id='td-colon';colon.textContent=':';colon.style.display='none';
+  const sEl=document.createElement('span');sEl.className='td-part';sEl.id='td-sec';sEl.style.display='none';
 
-  const sSel=document.createElement('select');sSel.className='td-select';sSel.id='td-sec';
-  for(let i=0;i<=59;i++){const o=document.createElement('option');o.value=i;o.textContent=String(i).padStart(2,'0');if(i===tSecs%60)o.selected=true;sSel.appendChild(o);}
+  displayZone.appendChild(sel);displayZone.appendChild(mEl);displayZone.appendChild(colon);displayZone.appendChild(sEl);
 
-  function applySelect(){
-    const total=parseInt(mSel.value)*60+parseInt(sSel.value);
-    if(total>0){tTarget=total;tSecs=total;}
-    updT();
-  }
-  mSel.addEventListener('change',applySelect);
-  sSel.addEventListener('change',applySelect);
-
-  timeWrap.appendChild(mSel);timeWrap.appendChild(colon);timeWrap.appendChild(sSel);
-
-  const ctrls=document.createElement('div');ctrls.className='timer-controls';
+  // Buttons
   const bStart=document.createElement('button');bStart.className='bt on';bStart.id='bt-s';bStart.textContent='Start';
   bStart.onclick=()=>{if(tRunning)stopTimer();else{if(tSecs<=0)tSecs=tTarget;startTimer(tSecs);}};
   const bReset=document.createElement('button');bReset.className='bt';bReset.id='bt-r';bReset.textContent='Reset';
   bReset.onclick=()=>resetTimer();
-  ctrls.appendChild(bStart);ctrls.appendChild(bReset);
 
-  top.appendChild(timeWrap);top.appendChild(ctrls);
-  div.appendChild(top);
-
-  // Presets
-  const presetsRow=document.createElement('div');presetsRow.className='timer-presets';
-  [[60,'1min'],[90,'1:30'],[120,'2min'],[150,'2:30']].forEach(([s,lbl])=>{
-    const b=document.createElement('button');
-    b.className='pr'+(s===activePreset?' active-preset':'');
-    b.textContent=lbl;
-    b.onclick=()=>{
-      stopTimer();tSecs=s;tTarget=s;activePreset=s;
-      document.querySelectorAll('.pr').forEach(x=>x.classList.remove('active-preset'));
-      b.classList.add('active-preset');
-      updT();
-    };
-    presetsRow.appendChild(b);
-  });
-  div.appendChild(presetsRow);
-  updTimerBtns();
+  row.appendChild(displayZone);row.appendChild(bStart);row.appendChild(bReset);
+  div.appendChild(row);
+  updT();updTimerBtns();
   return div;
 }
 // LOG
