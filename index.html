@@ -13,7 +13,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#081420;--sf:#2a2a3e;--sf2:#32324a;--sf3:#3c3c56;
+      --bg:#081420;--sf2:#32324a;
       --bd:#44445a;--ac:#a8d8a8;--ac2:#7ec8a0;--red:#e07a7a;
       --tx:#e8e8f0;--mu:#8888a8;--mono:'IBM Plex Mono',monospace;--r:8px;
       --safe-top:env(safe-area-inset-top,0px);--safe-bottom:env(safe-area-inset-bottom,0px);
@@ -37,7 +37,8 @@
     .tab.active{color:var(--ac);border-bottom-color:var(--ac);}
 
     /* CONTENT */
-    .content{flex:1;overflow-y:auto;padding:14px 14px calc(var(--safe-bottom) + 14px);-webkit-overflow-scrolling:touch;}
+    .content{flex:1;overflow-y:auto;padding:14px 14px calc(var(--safe-bottom) + 14px);-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+    .content::-webkit-scrollbar{display:none;}
 
     /* SETUP */
     .setup{padding:32px 20px;display:flex;flex-direction:column;gap:16px;}
@@ -67,8 +68,7 @@
     .bt{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:11px;padding:6px 10px;border-radius:4px;cursor:pointer;flex:1;}
     .bt.on{border-color:var(--ac);color:var(--ac);}
     .bt:active{background:var(--sf3);}
-    .timer-presets{display:flex;gap:5px;align-items:center;flex-wrap:wrap;}
-    .timer-sel{background:transparent;border:none;color:var(--ac);font-family:var(--mono);font-size:28px;font-weight:600;padding:0;outline:none;color-scheme:dark;cursor:pointer;width:100px;height:40px;}
+    .timer-sel{background:transparent;border:none;color:var(--ac);font-family:'IBM Plex Mono',monospace;font-size:28px;font-weight:600;padding:0;outline:none;color-scheme:dark;cursor:pointer;width:100px;height:40px;-webkit-appearance:none;appearance:none;}
 
     /* ADD EXO */
     .add-exo{display:flex;gap:8px;margin-bottom:14px;}
@@ -100,9 +100,7 @@
     .weight-input:focus{border-color:var(--ac2);}
 
     /* SERIES — inline chips */
-    .serie-chip-input{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:12px;padding:4px 2px;border-radius:5px;width:34px;text-align:center;outline:none;}
-    .serie-chip-input::-webkit-inner-spin-button,.serie-chip-input::-webkit-outer-spin-button{-webkit-appearance:none;}
-    .serie-chip-input:focus{border-color:var(--ac2);}
+    .serie-chip-input{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:'IBM Plex Mono',monospace;font-size:16px;padding:4px 2px;border-radius:5px;width:52px;text-align:center;outline:none;cursor:pointer;color-scheme:dark;-webkit-appearance:none;appearance:none;}
     .serie-chip-wrap{display:inline-flex;flex-direction:column;align-items:center;gap:1px;}
     .serie-chip-num{font-size:8px;color:var(--mu);text-align:center;}
     .btn-del-serie{background:transparent;border:none;color:var(--mu);font-size:10px;cursor:pointer;padding:0;line-height:1;}
@@ -111,8 +109,6 @@
     .btn-add-serie:active{border-color:var(--ac2);color:var(--ac);}
 
     .bdel{background:transparent;border:none;cursor:pointer;color:var(--mu);font-size:14px;padding:2px 4px;line-height:1;flex-shrink:0;}
-    .bmove{background:transparent;border:none;cursor:pointer;color:var(--mu);font-size:12px;padding:2px 3px;line-height:1;flex-shrink:0;display:flex;flex-direction:column;gap:1px;}
-    .bmove:active{color:var(--ac);}
     .bdel:active{color:var(--red);}
 
     /* PAST HISTORY on log page */
@@ -121,17 +117,15 @@
     .past-title{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--mu);text-transform:uppercase;margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--bd);}
     .past-day-lbl{font-size:11px;font-weight:600;color:#e07070;margin-bottom:6px;}
 
-
-
     /* HISTORY TABLE */
     .hist-day{background:#1e0e0e;border:1px solid #4a1a1a;border-radius:var(--r);padding:12px 14px;margin-bottom:12px;--sf2:#2a1818;--bd:#4a1a1a;--mu:#905050;--ac:#e07070;--tx:#e0c0c0;}
     .hist-day-title{font-size:11px;font-weight:600;letter-spacing:.1em;color:#e07070;text-transform:uppercase;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid #3a1818;}
-    .hist-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px;}
+    .hist-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px;table-layout:fixed;}
     .hist-table tr{border-bottom:1px solid var(--bd);}
     .hist-table tr:last-child{border-bottom:none;}
-    .ht-name{color:var(--tx);max-width:15ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 10px 5px 0;font-weight:600;}
-    .ht-kg{color:var(--mu);text-align:right;padding:5px 10px;white-space:nowrap;font-size:11px;}
-    .ht-rep{color:var(--ac);text-align:right;padding:5px 6px;font-weight:600;min-width:3ch;}
+    .ht-name{color:var(--tx);width:15ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 10px 5px 0;font-weight:600;}
+    .ht-kg{color:var(--mu);text-align:right;padding:5px 8px;white-space:nowrap;font-size:11px;width:4ch;}
+    .ht-rep{color:var(--ac);text-align:right;padding:5px 6px;font-weight:600;width:3ch;}
 
     /* STATS */
     .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
@@ -152,8 +146,8 @@
 
     .session-card{background:#161a20;border:1px solid #282e38;border-radius:var(--r);padding:8px 14px 12px;margin-bottom:12px;--sf2:#202530;--bd:#303848;--mu:#606878;--tx:#c8d0dc;}
     .empty{text-align:center;color:var(--mu);font-size:12px;padding:24px 20px 8px;line-height:1.8;}
-    .btn-copy-last{display:block;margin:0 auto 16px;background:transparent;border:1px solid var(--ac2);color:var(--ac);font-family:var(--mono);font-size:12px;padding:8px 16px;border-radius:var(--r);cursor:pointer;}
-    .btn-copy-last:active{background:var(--sf2);}
+    .copy-wrap{margin:8px 0;}
+    .copy-select{width:100%;background:var(--sf2);border:1px solid var(--bd);color:var(--ac);font-family:var(--mono);font-size:12px;padding:8px 10px;border-radius:var(--r);outline:none;cursor:pointer;color-scheme:dark;-webkit-appearance:none;appearance:none;}
     .btn-fin{display:block;width:100%;margin-top:12px;background:#3a4255;color:#a8b8d0;border:1px solid #505868;font-family:var(--mono);font-size:12px;font-weight:600;padding:8px;border-radius:var(--r);cursor:pointer;letter-spacing:.06em;}
     .btn-fin:active{opacity:.8;}
     .arch-card{background:#0d2818;border-color:#2a7a50;--sf2:#1a4030;--bd:#2a7a50;--mu:#5a9a70;--ac:#5ad4a0;--tx:#c0e8d0;}
@@ -165,7 +159,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v10.4</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v11.3</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -184,7 +178,7 @@ const OWNER='napolsg',REPO='sport-log',FILE='data.json';
 const DAYS=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
 const MONTHS=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
 let sessions={},savedExos=[],currentDate=todayKey(),activeTab='log',saveTimer=null;
-let tInterval=null,tSecs=0,tRunning=false,tTarget=90,activePreset=90,activeStatsExo=null;
+let tInterval=null,tSecs=90,tRunning=false,tTarget=90,activeStatsExo=null;
 let ghToken=null,fileSha=null,syncing=false;
 
 function todayKey(){return new Date().toISOString().slice(0,10);}
@@ -332,7 +326,7 @@ function renderTimerWidget(){
     if(s===tTarget)o.selected=true;
     sel.appendChild(o);
   });
-  sel.addEventListener('change',()=>{const s=parseInt(sel.value);stopTimer();tSecs=s;tTarget=s;activePreset=s;updT();});
+  sel.addEventListener('change',()=>{const s=parseInt(sel.value);stopTimer();tSecs=s;tTarget=s;updT();});
 
   // Countdown spans — hidden by default
   const mEl=document.createElement('span');mEl.className='td-part';mEl.id='td-min';mEl.style.display='none';
@@ -399,16 +393,22 @@ function renderLog(){
       const em=document.createElement('div');em.className='empty';
       em.innerHTML='Aucun exercice.<br>Ajoute-en un ci-dessus.';
       sessionCard.appendChild(em);
-      const lastKey=Object.keys(sessions).filter(k=>k<currentDate&&sessions[k].exercises&&sessions[k].exercises.length>0).sort((a,b)=>b.localeCompare(a))[0];
-      if(lastKey){
-        const copyBtn=document.createElement('button');copyBtn.className='btn-copy-last';
-        copyBtn.textContent='Copier la séance du '+fmtS(lastKey);
-        copyBtn.onclick=()=>{
+      const lastKeys=Object.keys(sessions).filter(k=>k<currentDate&&sessions[k].exercises&&sessions[k].exercises.length>0).sort((a,b)=>b.localeCompare(a)).slice(0,2);
+      if(lastKeys.length>0){
+        const copyWrap=document.createElement('div');copyWrap.className='copy-wrap';
+        const sel=document.createElement('select');sel.className='copy-select';
+        const dflt=document.createElement('option');dflt.value='';dflt.textContent='Copier une séance...';sel.appendChild(dflt);
+        lastKeys.forEach(k=>{
+          const o=document.createElement('option');o.value=k;o.textContent=fmtS(k);sel.appendChild(o);
+        });
+        sel.addEventListener('change',()=>{
+          const k=sel.value;if(!k)return;
           const s=getSess(currentDate);
-          s.exercises=sessions[lastKey].exercises.map(e=>({name:e.name,kg:e.kg||'',series:[{reps:''},{reps:''},{reps:''}]}));
+          s.exercises=sessions[k].exercises.map(e=>({name:e.name,kg:e.kg||'',series:[{reps:''},{reps:''},{reps:''}]}));
           s.done=false;scheduleSave();renderLog();
-        };
-        sessionCard.appendChild(copyBtn);
+        });
+        copyWrap.appendChild(sel);
+        sessionCard.appendChild(copyWrap);
       }
     } else {
       sess.exercises.forEach((exo,ei)=>sessionCard.appendChild(buildExoCard(exo,ei)));
@@ -470,27 +470,24 @@ function buildExoCard(exo,ei){
 function buildSerieChip(exo,ei,si){
   const wrap=document.createElement('div');wrap.className='serie-chip-wrap';wrap.id='sc-'+ei+'-'+si;
   const num=document.createElement('span');num.className='serie-chip-num';num.textContent=si+1;
-  const inp=document.createElement('input');inp.type='number';inp.className='serie-chip-input';inp.inputMode='numeric';inp.min='0';inp.placeholder='—';inp.value=exo.series[si].reps||'';
-  inp.addEventListener('input',()=>{exo.series[si].reps=inp.value;scheduleSave();});
+  const sel=document.createElement('select');sel.className='serie-chip-input';
+  const dflt=document.createElement('option');dflt.value='';dflt.textContent='—';sel.appendChild(dflt);
+  for(let i=1;i<=50;i++){const o=document.createElement('option');o.value=i;o.textContent=i;if(String(i)===String(exo.series[si].reps))o.selected=true;sel.appendChild(o);}
+  sel.addEventListener('change',()=>{exo.series[si].reps=sel.value;scheduleSave();});
   const delBtn=document.createElement('button');delBtn.className='btn-del-serie';delBtn.textContent='✕';
   delBtn.onclick=()=>{
     if(exo.series.length===1)return;
     exo.series.splice(si,1);scheduleSave();
     const sl=document.getElementById('sl-'+ei);
     if(sl){
-      const addBtn=sl.querySelector('.btn-add-serie');
-      const delExoBtn=sl.querySelector('.bdel');
       const cw=sl.querySelector('.exo-chips-wrap');
       if(cw){Array.from(cw.querySelectorAll('.serie-chip-wrap')).forEach(n=>n.remove());exo.series.forEach((s,i)=>cw.insertBefore(buildSerieChip(exo,ei,i),cw.querySelector('.btn-add-serie')));}
     }
   };
-  wrap.appendChild(num);wrap.appendChild(inp);wrap.appendChild(delBtn);
+  wrap.appendChild(num);wrap.appendChild(sel);wrap.appendChild(delBtn);
   return wrap;
 }
 
-function reopenSession(){
-  getSess(currentDate).done=false;scheduleSave();renderLog();
-}
 
 function updDD(){
   const inp=document.getElementById('nei'),dd=document.getElementById('dd');if(!inp||!dd)return;
