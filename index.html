@@ -25,7 +25,7 @@
 
 ```
 /* HEADER */
-.hdr{padding:calc(var(--safe-top) + 52px) 16px 10px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:var(--bg);}
+.hdr{padding:max(env(safe-area-inset-top), 44px) 16px 10px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:var(--bg);}
 .hdr-l{display:flex;align-items:baseline;gap:8px;}
 .hdr h1{font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--ac);text-transform:uppercase;margin:0;}
 .ver{font-size:9px;color:var(--mu);}
@@ -166,7 +166,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v12.7</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v12.8</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
