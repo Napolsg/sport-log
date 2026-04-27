@@ -88,13 +88,13 @@
     /* EXO CARD */
     .exo-card{padding:8px 0;border-bottom:1px solid var(--bd);margin-bottom:0;}
     .exo-card:last-of-type{border-bottom:none;}
-    .exo-row{display:flex;align-items:center;gap:5px;}
-    .exo-name-wrap{display:flex;align-items:center;gap:4px;flex:1;min-width:0;}
+    .exo-row{display:flex;align-items:flex-start;gap:5px;}
+    .exo-name-wrap{display:flex;align-items:center;gap:4px;flex:1;min-width:0;padding-top:11px;}
     .exo-chips-wrap{display:flex;align-items:center;gap:4px;}
-    .exo-name{font-size:14px;font-weight:600;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .exo-name{font-size:14px;font-weight:600;color:var(--tx);white-space:normal;word-break:break-word;line-height:1.3;}
 
     /* WEIGHT */
-    .weight-input{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:13px;padding:4px 2px;border-radius:5px;width:36px;text-align:center;outline:none;flex-shrink:0;flex-grow:0;}
+    .weight-input{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:13px;padding:4px 2px;border-radius:5px;width:36px;text-align:center;outline:none;flex-shrink:0;flex-grow:0;margin-top:11px;}
     .weight-input::-webkit-inner-spin-button,.weight-input::-webkit-outer-spin-button{-webkit-appearance:none;}
     .weight-input:focus{border-color:var(--ac2);}
 
@@ -106,7 +106,7 @@
     .btn-del-serie:active{color:var(--red);}
     .btn-add-serie{background:transparent;border:1px dashed var(--bd);color:var(--mu);font-family:var(--mono);font-size:11px;padding:4px 5px;border-radius:5px;cursor:pointer;white-space:nowrap;}
     .btn-add-serie:active{border-color:var(--ac2);color:var(--ac);}
-    .bdel{background:transparent;border:none;cursor:pointer;color:var(--mu);font-size:14px;padding:2px 4px;line-height:1;flex-shrink:0;}
+    .bdel{background:transparent;border:none;cursor:pointer;color:var(--mu);font-size:14px;padding:2px 4px;line-height:1;flex-shrink:0;margin-top:11px;}
     .bdel:active{color:var(--red);}
 
     /* PAST HISTORY */
@@ -160,7 +160,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v13.4</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v13.5</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
