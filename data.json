@@ -8,6 +8,25 @@
     },
     "2026-04-27": {
       "exercises": []
+    },
+    "2026-04-10": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        }
+      ]
     }
   },
   "savedExos": [
