@@ -99,7 +99,7 @@
     .weight-input:focus{border-color:var(--ac2);}
 
     /* SERIES */
-    .serie-chip-input{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:'IBM Plex Mono',monospace;font-size:16px;padding:3px 0;border-radius:5px;width:34px;text-align:center;text-align-last:center;outline:none;cursor:pointer;color-scheme:dark;-webkit-appearance:none;appearance:none;}
+    .serie-chip-input{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:'IBM Plex Mono',monospace;font-size:16px;padding:3px 0;border-radius:5px;width:45px;text-align:center;text-align-last:center;outline:none;cursor:pointer;color-scheme:dark;-webkit-appearance:none;appearance:none;transform:scale(0.75);transform-origin:center;margin:0 -5px;}
     .serie-chip-wrap{display:inline-flex;flex-direction:column;align-items:center;gap:1px;}
     .serie-chip-num{font-size:8px;color:var(--mu);text-align:center;}
     .btn-del-serie{background:transparent;border:none;color:var(--mu);font-size:10px;cursor:pointer;padding:0;line-height:1;}
@@ -160,7 +160,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v14.1</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v14.2</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
