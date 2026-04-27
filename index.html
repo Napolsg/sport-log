@@ -160,7 +160,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v14.6</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v14.7</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -309,7 +309,7 @@ function renderTimerWidget(){
   const row=document.createElement('div');row.className='timer-top';
   const displayZone=document.createElement('div');displayZone.style.cssText='width:100px;height:40px;flex-shrink:0;display:flex;align-items:center;';
   const sel=document.createElement('select');sel.className='timer-sel';sel.id='timer-sel';
-  [[60,'1:00'],[90,'1:30'],[120,'2:00'],[150,'2:30'],[180,'3:00'],[240,'4:00'],[300,'5:00'],[360,'6:00'],[420,'7:00'],[480,'8:00'],[600,'10:00']].forEach(([s,lbl])=>{
+  [[60,'01:00'],[90,'01:30'],[120,'02:00'],[150,'02:30'],[180,'03:00'],[240,'04:00'],[300,'05:00'],[360,'06:00'],[420,'07:00'],[480,'08:00'],[600,'10:00']].forEach(([s,lbl])=>{
     const o=document.createElement('option');o.value=s;o.textContent=lbl;
     if(s===tTarget)o.selected=true;
     sel.appendChild(o);
