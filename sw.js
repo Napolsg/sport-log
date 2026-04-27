@@ -1,9 +1,9 @@
-const CACHE = 'sport-log-v3';
+const CACHE = 'sport-log-v14';
 const ASSETS = [
   './',
   './index.html',
   './manifest.json',
-  'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap'
+  'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap'
 ];
 
 self.addEventListener('install', e => {
@@ -21,15 +21,32 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(cached => {
-      if (cached) return cached;
-      return fetch(e.request).then(res => {
-        if (!res || res.status !== 200 || res.type === 'opaque') return res;
-        const clone = res.clone();
-        caches.open(CACHE).then(cache => cache.put(e.request, clone));
+  const url = new URL(e.request.url);
+  const isHTML = url.pathname.endsWith('.html') || url.pathname.endsWith('/');
+
+  if (isHTML) {
+    // Network-first for HTML — always get latest version
+    e.respondWith(
+      fetch(e.request).then(res => {
+        if (res && res.status === 200) {
+          const clone = res.clone();
+          caches.open(CACHE).then(cache => cache.put(e.request, clone));
+        }
         return res;
-      }).catch(() => cached);
-    })
-  );
+      }).catch(() => caches.match(e.request))
+    );
+  } else {
+    // Cache-first for other assets
+    e.respondWith(
+      caches.match(e.request).then(cached => {
+        if (cached) return cached;
+        return fetch(e.request).then(res => {
+          if (!res || res.status !== 200 || res.type === 'opaque') return res;
+          const clone = res.clone();
+          caches.open(CACHE).then(cache => cache.put(e.request, clone));
+          return res;
+        }).catch(() => cached);
+      })
+    );
+  }
 });

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#081420">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Sport Log">
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -148,7 +148,7 @@
     .copy-select{width:100%;background:var(--sf2);border:1px solid var(--bd);color:var(--ac);font-family:var(--mono);font-size:12px;padding:8px 10px;border-radius:var(--r);outline:none;cursor:pointer;color-scheme:dark;-webkit-appearance:none;appearance:none;}
     .btn-fin{display:block;width:100%;margin-top:12px;background:#3a4255;color:#a8b8d0;border:1px solid #505868;font-family:var(--mono);font-size:12px;font-weight:600;padding:8px;border-radius:var(--r);cursor:pointer;letter-spacing:.06em;}
     .btn-fin:active{opacity:.8;}
-    .arch-card{background:#0d2818;border-color:#2a7a50;--sf2:#1a4030;--bd:#2a7a50;--mu:#5a9a70;--ac:#5ad4a0;--tx:#c0e8d0;}
+    .arch-card{background:#0d2818;border:1px solid #2a7a50;border-radius:var(--r);--sf2:#1a4030;--bd:#2a7a50;--mu:#5a9a70;--ac:#5ad4a0;--tx:#c0e8d0;}
     .arch-title{font-size:11px;font-weight:600;color:#5ad4a0;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid #1a4a30;}
     .btn-reopen{margin-top:10px;background:transparent;border:1px solid var(--bd);color:var(--mu);font-family:var(--mono);font-size:11px;padding:5px 12px;border-radius:4px;cursor:pointer;}
     .btn-reopen:active{border-color:var(--ac);color:var(--ac);}
@@ -160,7 +160,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v14.2</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v14.4</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -435,7 +435,7 @@ function buildExoCard(exo,ei){
   const addBtn=document.createElement('button');addBtn.className='btn-add-serie';addBtn.textContent='+';
   addBtn.onclick=()=>{exo.series.push({reps:''});scheduleSave();const sl=document.getElementById('sl-'+ei);if(sl){sl.querySelector('.exo-chips-wrap').insertBefore(buildSerieChip(exo,ei,exo.series.length-1),addBtn);}};
   chipsWrap.appendChild(addBtn);
-  const moveWrap=document.createElement('div');moveWrap.className='bmove';moveWrap.style.cssText+='align-self:center;margin-top:0;';
+  const moveWrap=document.createElement('div');moveWrap.className='bmove';moveWrap.style.alignSelf='center';moveWrap.style.marginTop='0';
   const upBtn=document.createElement('button');upBtn.textContent='▲';upBtn.style.cssText='background:transparent;border:none;cursor:pointer;color:var(--mu);font-size:10px;padding:1px;line-height:1;font-family:var(--mono);';
   upBtn.onclick=()=>{const exos=getSess(currentDate).exercises;if(ei===0)return;[exos[ei-1],exos[ei]]=[exos[ei],exos[ei-1]];scheduleSave();renderLog();};
   const downBtn=document.createElement('button');downBtn.textContent='▼';downBtn.style.cssText='background:transparent;border:none;cursor:pointer;color:var(--mu);font-size:10px;padding:1px;line-height:1;font-family:var(--mono);';
