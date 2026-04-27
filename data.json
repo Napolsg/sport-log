@@ -7,7 +7,23 @@
       "exercises": []
     },
     "2026-04-27": {
-      "exercises": []
+      "exercises": [
+        {
+          "name": "Relevé de jambes",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        }
+      ]
     },
     "2026-04-10": {
       "exercises": [
@@ -79,6 +95,7 @@
     "Traction supination",
     "Dips",
     "Traction pronation",
-    "Pompes"
+    "Pompes",
+    "Relevé de jambes"
   ]
 }
