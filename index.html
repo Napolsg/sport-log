@@ -55,7 +55,7 @@
     .day-label{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:11px;color:var(--mu);}
     .day-label input[type=date]{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:11px;padding:5px 9px;border-radius:4px;outline:none;color-scheme:dark;}
 
-    /* TIMER — compact countdown only */
+    /* TIMER */
     .timer-bar{background:#0d2240;border:1px solid #1a4a7a;border-radius:var(--r);padding:10px 14px;margin-bottom:12px;--sf2:#1a3a5a;--bd:#2a5a8a;--mu:#4a8aaa;--tx:#c0d8f0;}
     .timer-top{display:flex;align-items:center;gap:8px;}
     .td-part{font-size:28px;font-weight:600;color:var(--ac);letter-spacing:0;font-variant-numeric:tabular-nums;font-family:var(--mono);}
@@ -64,7 +64,6 @@
     .td-colon{font-size:28px;font-weight:600;color:var(--ac);line-height:1;}
     .td-colon.run{color:var(--ac2);}
     .td-colon.alr{color:var(--red);}
-
     .bt{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:11px;padding:6px 10px;border-radius:4px;cursor:pointer;flex:1;}
     .bt.on{border-color:var(--ac);color:var(--ac);}
     .bt:active{background:#3a3a52;}
@@ -94,12 +93,12 @@
     .exo-chips-wrap{display:flex;align-items:center;gap:4px;}
     .exo-name{font-size:14px;font-weight:600;color:var(--tx);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
-    /* WEIGHT — inline in exo header */
+    /* WEIGHT */
     .weight-input{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:13px;padding:4px 2px;border-radius:5px;width:36px;text-align:center;outline:none;flex-shrink:0;flex-grow:0;}
     .weight-input::-webkit-inner-spin-button,.weight-input::-webkit-outer-spin-button{-webkit-appearance:none;}
     .weight-input:focus{border-color:var(--ac2);}
 
-    /* SERIES — inline chips */
+    /* SERIES */
     .serie-chip-input{background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:'IBM Plex Mono',monospace;font-size:16px;padding:3px 0;border-radius:5px;width:34px;text-align:center;text-align-last:center;outline:none;cursor:pointer;color-scheme:dark;-webkit-appearance:none;appearance:none;}
     .serie-chip-wrap{display:inline-flex;flex-direction:column;align-items:center;gap:1px;}
     .serie-chip-num{font-size:8px;color:var(--mu);text-align:center;}
@@ -107,11 +106,10 @@
     .btn-del-serie:active{color:var(--red);}
     .btn-add-serie{background:transparent;border:1px dashed var(--bd);color:var(--mu);font-family:var(--mono);font-size:11px;padding:4px 5px;border-radius:5px;cursor:pointer;white-space:nowrap;}
     .btn-add-serie:active{border-color:var(--ac2);color:var(--ac);}
-
     .bdel{background:transparent;border:none;cursor:pointer;color:var(--mu);font-size:14px;padding:2px 4px;line-height:1;flex-shrink:0;}
     .bdel:active{color:var(--red);}
 
-    /* PAST HISTORY on log page */
+    /* PAST HISTORY */
     .past-section{margin-top:12px;}
     .past-day{background:#1e0e0e;border:1px solid #4a1a1a;border-radius:var(--r);padding:10px 12px;margin-bottom:8px;--sf2:#2a1818;--bd:#4a1a1a;--mu:#905050;--ac:#e07070;--tx:#e0c0c0;}
     .past-title{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--mu);text-transform:uppercase;margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--bd);}
@@ -162,7 +160,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v12.4</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v13.4</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -190,7 +188,6 @@ function fmtS(k){const d=new Date(k+'T12:00:00');return DAYS[d.getDay()]+' '+d.g
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 function getSess(d){if(!sessions[d])sessions[d]={exercises:[]};return sessions[d];}
 
-// STORAGE
 function loadLocal(){
   try{const r=localStorage.getItem('sl_v4');if(r){const p=JSON.parse(r);sessions=p.sessions||{};savedExos=p.savedExos||[];fileSha=p.fileSha||null;}}catch(e){}
   ghToken=localStorage.getItem('sl_token');
@@ -201,7 +198,6 @@ function scheduleSave(){
   saveTimer=setTimeout(()=>{saveLocal();autoSync();},800);
 }
 
-// GITHUB SYNC
 async function syncNow(){
   if(!ghToken||ghToken==='SKIP'){render();return;}
   if(syncing)return;
@@ -243,7 +239,6 @@ async function pushToGitHub(){
 }
 function setSyncState(state,label){const btn=document.getElementById('sync-btn');if(!btn)return;btn.textContent=label;btn.className='sync-btn'+(state==='syncing'?' syncing':state==='error'?' error':'');}
 
-// SETUP
 function renderSetup(){
   const c=document.getElementById('content');c.innerHTML='';
   const div=document.createElement('div');div.className='setup';
@@ -254,7 +249,6 @@ function saveToken(){const val=document.getElementById('token-input').value.trim
 function skipSetup(){localStorage.setItem('sl_token','SKIP');ghToken='SKIP';showTab('log');}
 function resetToken(){if(!confirm('Reinitialiser le token ?'))return;localStorage.removeItem('sl_token');ghToken=null;render();}
 
-// TABS
 function showTab(t){activeTab=t;['log','history','stats'].forEach(id=>document.getElementById('tab-'+id).classList.toggle('active',id===t));render();}
 function render(){
   if(!ghToken){renderSetup();return;}
@@ -263,17 +257,13 @@ function render(){
   else renderStats();
 }
 
-// TIMER — countdown only
 function tFmt(s){const m=Math.floor(Math.abs(s)/60),sc=Math.abs(s)%60;return String(m).padStart(2,'0')+':'+String(sc).padStart(2,'0');}
 function startTimer(target){
   stopTimer();
-  tTarget=target;tSecs=target;activePreset=target;
+  tTarget=target;tSecs=target;
   updT();
   tRunning=true;
-  tInterval=setInterval(()=>{
-    tSecs--;updT();
-    if(tSecs<=0){beep();stopTimer();}
-  },1000);
+  tInterval=setInterval(()=>{tSecs--;updT();if(tSecs<=0){beep();stopTimer();}},1000);
   updTimerBtns();
 }
 function stopTimer(){tRunning=false;clearInterval(tInterval);updTimerBtns();}
@@ -287,7 +277,6 @@ function updT(){
   const cls='td-part'+(tRunning?' run':'')+(tSecs<=5&&tRunning?' alr':'');
   mEl.className=cls;sEl.className=cls;
   if(colon)colon.className='td-colon'+(tRunning?' run':'')+(tSecs<=5&&tRunning?' alr':'');
-  // Show dropdown when stopped, countdown when running
   if(sel){sel.style.display=tRunning?'none':'block';}
   mEl.style.display=tRunning?'inline':'none';
   sEl.style.display=tRunning?'inline':'none';
@@ -302,7 +291,6 @@ function beep(){
   try{
     const c=new(window.AudioContext||window.webkitAudioContext)();
     const now=c.currentTime;
-    // Three rising tones
     [[880,0],[1100,0.4],[1320,0.8]].forEach(([freq,t])=>{
       const o=c.createOscillator(),g=c.createGain();
       o.connect(g);g.connect(c.destination);
@@ -318,11 +306,7 @@ function beep(){
 function renderTimerWidget(){
   const div=document.createElement('div');div.className='timer-bar';
   const row=document.createElement('div');row.className='timer-top';
-
-  // Fixed-width display zone
   const displayZone=document.createElement('div');displayZone.style.cssText='width:100px;height:40px;flex-shrink:0;display:flex;align-items:center;';
-
-  // Dropdown
   const sel=document.createElement('select');sel.className='timer-sel';sel.id='timer-sel';
   [[60,'1:00'],[90,'1:30'],[120,'2:00'],[150,'2:30'],[180,'3:00'],[240,'4:00'],[300,'5:00'],[360,'6:00'],[420,'7:00'],[480,'8:00'],[600,'10:00']].forEach(([s,lbl])=>{
     const o=document.createElement('option');o.value=s;o.textContent=lbl;
@@ -330,34 +314,24 @@ function renderTimerWidget(){
     sel.appendChild(o);
   });
   sel.addEventListener('change',()=>{const s=parseInt(sel.value);stopTimer();tSecs=s;tTarget=s;updT();});
-
-  // Countdown spans — hidden by default
   const mEl=document.createElement('span');mEl.className='td-part';mEl.id='td-min';mEl.style.display='none';
   const colon=document.createElement('span');colon.className='td-colon';colon.id='td-colon';colon.textContent=':';colon.style.display='none';
   const sEl=document.createElement('span');sEl.className='td-part';sEl.id='td-sec';sEl.style.display='none';
-
   displayZone.appendChild(sel);displayZone.appendChild(mEl);displayZone.appendChild(colon);displayZone.appendChild(sEl);
-
-  // Buttons
   const bStart=document.createElement('button');bStart.className='bt on';bStart.id='bt-s';bStart.textContent='Start';
   bStart.onclick=()=>{if(tRunning)stopTimer();else{if(tSecs<=0)tSecs=tTarget;startTimer(tSecs);}};
   const bReset=document.createElement('button');bReset.className='bt';bReset.id='bt-r';bReset.textContent='Reset';
   bReset.onclick=()=>resetTimer();
-
   row.appendChild(displayZone);row.appendChild(bStart);row.appendChild(bReset);
   div.appendChild(row);
   updT();updTimerBtns();
   return div;
 }
-// LOG
+
 function renderLog(){
   const sess=getSess(currentDate),c=document.getElementById('content');c.innerHTML='';
-
-  // Timer
   c.appendChild(renderTimerWidget());
-
   if(sess.done){
-    // Session archived — show summary card only
     const archCard=document.createElement('div');archCard.className='session-card arch-card';
     const archTitle=document.createElement('div');archTitle.className='arch-title';archTitle.textContent='Séance du '+fmtS(currentDate)+' — terminée';
     archCard.appendChild(archTitle);
@@ -377,15 +351,11 @@ function renderLog(){
     archCard.appendChild(delArchBtn);
     c.appendChild(archCard);
   } else {
-    // Active session card
     const sessionCard=document.createElement('div');sessionCard.className='session-card';
-    // Date
     const db2=document.createElement('div');db2.className='day-label';
     db2.innerHTML='<input type="date" id="dp" value="'+currentDate+'" max="'+todayKey()+'">';
     sessionCard.appendChild(db2);
-    // Save status
     const ss=document.createElement('div');ss.className='save-st';ss.id='save-st';sessionCard.appendChild(ss);
-    // Add exercise row
     const ar=document.createElement('div');ar.className='add-exo';
     ar.innerHTML='<div class="exo-wrap"><input type="text" id="nei" placeholder="Ajouter un exercice..." autocomplete="off" autocorrect="off"><div class="dropdown" id="dd" style="display:none;"></div></div><button class="btn-acc" onclick="addExo()">+</button>';
     sessionCard.appendChild(ar);
@@ -394,7 +364,6 @@ function renderLog(){
     const inp=document.getElementById('nei');
     inp.addEventListener('input',updDD);inp.addEventListener('focus',updDD);
     inp.addEventListener('keydown',e=>{if(e.key==='Enter')addExo();if(e.key==='Escape')hideDD();});
-    // Exercises or empty state
     if(sess.exercises.length===0){
       const em=document.createElement('div');em.className='empty';
       em.innerHTML='Aucun exercice.<br>Ajoute-en un ci-dessus.';
@@ -419,12 +388,10 @@ function renderLog(){
     } else {
       sess.exercises.forEach((exo,ei)=>sessionCard.appendChild(buildExoCard(exo,ei)));
     }
-    // Fin de séance at bottom
     const finBtn=document.createElement('button');finBtn.className='btn-fin';finBtn.textContent='Fin de séance';
     finBtn.onclick=()=>{if(sess.exercises.length===0)return;sess.done=true;scheduleSave();renderLog();};
     sessionCard.appendChild(finBtn);
   }
-  // Past history
   const pastKeys=Object.keys(sessions).filter(k=>k<currentDate&&sessions[k].exercises&&sessions[k].exercises.length>0).sort((a,b)=>b.localeCompare(a));
   if(pastKeys.length>0){
     const ps=document.createElement('div');ps.className='past-section';
@@ -449,7 +416,6 @@ function renderLog(){
     });
     c.appendChild(ps);
   }
-
 }
 
 function buildExoCard(exo,ei){
@@ -479,6 +445,7 @@ function buildExoCard(exo,ei){
   card.appendChild(row);
   return card;
 }
+
 function buildSerieChip(exo,ei,si){
   const wrap=document.createElement('div');wrap.className='serie-chip-wrap';wrap.id='sc-'+ei+'-'+si;
   const num=document.createElement('span');num.className='serie-chip-num';num.textContent=si+1;
@@ -499,6 +466,7 @@ function buildSerieChip(exo,ei,si){
   wrap.appendChild(num);wrap.appendChild(sel);wrap.appendChild(delBtn);
   return wrap;
 }
+
 function updDD(){
   const inp=document.getElementById('nei'),dd=document.getElementById('dd');if(!inp||!dd)return;
   const val=inp.value.trim().toLowerCase();
@@ -528,7 +496,6 @@ function addExo(){
   setTimeout(()=>{const cards=document.querySelectorAll('.exo-card');if(cards.length)cards[cards.length-1].scrollIntoView({behavior:'smooth',block:'start'});},60);
 }
 
-// HISTORY
 function renderHistory(){
   const c=document.getElementById('content');c.innerHTML='';
   const keys=Object.keys(sessions).filter(k=>sessions[k].exercises&&sessions[k].exercises.length>0).sort((a,b)=>b.localeCompare(a));
@@ -553,7 +520,6 @@ function renderHistory(){
   });
 }
 
-// STATS
 function renderStats(){
   const c=document.getElementById('content');c.innerHTML='';
   const keys=Object.keys(sessions).filter(k=>sessions[k].exercises&&sessions[k].exercises.length>0);
@@ -561,7 +527,7 @@ function renderStats(){
   keys.forEach(k=>{sessions[k].exercises.forEach(exo=>{exoCount[exo.name]=(exoCount[exo.name]||0)+1;exo.series.forEach(s=>{totalSeries++;if(s.reps)totalReps+=parseInt(s.reps)||0;});});});
   const topExo=Object.entries(exoCount).sort((a,b)=>b[1]-a[1]);
   const g=document.createElement('div');g.className='stat-grid';
-  g.innerHTML='<div class="stat-card"><div class="stat-lbl">Séances</div><div class="stat-val">'+keys.length+'</div></div><div class="stat-card"><div class="stat-lbl">Series</div><div class="stat-val">'+totalSeries+'</div></div><div class="stat-card"><div class="stat-lbl">Répétitions</div><div class="stat-val">'+totalReps+'</div></div><div class="stat-card"><div class="stat-lbl">Exercices</div><div class="stat-val">'+Object.keys(exoCount).length+'</div></div>';
+  g.innerHTML='<div class="stat-card"><div class="stat-lbl">Séances</div><div class="stat-val">'+keys.length+'</div></div><div class="stat-card"><div class="stat-lbl">Séries</div><div class="stat-val">'+totalSeries+'</div></div><div class="stat-card"><div class="stat-lbl">Répétitions</div><div class="stat-val">'+totalReps+'</div></div><div class="stat-card"><div class="stat-lbl">Exercices</div><div class="stat-val">'+Object.keys(exoCount).length+'</div></div>';
   c.appendChild(g);
   if(topExo.length===0){const em=document.createElement('div');em.className='empty';em.textContent='Pas encore de données.';c.appendChild(em);return;}
   const sw=document.createElement('div');sw.className='exo-sel';
