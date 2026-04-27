@@ -160,7 +160,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v14.4</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v14.5</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -318,7 +318,7 @@ function renderTimerWidget(){
   const sEl=document.createElement('span');sEl.className='td-part';sEl.id='td-sec';sEl.style.display='none';
   displayZone.appendChild(sel);displayZone.appendChild(mEl);displayZone.appendChild(colon);displayZone.appendChild(sEl);
   const bStart=document.createElement('button');bStart.className='bt on';bStart.id='bt-s';bStart.textContent='Start';
-  bStart.onclick=()=>{if(tRunning)stopTimer();else{if(tSecs<=0)tSecs=tTarget;startTimer(tSecs);}};
+  bStart.onclick=()=>{getAudioCtx();if(tRunning)stopTimer();else{if(tSecs<=0)tSecs=tTarget;startTimer(tSecs);}};
   const bReset=document.createElement('button');bReset.className='bt';bReset.id='bt-r';bReset.textContent='Reset';
   bReset.onclick=()=>resetTimer();
   row.appendChild(displayZone);row.appendChild(bStart);row.appendChild(bReset);
