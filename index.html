@@ -160,7 +160,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v13.9</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v14.1</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -210,9 +210,8 @@ async function syncNow(){
       const json=await res.json();
       fileSha=json.sha;
       const remote=JSON.parse(atob(json.content.replace(/\n/g,'')));
-      const today=todayKey();
-      const merged=Object.assign({},remote.sessions||{});
-      if(sessions[today]&&sessions[today].exercises&&sessions[today].exercises.length>0)merged[today]=sessions[today];
+      // Local wins: merge remote first, then overlay all local sessions
+      const merged=Object.assign({},remote.sessions||{},sessions);
       sessions=merged;
       savedExos=Array.from(new Set([...(remote.savedExos||[]),...savedExos]));
     } else if(res.status!==404){throw new Error('HTTP '+res.status);}
@@ -331,10 +330,20 @@ function renderTimerWidget(){
 function renderLog(){
   const sess=getSess(currentDate),c=document.getElementById('content');c.innerHTML='';
   c.appendChild(renderTimerWidget());
+
+  // Always show session card with date picker
+  const sessionCard=document.createElement('div');sessionCard.className='session-card';
+  const db2=document.createElement('div');db2.className='day-label';
+  db2.innerHTML='<input type="date" id="dp" value="'+currentDate+'" max="'+todayKey()+'">';
+  sessionCard.appendChild(db2);
+  const ss=document.createElement('div');ss.className='save-st';ss.id='save-st';sessionCard.appendChild(ss);
+  c.appendChild(sessionCard);
+  document.getElementById('dp').addEventListener('change',e=>{currentDate=e.target.value;renderLog();});
+
   if(sess.done){
-    const archCard=document.createElement('div');archCard.className='session-card arch-card';
-    const archTitle=document.createElement('div');archTitle.className='arch-title';archTitle.textContent='Séance du '+fmtS(currentDate)+' — terminée';
-    archCard.appendChild(archTitle);
+    // Show archived summary inside session card
+    const archTitle=document.createElement('div');archTitle.className='arch-title';archTitle.textContent='Séance terminée';
+    sessionCard.appendChild(archTitle);
     let t='<table class="hist-table">';
     sess.exercises.forEach(exo=>{
       t+='<tr><td class="ht-name">'+esc(exo.name)+'</td><td class="ht-kg">'+(exo.kg?exo.kg+'kg':'')+'</td>';
@@ -342,25 +351,18 @@ function renderLog(){
       t+='</tr>';
     });
     t+='</table>';
-    const tbl=document.createElement('div');tbl.innerHTML=t;archCard.appendChild(tbl);
+    const tbl=document.createElement('div');tbl.innerHTML=t;sessionCard.appendChild(tbl);
     const reopenBtn=document.createElement('button');reopenBtn.className='btn-reopen';reopenBtn.textContent='Modifier';
     reopenBtn.addEventListener('click',()=>{getSess(currentDate).done=false;scheduleSave();renderLog();});
-    archCard.appendChild(reopenBtn);
+    sessionCard.appendChild(reopenBtn);
     const delArchBtn=document.createElement('button');delArchBtn.className='btn-del-day';delArchBtn.textContent='✕';
     delArchBtn.addEventListener('click',()=>{delete sessions[currentDate];scheduleSave();renderLog();});
-    archCard.appendChild(delArchBtn);
-    c.appendChild(archCard);
+    sessionCard.appendChild(delArchBtn);
   } else {
-    const sessionCard=document.createElement('div');sessionCard.className='session-card';
-    const db2=document.createElement('div');db2.className='day-label';
-    db2.innerHTML='<input type="date" id="dp" value="'+currentDate+'" max="'+todayKey()+'">';
-    sessionCard.appendChild(db2);
-    const ss=document.createElement('div');ss.className='save-st';ss.id='save-st';sessionCard.appendChild(ss);
+    // Active session
     const ar=document.createElement('div');ar.className='add-exo';
     ar.innerHTML='<div class="exo-wrap"><input type="text" id="nei" placeholder="Ajouter un exercice..." autocomplete="off" autocorrect="off"><div class="dropdown" id="dd" style="display:none;"></div></div><button class="btn-acc" onclick="addExo()">+</button>';
     sessionCard.appendChild(ar);
-    c.appendChild(sessionCard);
-    document.getElementById('dp').addEventListener('change',e=>{currentDate=e.target.value;renderLog();});
     const inp=document.getElementById('nei');
     inp.addEventListener('input',updDD);inp.addEventListener('focus',updDD);
     inp.addEventListener('keydown',e=>{if(e.key==='Enter')addExo();if(e.key==='Escape')hideDD();});
