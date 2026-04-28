@@ -90,6 +90,71 @@
         }
       ],
       "done": true
+    },
+    "2026-04-28": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "",
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        },
+        {
+          "name": "Pompes",
+          "kg": "",
+          "series": [
+            {
+              "reps": "14"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "8"
+            }
+          ]
+        },
+        {
+          "name": "Traction supination",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "5"
+            }
+          ]
+        }
+      ],
+      "done": true
     }
   },
   "savedExos": [
