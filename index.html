@@ -160,7 +160,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v14.7</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v14.8</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -291,6 +291,12 @@ function getAudioCtx(){if(!_audioCtx)_audioCtx=new(window.AudioContext||window.w
 function beep(){
   try{
     const c=getAudioCtx();
+    if(c.state==='suspended'){c.resume().then(()=>playBeep(c));return;}
+    playBeep(c);
+  }catch(e){}
+}
+function playBeep(c){
+  try{
     const now=c.currentTime;
     [[880,0],[1100,0.4],[1320,0.8]].forEach(([freq,t])=>{
       const o=c.createOscillator(),g=c.createGain();
