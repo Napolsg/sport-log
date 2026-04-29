@@ -160,7 +160,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v14.8</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v14.9</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -179,7 +179,7 @@ const OWNER='napolsg',REPO='sport-log',FILE='data.json';
 const DAYS=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
 const MONTHS=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
 let sessions={},savedExos=[],currentDate=todayKey(),activeTab='log',saveTimer=null;
-let tInterval=null,tSecs=90,tRunning=false,tTarget=90,activeStatsExo=null;
+let tInterval=null,tSecs=90,tRunning=false,tTarget=90,activeStatsExo=null,tStartTime=null,tStartSecs=90;
 let ghToken=null,fileSha=null,syncing=false;
 
 function todayKey(){return new Date().toISOString().slice(0,10);}
@@ -259,10 +259,15 @@ function render(){
 function tFmt(s){const m=Math.floor(Math.abs(s)/60),sc=Math.abs(s)%60;return String(m).padStart(2,'0')+':'+String(sc).padStart(2,'0');}
 function startTimer(target){
   stopTimer();
-  tTarget=target;tSecs=target;
+  tTarget=target;tSecs=target;tStartTime=Date.now();tStartSecs=target;
   updT();
   tRunning=true;
-  tInterval=setInterval(()=>{tSecs--;updT();if(tSecs<=0){beep();stopTimer();}},1000);
+  tInterval=setInterval(()=>{
+    const elapsed=Math.floor((Date.now()-tStartTime)/1000);
+    tSecs=Math.max(0,tStartSecs-elapsed);
+    updT();
+    if(tSecs<=0){beep();stopTimer();}
+  },500);
   updTimerBtns();
 }
 function stopTimer(){tRunning=false;clearInterval(tInterval);updTimerBtns();}
@@ -286,27 +291,37 @@ function updTimerBtns(){
   if(bs)bs.className='bt'+(tRunning?' on':'');
   if(br)br.className='bt';
 }
-let _audioCtx=null;
-function getAudioCtx(){if(!_audioCtx)_audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(_audioCtx.state==='suspended')_audioCtx.resume();return _audioCtx;}
+let _audioCtx=null,_audioUnlocked=false;
+function unlockAudio(){
+  if(_audioUnlocked)return;
+  try{
+    if(!_audioCtx)_audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+    const buf=_audioCtx.createBuffer(1,1,22050);
+    const src=_audioCtx.createBufferSource();src.buffer=buf;src.connect(_audioCtx.destination);src.start(0);
+    _audioUnlocked=true;
+  }catch(e){}
+}
+function getAudioCtx(){
+  if(!_audioCtx)_audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(_audioCtx.state==='suspended')_audioCtx.resume();
+  return _audioCtx;
+}
 function beep(){
   try{
     const c=getAudioCtx();
-    if(c.state==='suspended'){c.resume().then(()=>playBeep(c));return;}
-    playBeep(c);
-  }catch(e){}
-}
-function playBeep(c){
-  try{
-    const now=c.currentTime;
-    [[880,0],[1100,0.4],[1320,0.8]].forEach(([freq,t])=>{
-      const o=c.createOscillator(),g=c.createGain();
-      o.connect(g);g.connect(c.destination);
-      o.frequency.value=freq;o.type='sine';
-      g.gain.setValueAtTime(0,now+t);
-      g.gain.linearRampToValueAtTime(0.4,now+t+0.05);
-      g.gain.exponentialRampToValueAtTime(0.001,now+t+0.35);
-      o.start(now+t);o.stop(now+t+0.35);
-    });
+    const doPlay=()=>{
+      const now=c.currentTime;
+      [[880,0],[1100,0.4],[1320,0.8]].forEach(([freq,t])=>{
+        const o=c.createOscillator(),g=c.createGain();
+        o.connect(g);g.connect(c.destination);
+        o.frequency.value=freq;o.type='sine';
+        g.gain.setValueAtTime(0,now+t);
+        g.gain.linearRampToValueAtTime(0.4,now+t+0.05);
+        g.gain.exponentialRampToValueAtTime(0.001,now+t+0.35);
+        o.start(now+t);o.stop(now+t+0.35);
+      });
+    };
+    if(c.state==='suspended'){c.resume().then(doPlay);}else{doPlay();}
   }catch(e){}
 }
 
@@ -326,7 +341,7 @@ function renderTimerWidget(){
   const sEl=document.createElement('span');sEl.className='td-part';sEl.id='td-sec';sEl.style.display='none';
   displayZone.appendChild(sel);displayZone.appendChild(mEl);displayZone.appendChild(colon);displayZone.appendChild(sEl);
   const bStart=document.createElement('button');bStart.className='bt on';bStart.id='bt-s';bStart.textContent='Start';
-  bStart.onclick=()=>{try{getAudioCtx();}catch(e){}if(tRunning)stopTimer();else{if(tSecs<=0)tSecs=tTarget;startTimer(tSecs);}};
+  bStart.onclick=()=>{unlockAudio();if(tRunning)stopTimer();else{if(tSecs<=0)tSecs=tTarget;startTimer(tSecs);}};
   const bReset=document.createElement('button');bReset.className='bt';bReset.id='bt-r';bReset.textContent='Reset';
   bReset.onclick=()=>resetTimer();
   row.appendChild(displayZone);row.appendChild(bStart);row.appendChild(bReset);
@@ -588,6 +603,14 @@ function forceUpdate(){
 
 loadLocal();
 render();
+document.addEventListener('visibilitychange',function(){
+  if(!document.hidden&&tRunning&&tStartTime){
+    const elapsed=Math.floor((Date.now()-tStartTime)/1000);
+    tSecs=Math.max(0,tStartSecs-elapsed);
+    updT();
+    if(tSecs<=0){beep();stopTimer();}
+  }
+});
 document.addEventListener('click',function(e){var ar=document.querySelector('.add-exo');if(ar&&!ar.contains(e.target))hideDD();});
 document.addEventListener('touchstart',function(e){var ar=document.querySelector('.add-exo');if(ar&&!ar.contains(e.target))hideDD();},{passive:true});
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
