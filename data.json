@@ -155,6 +155,25 @@
         }
       ],
       "done": true
+    },
+    "2026-04-29": {
+      "exercises": [
+        {
+          "name": "Roue",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        }
+      ]
     }
   },
   "savedExos": [
@@ -166,6 +185,7 @@
     "RelevÃÂÃÂ© de jambes",
     "RelevÃÂ© de jambes",
     "RelevÃ© de jambes",
-    "Relevé de jambes"
+    "Relevé de jambes",
+    "Roue"
   ]
 }
