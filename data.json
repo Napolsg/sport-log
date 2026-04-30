@@ -175,6 +175,72 @@
         }
       ],
       "done": true
+    },
+    "2026-04-30": {
+      "exercises": [
+        {
+          "name": "Tractions Pronation",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Tractions Supination",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        }
+      ],
+      "type": "A1 — Tirage Pronation",
+      "done": false
     }
   },
   "savedExos": [
@@ -182,7 +248,12 @@
     "Dips",
     "Traction pronation",
     "Pompes",
-    "Relevé de jambes",
-    "Roue"
-  ]
+    "RelevÃ© de jambes",
+    "Roue",
+    "RelevÃÂÃÂÃÂÃÂ© de jambes",
+    "RelevÃÂÃÂ© de jambes",
+    "RelevÃÂ© de jambes",
+    "Relevé de jambes"
+  ],
+  "customTemplates": {}
 }
