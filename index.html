@@ -155,6 +155,20 @@
     .hist-day-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid #3a1818;}
     .btn-del-day{background:transparent;border:none;color:#905050;font-family:var(--mono);font-size:14px;cursor:pointer;padding:0 2px;line-height:1;}
     .btn-del-day:active{color:var(--red);}
+    .prog-section{margin-bottom:18px;}
+    .prog-title{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--mu);text-transform:uppercase;margin-bottom:10px;padding-bottom:5px;border-bottom:1px solid var(--bd);}
+    .prog-card{background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;}
+    .prog-card-title{font-size:12px;font-weight:600;color:var(--ac);margin-bottom:8px;letter-spacing:.05em;}
+    .prog-exo{display:flex;align-items:baseline;gap:6px;padding:5px 0;border-bottom:1px solid var(--bd);font-size:12px;}
+    .prog-exo:last-child{border-bottom:none;}
+    .prog-exo-num{color:var(--mu);font-size:10px;flex-shrink:0;width:12px;}
+    .prog-exo-name{color:var(--tx);flex:1;}
+    .prog-exo-sets{color:var(--ac);font-size:11px;flex-shrink:0;}
+    .prog-rest{font-size:10px;color:var(--mu);margin-top:8px;padding-top:6px;border-top:1px solid var(--bd);}
+    .prog-alt{font-size:10px;color:var(--ac2);font-style:italic;margin-bottom:12px;line-height:1.6;}
+    .prog-day-hdr{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+    .prog-day-label{font-size:13px;font-weight:600;color:var(--tx);}
+    .prog-day-type{font-size:10px;color:var(--mu);}
   </style>
 </head>
 <body>
@@ -171,6 +185,7 @@
     <div class="tab active" id="tab-log" onclick="showTab('log')">Log</div>
     <div class="tab" id="tab-history" onclick="showTab('history')">Historique</div>
     <div class="tab" id="tab-stats" onclick="showTab('stats')">Stats</div>
+    <div class="tab" id="tab-prog" onclick="showTab('prog')">Programme</div>
   </div>
   <div class="content" id="content"></div>
 </div>
@@ -178,7 +193,7 @@
 const OWNER='napolsg',REPO='sport-log',FILE='data.json';
 const DAYS=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
 const MONTHS=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
-let sessions={},savedExos=[],currentDate=todayKey(),activeTab='log',saveTimer=null;
+let sessions={},savedExos=[],customTemplates={},currentDate=todayKey(),activeTab='log',saveTimer=null,activeStatsType=null;
 let tInterval=null,tSecs=90,tRunning=false,tTarget=90,activeStatsExo=null,tStartTime=null,tStartSecs=90;
 let ghToken=null,fileSha=null,syncing=false;
 
@@ -189,10 +204,10 @@ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').repl
 function getSess(d){if(!sessions[d])sessions[d]={exercises:[]};return sessions[d];}
 
 function loadLocal(){
-  try{const r=localStorage.getItem('sl_v4');if(r){const p=JSON.parse(r);sessions=p.sessions||{};savedExos=p.savedExos||[];fileSha=p.fileSha||null;}}catch(e){}
+  try{const r=localStorage.getItem('sl_v4');if(r){const p=JSON.parse(r);sessions=p.sessions||{};savedExos=p.savedExos||[];fileSha=p.fileSha||null;customTemplates=p.customTemplates||{};}}catch(e){}
   ghToken=localStorage.getItem('sl_token');
 }
-function saveLocal(){try{localStorage.setItem('sl_v4',JSON.stringify({sessions,savedExos,fileSha}));}catch(e){}}
+function saveLocal(){try{localStorage.setItem('sl_v4',JSON.stringify({sessions,savedExos,fileSha,customTemplates}));}catch(e){}}
 function scheduleSave(){
   if(saveTimer)clearTimeout(saveTimer);
   saveTimer=setTimeout(()=>{saveLocal();autoSync();},800);
@@ -214,6 +229,7 @@ async function syncNow(){
       const merged=Object.assign({},remote.sessions||{},sessions);
       sessions=merged;
       savedExos=Array.from(new Set([...(remote.savedExos||[]),...savedExos]));
+      customTemplates=Object.assign({},remote.customTemplates||{},customTemplates);
     } else if(res.status!==404){throw new Error('HTTP '+res.status);}
     await pushToGitHub();
     setSyncState('ok','↑↓ sync');
@@ -225,7 +241,7 @@ async function pushToGitHub(){
   if(!ghToken||ghToken==='SKIP')return;
   syncing=true;setSyncState('syncing','... sync');
   try{
-    const content=btoa(unescape(encodeURIComponent(JSON.stringify({sessions,savedExos},null,2))));
+    const content=btoa(unescape(encodeURIComponent(JSON.stringify({sessions,savedExos,customTemplates},null,2))));
     const body={message:'update',content};if(fileSha)body.sha=fileSha;
     const res=await fetch('https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/'+FILE,{
       method:'PUT',headers:{'Authorization':'token '+ghToken,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
@@ -248,12 +264,13 @@ function saveToken(){const val=document.getElementById('token-input').value.trim
 function skipSetup(){localStorage.setItem('sl_token','SKIP');ghToken='SKIP';showTab('log');}
 function resetToken(){if(!confirm('Reinitialiser le token ?'))return;localStorage.removeItem('sl_token');ghToken=null;render();}
 
-function showTab(t){activeTab=t;['log','history','stats'].forEach(id=>document.getElementById('tab-'+id).classList.toggle('active',id===t));render();}
+function showTab(t){activeTab=t;['log','history','stats','prog'].forEach(id=>document.getElementById('tab-'+id).classList.toggle('active',id===t));render();}
 function render(){
   if(!ghToken){renderSetup();return;}
   if(activeTab==='log')renderLog();
   else if(activeTab==='history')renderHistory();
-  else renderStats();
+  else if(activeTab==='stats')renderStats();
+  else renderProg();
 }
 
 function tFmt(s){const m=Math.floor(Math.abs(s)/60),sc=Math.abs(s)%60;return String(m).padStart(2,'0')+':'+String(sc).padStart(2,'0');}
@@ -365,7 +382,8 @@ function renderLog(){
 
   if(sess.done){
     // Show archived summary inside session card
-    const archTitle=document.createElement('div');archTitle.className='arch-title';archTitle.textContent='Séance terminée';
+    const archTitle=document.createElement('div');archTitle.className='arch-title';
+    archTitle.textContent='Séance terminée'+(sess.type?' — '+sess.type:'');
     sessionCard.appendChild(archTitle);
     let t='<table class="hist-table">';
     sess.exercises.forEach(exo=>{
@@ -394,27 +412,71 @@ function renderLog(){
       em.innerHTML='Aucun exercice.<br>Ajoute-en un ci-dessus.';
       sessionCard.appendChild(em);
       const lastKeys=Object.keys(sessions).filter(k=>k<currentDate&&sessions[k].exercises&&sessions[k].exercises.length>0).sort((a,b)=>b.localeCompare(a)).slice(0,2);
-      if(lastKeys.length>0){
-        const copyWrap=document.createElement('div');copyWrap.className='copy-wrap';
+      const copyWrap=document.createElement('div');copyWrap.className='copy-wrap';
         const sel=document.createElement('select');sel.className='copy-select';
-        const dflt=document.createElement('option');dflt.value='';dflt.textContent='Copier une séance...';sel.appendChild(dflt);
-        lastKeys.forEach(k=>{
-          const o=document.createElement('option');o.value=k;o.textContent=fmtS(k);sel.appendChild(o);
-        });
+        const dflt=document.createElement('option');dflt.value='';dflt.textContent='Charger une séance...';sel.appendChild(dflt);
+
+        // Séances type
+        const builtinTemplates={
+          'tpl:A1':[['Tractions Pronation',3],['Dips',3],['Tractions Supination',3],['Ab Wheel Rollout',3]],
+          'tpl:A2':[['Tractions Supination',3],['Dips',3],['Tractions Pronation',3],['Ab Wheel Rollout',3]],
+          'tpl:B1':[['Pompes pieds levés',3],['Tractions Pronation',3],['Dips',3],['Ab Wheel Rollout',3]],
+          'tpl:B2':[['Dips',3],['Tractions Supination',3],['Pompes pieds levés',3],['Ab Wheel Rollout',3]],
+          'tpl:GC':[['Ab Wheel Rollout',4],['Gainage frontal',2],['Gainage latéral',2],['Relevé de jambes',3],['Pont fessier',3]],
+          'tpl:GI':[['Ab Wheel Rollout',5],['Touches d\'épaules en planche',3],['Relevé de jambes',3],['Gainage latéral',3]],
+        };
+        const builtinLabels={'tpl:A1':'A1 — Tirage Pronation','tpl:A2':'A2 — Tirage Supination','tpl:B1':'B1 — Poussée Pompes','tpl:B2':'B2 — Poussée Dips','tpl:GC':'Gainage & Core','tpl:GI':'Gainage Intensif'};
+        const allTemplates=Object.assign({},builtinTemplates,customTemplates);
+        const allLabels=Object.assign({},builtinLabels);
+        Object.keys(customTemplates).forEach(k=>{allLabels[k]=k.replace('custom:','');});
+
+        const grpBuiltin=document.createElement('optgroup');grpBuiltin.label='Séances programme';
+        Object.keys(builtinTemplates).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=builtinLabels[k];grpBuiltin.appendChild(o);});
+        sel.appendChild(grpBuiltin);
+
+        if(Object.keys(customTemplates).length>0){
+          const grpCustom=document.createElement('optgroup');grpCustom.label='Séances personnalisées';
+          Object.keys(customTemplates).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=k.replace('custom:','');grpCustom.appendChild(o);});
+          sel.appendChild(grpCustom);
+        }
+
         sel.addEventListener('change',()=>{
           const k=sel.value;if(!k)return;
           const s=getSess(currentDate);
-          s.exercises=sessions[k].exercises.map(e=>({name:e.name,kg:e.kg||'',series:[{reps:''},{reps:''},{reps:''}]}));
+          const tpl=allTemplates[k];
+          s.exercises=tpl.map(([name,nb])=>({name,kg:'',series:Array.from({length:nb},()=>({reps:''}))}));
+          s.type=allLabels[k]||k.replace('custom:','');
           s.done=false;scheduleSave();renderLog();
         });
         copyWrap.appendChild(sel);
         sessionCard.appendChild(copyWrap);
-      }
     } else {
+      // Type tag on active session with exercises
+      const typeRow=document.createElement('div');typeRow.style.cssText='display:flex;align-items:center;gap:6px;margin-bottom:8px;';
+      const typeLabel=document.createElement('span');typeLabel.style.cssText='font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;flex-shrink:0;';typeLabel.textContent='Type :';
+      const typeInp=document.createElement('input');typeInp.type='text';typeInp.placeholder='ex. A1, Course...';
+      typeInp.style.cssText='background:var(--sf2);border:1px solid var(--bd);color:var(--ac);font-family:var(--mono);font-size:11px;padding:4px 8px;border-radius:4px;outline:none;flex:1;';
+      typeInp.value=sess.type||'';
+      typeInp.addEventListener('input',()=>{sess.type=typeInp.value.trim();scheduleSave();});
+      typeRow.appendChild(typeLabel);typeRow.appendChild(typeInp);
+      sessionCard.appendChild(typeRow);
       sess.exercises.forEach((exo,ei)=>sessionCard.appendChild(buildExoCard(exo,ei)));
     }
     const finBtn=document.createElement('button');finBtn.className='btn-fin';finBtn.textContent='Fin de séance';
-    finBtn.onclick=()=>{if(sess.exercises.length===0)return;sess.done=true;scheduleSave();renderLog();};
+    finBtn.onclick=()=>{
+      if(sess.exercises.length===0)return;
+      // If session has a type not in builtins or custom, offer to save as template
+      const builtinKeys=['tpl:A1','tpl:A2','tpl:B1','tpl:B2','tpl:GC','tpl:GI'];
+      const typeName=sess.type||'';
+      const customKey='custom:'+typeName;
+      if(typeName&&!builtinKeys.some(k=>['A1 — Tirage Pronation','A2 — Tirage Supination','B1 — Poussée Pompes','B2 — Poussée Dips','Gainage & Core','Gainage Intensif'].includes(typeName))&&!customTemplates[customKey]){
+        if(confirm('Enregistrer "'+typeName+'" comme modèle de séance ?')){
+          customTemplates[customKey]=sess.exercises.map(e=>[e.name,e.series.length]);
+          saveLocal();
+        }
+      }
+      sess.done=true;scheduleSave();renderLog();
+    };
     sessionCard.appendChild(finBtn);
   }
   const pastKeys=Object.keys(sessions).filter(k=>k<currentDate&&sessions[k].exercises&&sessions[k].exercises.length>0).sort((a,b)=>b.localeCompare(a));
@@ -550,42 +612,80 @@ function renderStats(){
   const keys=Object.keys(sessions).filter(k=>sessions[k].exercises&&sessions[k].exercises.length>0);
   let totalSeries=0,totalReps=0;const exoCount={};
   keys.forEach(k=>{sessions[k].exercises.forEach(exo=>{exoCount[exo.name]=(exoCount[exo.name]||0)+1;exo.series.forEach(s=>{totalSeries++;if(s.reps)totalReps+=parseInt(s.reps)||0;});});});
-  const topExo=Object.entries(exoCount).sort((a,b)=>b[1]-a[1]);
   const g=document.createElement('div');g.className='stat-grid';
   g.innerHTML='<div class="stat-card"><div class="stat-lbl">Séances</div><div class="stat-val">'+keys.length+'</div></div><div class="stat-card"><div class="stat-lbl">Séries</div><div class="stat-val">'+totalSeries+'</div></div><div class="stat-card"><div class="stat-lbl">Répétitions</div><div class="stat-val">'+totalReps+'</div></div><div class="stat-card"><div class="stat-lbl">Exercices</div><div class="stat-val">'+Object.keys(exoCount).length+'</div></div>';
   c.appendChild(g);
-  if(topExo.length===0){const em=document.createElement('div');em.className='empty';em.textContent='Pas encore de données.';c.appendChild(em);return;}
-  const sw=document.createElement('div');sw.className='exo-sel';
-  sw.innerHTML='<select id="ss"><option value="">-- Choisir un exercice --</option>'+topExo.map(([n])=>'<option value="'+esc(n)+'"'+(n===activeStatsExo?' selected':'')+'>'+esc(n)+'</option>').join('')+'</select>';
-  c.appendChild(sw);
-  const ca=document.createElement('div');ca.id='ca';c.appendChild(ca);
-  document.getElementById('ss').addEventListener('change',e=>{activeStatsExo=e.target.value;renderChart(activeStatsExo);});
-  if(activeStatsExo)renderChart(activeStatsExo);
-  const ft=document.createElement('div');ft.className='sec-title';ft.textContent='Exercices fréquents';c.appendChild(ft);
-  topExo.slice(0,10).forEach(([n,v])=>{const r=document.createElement('div');r.className='freq-row';r.innerHTML='<span>'+esc(n)+'</span><span class="freq-cnt">'+v+'x</span>';c.appendChild(r);});
+
+  // Session type stats
+  const typeTitle=document.createElement('div');typeTitle.className='sec-title';typeTitle.textContent='Progression par type de séance';c.appendChild(typeTitle);
+
+  // Gather all session types
+  const typeMap={};
+  keys.forEach(k=>{
+    const t=sessions[k].type;
+    if(t){if(!typeMap[t])typeMap[t]=[];typeMap[t].push(k);}
+  });
+
+  if(Object.keys(typeMap).length===0){
+    const em=document.createElement('div');em.className='empty';em.textContent='Aucune séance étiquetée. Chargez un template ou renseignez le champ "Type" lors de votre prochaine séance.';c.appendChild(em);
+  } else {
+    const sw=document.createElement('div');sw.className='exo-sel';
+    const selT=document.createElement('select');selT.id='st';
+    selT.innerHTML='<option value="">-- Choisir un type --</option>'+Object.keys(typeMap).sort().map(t=>'<option value="'+esc(t)+'"'+(t===activeStatsType?' selected':'')+'>'+esc(t)+' ('+typeMap[t].length+'x)</option>').join('');
+    selT.style.cssText='background:var(--sf2);border:1px solid var(--bd);color:var(--tx);font-family:var(--mono);font-size:12px;padding:8px 10px;border-radius:var(--r);width:100%;outline:none;color-scheme:dark;';
+    sw.appendChild(selT);c.appendChild(sw);
+    const ca=document.createElement('div');ca.id='ca';c.appendChild(ca);
+    selT.addEventListener('change',e=>{activeStatsType=e.target.value;renderSessionTypeChart(activeStatsType,typeMap);});
+    if(activeStatsType&&typeMap[activeStatsType])renderSessionTypeChart(activeStatsType,typeMap);
+  }
+
+  // Exercise frequency
+  const topExo=Object.entries(exoCount).sort((a,b)=>b[1]-a[1]);
+  if(topExo.length>0){
+    const ft=document.createElement('div');ft.className='sec-title';ft.textContent='Exercices fréquents';c.appendChild(ft);
+    topExo.slice(0,10).forEach(([n,v])=>{const r=document.createElement('div');r.className='freq-row';r.innerHTML='<span>'+esc(n)+'</span><span class="freq-cnt">'+v+'x</span>';c.appendChild(r);});
+  }
 }
 
-function renderChart(name){
-  const area=document.getElementById('ca');if(!area||!name)return;area.innerHTML='';
-  const keys=Object.keys(sessions).filter(k=>sessions[k].exercises&&sessions[k].exercises.some(e=>e.name===name)).sort((a,b)=>a.localeCompare(b));
-  const pts=keys.map(k=>{const exo=sessions[k].exercises.find(e=>e.name===name);const tot=exo.series.reduce((s,r)=>s+(parseInt(r.reps)||0),0);const mx=Math.max(...exo.series.map(r=>parseInt(r.reps)||0));return{date:fmtS(k),tot,mx};});
-  if(pts.length===0)return;
-  const W=320,H=120,PL=28,PR=10,PT=10,PB=30,cW=W-PL-PR,cH=H-PT-PB;
-  const maxVal=Math.max(...pts.map(d=>d.tot),1);
-  const barW=Math.min(28,cW/pts.length*0.6),step=cW/pts.length;
-  let bars='',line='',dots='',labels='',yAxis='';
-  pts.forEach((d,i)=>{
-    const x=PL+i*step+step/2,bH=(d.tot/maxVal)*cH;
-    bars+='<rect x="'+(x-barW/2).toFixed(1)+'" y="'+(PT+cH-bH).toFixed(1)+'" width="'+barW+'" height="'+bH.toFixed(1)+'" rx="3" fill="rgba(168,216,168,0.45)" stroke="#a8d8a8" stroke-width="1"/>';
-    const dy=(PT+cH-(d.mx/maxVal)*cH).toFixed(1);
-    if(i===0)line+='M'+x.toFixed(1)+','+dy;else line+=' L'+x.toFixed(1)+','+dy;
-    dots+='<circle cx="'+x.toFixed(1)+'" cy="'+dy+'" r="3.5" fill="#e07a7a"/>';
-    labels+='<text x="'+x.toFixed(1)+'" y="'+(H-6)+'" text-anchor="middle" fill="#8888a8" font-size="8" font-family="monospace">'+esc(d.date)+'</text>';
+function renderSessionTypeChart(type,typeMap){
+  const area=document.getElementById('ca');if(!area||!type||!typeMap[type])return;area.innerHTML='';
+  const keys=typeMap[type].sort((a,b)=>a.localeCompare(b));
+  if(keys.length<2){
+    area.innerHTML='<div class="empty" style="padding:12px">Pas encore assez de séances de ce type pour afficher une progression.</div>';return;
+  }
+
+  // Get all exercises that appear in at least one session of this type
+  const exoNames=[];
+  keys.forEach(k=>{sessions[k].exercises.forEach(e=>{if(!exoNames.includes(e.name))exoNames.push(e.name);});});
+
+  // One chart per exercise
+  exoNames.forEach(name=>{
+    const pts=keys.map(k=>{
+      const exo=sessions[k].exercises.find(e=>e.name===name);
+      if(!exo)return null;
+      const tot=exo.series.reduce((s,r)=>s+(parseInt(r.reps)||0),0);
+      const mx=Math.max(...exo.series.map(r=>parseInt(r.reps)||0));
+      return{date:fmtS(k),tot,mx};
+    }).filter(Boolean);
+    if(pts.length===0)return;
+
+    const W=320,H=110,PL=28,PR=10,PT=10,PB=28,cW=W-PL-PR,cH=H-PT-PB;
+    const maxVal=Math.max(...pts.map(d=>d.tot),1);
+    const barW=Math.min(28,cW/pts.length*0.6),step=cW/pts.length;
+    let bars='',line='',dots='',labels='',yAxis='';
+    pts.forEach((d,i)=>{
+      const x=PL+i*step+step/2,bH=(d.tot/maxVal)*cH;
+      bars+='<rect x="'+(x-barW/2).toFixed(1)+'" y="'+(PT+cH-bH).toFixed(1)+'" width="'+barW+'" height="'+bH.toFixed(1)+'" rx="3" fill="rgba(168,216,168,0.35)" stroke="#a8d8a8" stroke-width="1"/>';
+      const dy=(PT+cH-(d.mx/maxVal)*cH).toFixed(1);
+      if(i===0)line+='M'+x.toFixed(1)+','+dy;else line+=' L'+x.toFixed(1)+','+dy;
+      dots+='<circle cx="'+x.toFixed(1)+'" cy="'+dy+'" r="3" fill="#e07a7a"/>';
+      labels+='<text x="'+x.toFixed(1)+'" y="'+(H-4)+'" text-anchor="middle" fill="#8888a8" font-size="7" font-family="monospace">'+esc(d.date)+'</text>';
+    });
+    for(let i=0;i<=3;i++){const y=(PT+cH*(1-i/3)).toFixed(1),val=Math.round(maxVal*i/3);yAxis+='<line x1="'+PL+'" y1="'+y+'" x2="'+(W-PR)+'" y2="'+y+'" stroke="rgba(255,255,255,0.05)" stroke-width="1"/><text x="'+(PL-3)+'" y="'+(parseFloat(y)+3).toFixed(1)+'" text-anchor="end" fill="#8888a8" font-size="7" font-family="monospace">'+val+'</text>';}
+    const wrap=document.createElement('div');wrap.className='chart-wrap';wrap.style.marginBottom='10px';
+    wrap.innerHTML='<div class="chart-title">'+esc(name)+'</div><svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:'+H+'px;display:block;">'+yAxis+bars+'<path d="'+line+'" fill="none" stroke="#e07a7a" stroke-width="1.5"/>'+dots+labels+'</svg>';
+    area.appendChild(wrap);
   });
-  for(let i=0;i<=4;i++){const y=(PT+cH*(1-i/4)).toFixed(1),val=Math.round(maxVal*i/4);yAxis+='<line x1="'+PL+'" y1="'+y+'" x2="'+(W-PR)+'" y2="'+y+'" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><text x="'+(PL-3)+'" y="'+(parseFloat(y)+3).toFixed(1)+'" text-anchor="end" fill="#8888a8" font-size="8" font-family="monospace">'+val+'</text>';}
-  const wrap=document.createElement('div');wrap.className='chart-wrap';
-  wrap.innerHTML='<div class="chart-title">'+esc(name)+' -- reps par séance</div><svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:'+H+'px;display:block;">'+yAxis+bars+'<path d="'+line+'" fill="none" stroke="#e07a7a" stroke-width="2"/>'+dots+labels+'</svg><div class="chart-legend"><div class="legend-item"><div class="legend-dot" style="background:rgba(168,216,168,0.6);"></div>total reps</div><div class="legend-item"><div class="legend-dot" style="background:#e07a7a;border-radius:50%;"></div>max serie</div></div>';
-  area.appendChild(wrap);
 }
 
 function forceUpdate(){
@@ -598,6 +698,95 @@ function forceUpdate(){
     }).catch(reload);
   } else {
     reload();
+  }
+}
+
+function renderProg(){
+  const c=document.getElementById('content');c.innerHTML='';
+
+  // Séances type
+  const seances={
+    'A1':{label:'Séance A1',sub:'Tirage priorité pronation',exos:[['Tractions Pronation','3x Max'],['Dips','3x Max'],['Tractions Supination','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
+    'A2':{label:'Séance A2',sub:'Tirage priorité supination',exos:[['Tractions Supination','3x Max'],['Dips','3x Max'],['Tractions Pronation','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
+    'B1':{label:'Séance B1',sub:'Poussée priorité pompes',exos:[['Pompes pieds levés','3x Max'],['Tractions Pronation','3x Max'],['Dips','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
+    'B2':{label:'Séance B2',sub:'Poussée priorité dips',exos:[['Dips','3x Max'],['Tractions Supination','3x Max'],['Pompes pieds levés','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
+  };
+
+  const days=[
+    {day:'Lundi',type:'Haut',seance:'A ou B',note:'Alterner : A1 → B1 → A2 → B2 → A1...'},
+    {day:'Mardi',type:'Gainage & Core',exos:[['Ab Wheel Rollout','4x10'],['Gainage frontal','2x1\'30'],['Gainage latéral','2x1\' / côté'],['Relevés de jambes','3x15'],['Pont fessier','3x15 (2s)']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Mercredi',type:'Haut',seance:'A ou B',note:'Toujours l\'inverse du Lundi'},
+    {day:'Jeudi',type:'Gainage & Core',exos:[['Ab Wheel Rollout','4x10'],['Gainage frontal','2x1\'30'],['Gainage latéral','2x1\' / côté'],['Relevés de jambes','3x15'],['Pont fessier','3x15 (2s)']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Vendredi',type:'Haut',seance:'A ou B',note:'Toujours l\'inverse du Mercredi'},
+    {day:'Samedi',type:'Gainage intensif',exos:[['Ab Wheel Rollout','5x10'],['Touches d\'épaules en planche','3x15'],['Relevés de jambes','3x20'],['Gainage latéral','3x1\'']],rest:'45 sec entre séries / 2 min entre exercices'},
+    {day:'Dimanche',type:'Repos',exos:null,rest:null},
+  ];
+
+  // Section planning semaine
+  const planTitle=document.createElement('div');planTitle.className='prog-title';planTitle.textContent='Planning semaine';
+  c.appendChild(planTitle);
+
+  days.forEach(d=>{
+    const card=document.createElement('div');card.className='prog-card';
+    const hdr=document.createElement('div');hdr.className='prog-day-hdr';
+    hdr.innerHTML='<span class="prog-day-label">'+d.day+'</span><span class="prog-day-type">'+d.type+'</span>';
+    card.appendChild(hdr);
+
+    if(d.seance){
+      const alt=document.createElement('div');alt.className='prog-alt';alt.textContent=d.note;
+      card.appendChild(alt);
+    } else if(d.exos){
+      d.exos.forEach((e,i)=>{
+        const row=document.createElement('div');row.className='prog-exo';
+        row.innerHTML='<span class="prog-exo-num">'+(i+1)+'.</span><span class="prog-exo-name">'+e[0]+'</span><span class="prog-exo-sets">'+e[1]+'</span>';
+        card.appendChild(row);
+      });
+      if(d.rest){const r=document.createElement('div');r.className='prog-rest';r.textContent='⏱ '+d.rest;card.appendChild(r);}
+    } else {
+      const em=document.createElement('div');em.style.cssText='font-size:12px;color:var(--mu);';em.textContent='Repos total / étirements légers';card.appendChild(em);
+    }
+    c.appendChild(card);
+  });
+
+  // Section séances type
+  const seanceTitle=document.createElement('div');seanceTitle.className='prog-title';seanceTitle.style.marginTop='18px';seanceTitle.textContent='Descriptif séances haut';
+  c.appendChild(seanceTitle);
+
+  const altNote=document.createElement('div');altNote.className='prog-alt';altNote.textContent='Ordre : A1 → B1 → A2 → B2 → A1 → B1...';
+  c.appendChild(altNote);
+
+  Object.values(seances).forEach(s=>{
+    const card=document.createElement('div');card.className='prog-card';
+    const title=document.createElement('div');title.className='prog-card-title';title.textContent=s.label+' — '+s.sub;
+    card.appendChild(title);
+    s.exos.forEach((e,i)=>{
+      const row=document.createElement('div');row.className='prog-exo';
+      row.innerHTML='<span class="prog-exo-num">'+(i+1)+'.</span><span class="prog-exo-name">'+e[0]+'</span><span class="prog-exo-sets">'+e[1]+'</span>';
+      card.appendChild(row);
+    });
+    const r=document.createElement('div');r.className='prog-rest';r.textContent='⏱ '+s.rest;card.appendChild(r);
+    c.appendChild(card);
+  });
+
+  // Custom templates section
+  if(Object.keys(customTemplates).length>0){
+    const customTitle=document.createElement('div');customTitle.className='prog-title';customTitle.style.marginTop='18px';customTitle.textContent='Séances personnalisées';
+    c.appendChild(customTitle);
+    Object.keys(customTemplates).forEach(k=>{
+      const name=k.replace('custom:','');
+      const card=document.createElement('div');card.className='prog-card';
+      const titleEl=document.createElement('div');titleEl.className='prog-card-title';
+      const delBtn=document.createElement('button');delBtn.textContent='✕';delBtn.style.cssText='float:right;background:transparent;border:none;color:var(--mu);cursor:pointer;font-size:12px;';
+      delBtn.onclick=()=>{if(confirm('Supprimer "'+name+'" ?')){delete customTemplates[k];saveLocal();renderProg();}};
+      titleEl.textContent=name;titleEl.appendChild(delBtn);
+      card.appendChild(titleEl);
+      customTemplates[k].forEach(([exoName,nb],i)=>{
+        const row=document.createElement('div');row.className='prog-exo';
+        row.innerHTML='<span class="prog-exo-num">'+(i+1)+'.</span><span class="prog-exo-name">'+esc(exoName)+'</span><span class="prog-exo-sets">'+nb+'x séries</span>';
+        card.appendChild(row);
+      });
+      c.appendChild(card);
+    });
   }
 }
 
