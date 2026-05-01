@@ -174,7 +174,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v14.9</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v15.2</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -309,6 +309,8 @@ function updTimerBtns(){
   if(br)br.className='bt';
 }
 let _audioCtx=null,_audioUnlocked=false;
+document.addEventListener('touchstart',()=>{unlockAudio();},{once:false,passive:true});
+document.addEventListener('click',()=>{if(_audioCtx&&_audioCtx.state==='suspended')_audioCtx.resume();},{passive:true});
 function unlockAudio(){
   if(_audioUnlocked)return;
   try{
@@ -339,7 +341,7 @@ function beep(){
       });
     };
     if(c.state==='suspended'){c.resume().then(doPlay);}else{doPlay();}
-  }catch(e){}
+  }catch(e){console.warn('beep error',e);}
 }
 
 function renderTimerWidget(){
@@ -486,7 +488,8 @@ function renderLog(){
     pastKeys.forEach(k=>{
       const s2=sessions[k],dd=document.createElement('div');dd.className='past-day';
       const phdr=document.createElement('div');phdr.className='hist-day-header';
-      const plbl=document.createElement('span');plbl.className='past-day-lbl';plbl.textContent=fmtS(k);
+      const plbl=document.createElement('span');plbl.className='past-day-lbl';
+      plbl.textContent=fmtS(k)+(s2.type?' — '+s2.type:'');
       const pDel=document.createElement('button');pDel.className='btn-del-day';pDel.textContent='✕';
       pDel.addEventListener('click',()=>{delete sessions[k];scheduleSave();renderLog();});
       phdr.appendChild(plbl);phdr.appendChild(pDel);
@@ -583,14 +586,50 @@ function addExo(){
   setTimeout(()=>{const cards=document.querySelectorAll('.exo-card');if(cards.length)cards[cards.length-1].scrollIntoView({behavior:'smooth',block:'start'});},60);
 }
 
+function exportHistory(){
+  const keys=Object.keys(sessions).filter(k=>sessions[k].exercises&&sessions[k].exercises.length>0).sort((a,b)=>a.localeCompare(b));
+  if(keys.length===0)return;
+
+  // Build CSV
+  const maxSeries=Math.max(...keys.flatMap(k=>sessions[k].exercises.map(e=>e.series.length)));
+  const headers=['Date','Type','Exercice','Poids (kg)'];
+  for(let i=1;i<=maxSeries;i++)headers.push('Série '+i);
+  const rows=[headers];
+
+  keys.forEach(k=>{
+    const s=sessions[k];
+    const date=fmtKey(k);
+    const type=s.type||'';
+    s.exercises.forEach(exo=>{
+      const row=[date,type,exo.name,exo.kg||''];
+      for(let i=0;i<maxSeries;i++)row.push(exo.series[i]?exo.series[i].reps||'':'');
+      rows.push(row);
+    });
+  });
+
+  const csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const bom='\uFEFF'; // UTF-8 BOM for Excel
+  const blob=new Blob([bom+csv],{type:'text/csv;charset=utf-8;'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='sport-log-'+todayKey()+'.csv';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+}
+
 function renderHistory(){
   const c=document.getElementById('content');c.innerHTML='';
   const keys=Object.keys(sessions).filter(k=>sessions[k].exercises&&sessions[k].exercises.length>0).sort((a,b)=>b.localeCompare(a));
   if(keys.length===0){c.innerHTML='<div class="empty">Aucune séance enregistrée.</div>';return;}
+
+  const expBtn=document.createElement('button');
+  expBtn.className='btn-reopen';expBtn.style.cssText='width:100%;margin-bottom:12px;';
+  expBtn.textContent='⬇ Exporter en CSV (Excel)';
+  expBtn.onclick=exportHistory;
+  c.appendChild(expBtn);
   keys.forEach(k=>{
     const block=document.createElement('div');block.className='hist-day session-card';
     const hdr=document.createElement('div');hdr.className='hist-day-header';
-    const ttl=document.createElement('span');ttl.className='hist-day-title';ttl.textContent=fmtKey(k);
+    const ttl=document.createElement('span');ttl.className='hist-day-title';
+    ttl.textContent=fmtKey(k)+(sessions[k].type?' — '+sessions[k].type:'');
     const delDay=document.createElement('button');delDay.className='btn-del-day';delDay.textContent='✕';
     delDay.addEventListener('click',()=>{delete sessions[k];scheduleSave();renderHistory();});
     hdr.appendChild(ttl);hdr.appendChild(delDay);
