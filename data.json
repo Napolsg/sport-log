@@ -378,7 +378,7 @@
           "kg": "",
           "series": [
             {
-              "reps": ""
+              "reps": "8"
             },
             {
               "reps": ""
@@ -390,7 +390,7 @@
         }
       ],
       "type": "B1 — Poussée Pompes",
-      "done": false
+      "done": true
     }
   },
   "savedExos": [
