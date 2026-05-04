@@ -399,16 +399,16 @@
           "kg": "",
           "series": [
             {
-              "reps": ""
+              "reps": "10"
             },
             {
-              "reps": ""
+              "reps": "10"
             },
             {
-              "reps": ""
+              "reps": "10"
             },
             {
-              "reps": ""
+              "reps": "10"
             }
           ]
         },
@@ -428,6 +428,12 @@
           "name": "Gainage latéral",
           "kg": "",
           "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
             {
               "reps": ""
             },
