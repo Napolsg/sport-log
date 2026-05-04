@@ -174,7 +174,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v15.2</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v15.5</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -308,23 +308,22 @@ function updTimerBtns(){
   if(bs)bs.className='bt'+(tRunning?' on':'');
   if(br)br.className='bt';
 }
-let _audioCtx=null,_audioUnlocked=false;
-document.addEventListener('touchstart',()=>{unlockAudio();},{once:false,passive:true});
-document.addEventListener('click',()=>{if(_audioCtx&&_audioCtx.state==='suspended')_audioCtx.resume();},{passive:true});
-function unlockAudio(){
-  if(_audioUnlocked)return;
-  try{
-    if(!_audioCtx)_audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-    const buf=_audioCtx.createBuffer(1,1,22050);
-    const src=_audioCtx.createBufferSource();src.buffer=buf;src.connect(_audioCtx.destination);src.start(0);
-    _audioUnlocked=true;
-  }catch(e){}
-}
+let _audioCtx=null;
 function getAudioCtx(){
   if(!_audioCtx)_audioCtx=new(window.AudioContext||window.webkitAudioContext)();
-  if(_audioCtx.state==='suspended')_audioCtx.resume();
   return _audioCtx;
 }
+function unlockAudio(){
+  try{
+    const c=getAudioCtx();
+    if(c.state==='suspended')c.resume();
+    // Play silent buffer to unlock on iOS
+    const buf=c.createBuffer(1,1,22050);
+    const src=c.createBufferSource();src.buffer=buf;src.connect(c.destination);src.start(0);
+  }catch(e){}
+}
+document.addEventListener('touchstart',unlockAudio,{passive:true});
+document.addEventListener('touchend',unlockAudio,{passive:true});
 function beep(){
   try{
     const c=getAudioCtx();
@@ -420,10 +419,10 @@ function renderLog(){
 
         // Séances type
         const builtinTemplates={
-          'tpl:A1':[['Tractions Pronation',3],['Dips',3],['Tractions Supination',3],['Ab Wheel Rollout',3]],
-          'tpl:A2':[['Tractions Supination',3],['Dips',3],['Tractions Pronation',3],['Ab Wheel Rollout',3]],
-          'tpl:B1':[['Pompes pieds levés',3],['Tractions Pronation',3],['Dips',3],['Ab Wheel Rollout',3]],
-          'tpl:B2':[['Dips',3],['Tractions Supination',3],['Pompes pieds levés',3],['Ab Wheel Rollout',3]],
+          'tpl:A1':[['Tractions Pronation',3],['Dips',3],['Tractions Supination',3],['Pompes pieds levés',3],['Ab Wheel Rollout',3]],
+          'tpl:A2':[['Tractions Supination',3],['Pompes pieds levés',3],['Tractions Pronation',3],['Dips',3],['Ab Wheel Rollout',3]],
+          'tpl:B1':[['Pompes pieds levés',3],['Tractions Pronation',3],['Dips',3],['Tractions Supination',3],['Ab Wheel Rollout',3]],
+          'tpl:B2':[['Dips',3],['Tractions Supination',3],['Pompes pieds levés',3],['Tractions Pronation',3],['Ab Wheel Rollout',3]],
           'tpl:GC':[['Ab Wheel Rollout',4],['Gainage frontal',2],['Gainage latéral',2],['Relevé de jambes',3],['Pont fessier',3]],
           'tpl:GI':[['Ab Wheel Rollout',5],['Touches d\'épaules en planche',3],['Relevé de jambes',3],['Gainage latéral',3]],
         };
@@ -745,10 +744,10 @@ function renderProg(){
 
   // Séances type
   const seances={
-    'A1':{label:'Séance A1',sub:'Tirage priorité pronation',exos:[['Tractions Pronation','3x Max'],['Dips','3x Max'],['Tractions Supination','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
-    'A2':{label:'Séance A2',sub:'Tirage priorité supination',exos:[['Tractions Supination','3x Max'],['Dips','3x Max'],['Tractions Pronation','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
-    'B1':{label:'Séance B1',sub:'Poussée priorité pompes',exos:[['Pompes pieds levés','3x Max'],['Tractions Pronation','3x Max'],['Dips','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
-    'B2':{label:'Séance B2',sub:'Poussée priorité dips',exos:[['Dips','3x Max'],['Tractions Supination','3x Max'],['Pompes pieds levés','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
+    'A1':{label:'Séance A1',sub:'Tirage priorité pronation',exos:[['Tractions Pronation','3x Max'],['Dips','3x Max'],['Tractions Supination','3x Max'],['Pompes pieds levés','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
+    'A2':{label:'Séance A2',sub:'Tirage priorité supination',exos:[['Tractions Supination','3x Max'],['Pompes pieds levés','3x Max'],['Tractions Pronation','3x Max'],['Dips','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
+    'B1':{label:'Séance B1',sub:'Poussée priorité pompes',exos:[['Pompes pieds levés','3x Max'],['Tractions Pronation','3x Max'],['Dips','3x Max'],['Tractions Supination','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
+    'B2':{label:'Séance B2',sub:'Poussée priorité dips',exos:[['Dips','3x Max'],['Tractions Supination','3x Max'],['Pompes pieds levés','3x Max'],['Tractions Pronation','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
   };
 
   const days=[
