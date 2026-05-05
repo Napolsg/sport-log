@@ -417,10 +417,10 @@
           "kg": "",
           "series": [
             {
-              "reps": ""
+              "reps": "15"
             },
             {
-              "reps": ""
+              "reps": "15"
             }
           ]
         },
@@ -429,16 +429,16 @@
           "kg": "",
           "series": [
             {
-              "reps": ""
+              "reps": "10"
             },
             {
-              "reps": ""
+              "reps": "10"
             },
             {
-              "reps": ""
+              "reps": "10"
             },
             {
-              "reps": ""
+              "reps": "10"
             }
           ]
         },
@@ -447,34 +447,34 @@
           "kg": "",
           "series": [
             {
-              "reps": ""
+              "reps": "15"
             },
             {
-              "reps": ""
+              "reps": "11"
             },
             {
-              "reps": ""
+              "reps": "10"
             }
           ]
         },
         {
           "name": "Pont fessier",
-          "kg": "",
+          "kg": "6",
           "series": [
             {
-              "reps": ""
+              "reps": "15"
             },
             {
-              "reps": ""
+              "reps": "15"
             },
             {
-              "reps": ""
+              "reps": "15"
             }
           ]
         }
       ],
       "type": "Gainage & Core",
-      "done": false
+      "done": true
     }
   },
   "savedExos": [
