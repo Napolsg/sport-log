@@ -174,7 +174,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v15.7</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v15.8</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -283,6 +283,7 @@ function startTimer(target){
     const elapsed=Math.floor((Date.now()-tStartTime)/1000);
     tSecs=Math.max(0,tStartSecs-elapsed);
     updT();
+    if(_audioCtx&&_audioCtx.state==='suspended')_audioCtx.resume();
     if(tSecs<=0){beep();if(navigator.vibrate)navigator.vibrate([200,100,200,100,400]);stopTimer();}
   },500);
   updTimerBtns();
