@@ -174,7 +174,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v15.6</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v15.7</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -283,7 +283,7 @@ function startTimer(target){
     const elapsed=Math.floor((Date.now()-tStartTime)/1000);
     tSecs=Math.max(0,tStartSecs-elapsed);
     updT();
-    if(tSecs<=0){beep();stopTimer();}
+    if(tSecs<=0){beep();if(navigator.vibrate)navigator.vibrate([200,100,200,100,400]);stopTimer();}
   },500);
   updTimerBtns();
 }
@@ -310,37 +310,38 @@ function updTimerBtns(){
 }
 let _audioCtx=null;
 function getAudioCtx(){
-  if(!_audioCtx)_audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  // Always create fresh context if none or closed
+  if(!_audioCtx||_audioCtx.state==='closed'){
+    _audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  }
   return _audioCtx;
 }
 function unlockAudio(){
   try{
     const c=getAudioCtx();
     if(c.state==='suspended')c.resume();
-    // Play silent buffer to unlock on iOS
     const buf=c.createBuffer(1,1,22050);
     const src=c.createBufferSource();src.buffer=buf;src.connect(c.destination);src.start(0);
   }catch(e){}
 }
 document.addEventListener('touchstart',unlockAudio,{passive:true});
-document.addEventListener('touchend',unlockAudio,{passive:true});
 function beep(){
   try{
     const c=getAudioCtx();
-    const doPlay=()=>{
+    const play=()=>{
       const now=c.currentTime;
       [[880,0],[1100,0.4],[1320,0.8]].forEach(([freq,t])=>{
         const o=c.createOscillator(),g=c.createGain();
         o.connect(g);g.connect(c.destination);
         o.frequency.value=freq;o.type='sine';
         g.gain.setValueAtTime(0,now+t);
-        g.gain.linearRampToValueAtTime(0.4,now+t+0.05);
-        g.gain.exponentialRampToValueAtTime(0.001,now+t+0.35);
-        o.start(now+t);o.stop(now+t+0.35);
+        g.gain.linearRampToValueAtTime(0.5,now+t+0.05);
+        g.gain.exponentialRampToValueAtTime(0.001,now+t+0.4);
+        o.start(now+t);o.stop(now+t+0.4);
       });
     };
-    if(c.state==='suspended'){c.resume().then(doPlay);}else{doPlay();}
-  }catch(e){console.warn('beep error',e);}
+    if(c.state==='suspended'){c.resume().then(play);}else{play();}
+  }catch(e){console.warn('beep',e);}
 }
 
 function renderTimerWidget(){
@@ -359,7 +360,14 @@ function renderTimerWidget(){
   const sEl=document.createElement('span');sEl.className='td-part';sEl.id='td-sec';sEl.style.display='none';
   displayZone.appendChild(sel);displayZone.appendChild(mEl);displayZone.appendChild(colon);displayZone.appendChild(sEl);
   const bStart=document.createElement('button');bStart.className='bt on';bStart.id='bt-s';bStart.textContent='Start';
-  bStart.onclick=()=>{unlockAudio();if(tRunning)stopTimer();else{if(tSecs<=0)tSecs=tTarget;startTimer(tSecs);}};
+  bStart.onclick=()=>{
+    unlockAudio();
+    if(tRunning){stopTimer();}
+    else{
+      if(tSecs<=0)tSecs=tTarget;
+      startTimer(tSecs);
+    }
+  };
   const bReset=document.createElement('button');bReset.className='bt';bReset.id='bt-r';bReset.textContent='Reset';
   bReset.onclick=()=>resetTimer();
   row.appendChild(displayZone);row.appendChild(bStart);row.appendChild(bReset);
