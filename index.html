@@ -174,7 +174,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v15.8</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v15.9</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -432,8 +432,8 @@ function renderLog(){
           'tpl:A2':[['Tractions Supination',3],['Pompes pieds levés',3],['Tractions Pronation',3],['Dips',3],['Ab Wheel Rollout',3]],
           'tpl:B1':[['Pompes pieds levés',3],['Tractions Pronation',3],['Dips',3],['Tractions Supination',3],['Ab Wheel Rollout',3]],
           'tpl:B2':[['Dips',3],['Tractions Supination',3],['Pompes pieds levés',3],['Tractions Pronation',3],['Ab Wheel Rollout',3]],
-          'tpl:GC':[['Ab Wheel Rollout',4],['Gainage frontal',2],['Gainage latéral',4],['Relevé de jambes',3],['Pont fessier',3]],
-          'tpl:GI':[['Ab Wheel Rollout',5],['Touches d\'épaules en planche',3],['Relevé de jambes',3],['Gainage latéral',4]],
+          'tpl:GC':[['Ab Wheel Rollout',4],['Gainage frontal',2],['Gainage latéral',4],['Relevé de jambes',3],['Pont fessier',3],['Squat',3]],
+          'tpl:GI':[['Ab Wheel Rollout',5],['Touches d\'épaules en planche',3],['Relevé de jambes',3],['Gainage latéral',4],['Pont fessier',3],['Squat',3]],
         };
         const builtinLabels={'tpl:A1':'A1 — Tirage Pronation','tpl:A2':'A2 — Tirage Supination','tpl:B1':'B1 — Poussée Pompes','tpl:B2':'B2 — Poussée Dips','tpl:GC':'Gainage & Core','tpl:GI':'Gainage Intensif'};
         const allTemplates=Object.assign({},builtinTemplates,customTemplates);
@@ -761,11 +761,11 @@ function renderProg(){
 
   const days=[
     {day:'Lundi',type:'Haut',seance:'A ou B',note:'Alterner : A1 → B1 → A2 → B2 → A1...'},
-    {day:'Mardi',type:'Gainage & Core',exos:[['Ab Wheel Rollout','4x10'],['Gainage frontal','2x1\'30'],['Gainage latéral','2x1\' / côté'],['Relevés de jambes','3x15'],['Pont fessier','3x15 (2s)']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Mardi',type:'Gainage & Core',exos:[['Ab Wheel Rollout','4x10'],['Gainage frontal','2x1\'30'],['Gainage latéral','4x1\' (2/côté)'],['Relevés de jambes','3x15'],['Pont fessier','3x15 (2s)'],['Squat','3x10']],rest:'1 min entre séries / 2 min entre exercices'},
     {day:'Mercredi',type:'Haut',seance:'A ou B',note:'Toujours l\'inverse du Lundi'},
-    {day:'Jeudi',type:'Gainage & Core',exos:[['Ab Wheel Rollout','4x10'],['Gainage frontal','2x1\'30'],['Gainage latéral','2x1\' / côté'],['Relevés de jambes','3x15'],['Pont fessier','3x15 (2s)']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Jeudi',type:'Gainage & Core',exos:[['Ab Wheel Rollout','4x10'],['Gainage frontal','2x1\'30'],['Gainage latéral','4x1\' (2/côté)'],['Relevés de jambes','3x15'],['Pont fessier','3x15 (2s)'],['Squat','3x10']],rest:'1 min entre séries / 2 min entre exercices'},
     {day:'Vendredi',type:'Haut',seance:'A ou B',note:'Toujours l\'inverse du Mercredi'},
-    {day:'Samedi',type:'Gainage intensif',exos:[['Ab Wheel Rollout','5x10'],['Touches d\'épaules en planche','3x15'],['Relevés de jambes','3x20'],['Gainage latéral','3x1\'']],rest:'45 sec entre séries / 2 min entre exercices'},
+    {day:'Samedi',type:'Gainage intensif',exos:[['Ab Wheel Rollout','5x10'],['Touches d\'épaules en planche','3x15'],['Relevés de jambes','3x20'],['Gainage latéral','4x1\' (2/côté)'],['Pont fessier','3x15 (2s)'],['Squat','3x10']],rest:'45 sec entre séries / 2 min entre exercices'},
     {day:'Dimanche',type:'Repos',exos:null,rest:null},
   ];
 
