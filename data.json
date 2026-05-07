@@ -735,13 +735,13 @@
               "reps": "8"
             },
             {
-              "reps": ""
+              "reps": "8"
             }
           ]
         }
       ],
       "type": "B2 — Poussée Dips",
-      "done": false
+      "done": true
     }
   },
   "savedExos": [
