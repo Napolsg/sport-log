@@ -1170,13 +1170,13 @@
               "reps": "12"
             },
             {
-              "reps": ""
+              "reps": "12"
             }
           ]
         }
       ],
       "type": "Gainage Intensif",
-      "done": false
+      "done": true
     }
   },
   "savedExos": [
