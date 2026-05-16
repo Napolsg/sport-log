@@ -174,7 +174,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v16.0</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v16.1</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -524,9 +524,11 @@ function renderLog(){
       const phdr=document.createElement('div');phdr.className='hist-day-header';
       const plbl=document.createElement('span');plbl.className='past-day-lbl';
       plbl.textContent=fmtS(k)+(s2.type?' — '+s2.type:'');
+      const pEdit=document.createElement('button');pEdit.className='btn-reopen';pEdit.style.cssText='font-size:10px;padding:3px 8px;margin-right:4px;';pEdit.textContent='✏';
+      pEdit.addEventListener('click',()=>{currentDate=k;activeTab='log';render();});
       const pDel=document.createElement('button');pDel.className='btn-del-day';pDel.textContent='✕';
       pDel.addEventListener('click',()=>{delete sessions[k];scheduleSave();renderLog();});
-      phdr.appendChild(plbl);phdr.appendChild(pDel);
+      phdr.appendChild(plbl);phdr.appendChild(pEdit);phdr.appendChild(pDel);
       dd.appendChild(phdr);
       let t='<table class="hist-table">';
       s2.exercises.forEach(exo=>{
