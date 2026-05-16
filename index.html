@@ -174,7 +174,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v15.9</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v16.0</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -471,6 +471,32 @@ function renderLog(){
       typeRow.appendChild(typeLabel);typeRow.appendChild(typeInp);
       sessionCard.appendChild(typeRow);
       sess.exercises.forEach((exo,ei)=>sessionCard.appendChild(buildExoCard(exo,ei)));
+
+      // Show last session of same type for comparison
+      if(sess.type){
+        const sameType=Object.keys(sessions)
+          .filter(k=>k<currentDate&&sessions[k].type===sess.type&&sessions[k].exercises&&sessions[k].exercises.length>0)
+          .sort((a,b)=>b.localeCompare(a));
+        if(sameType.length>0){
+          const prev=sessions[sameType[0]];
+          const cmpDiv=document.createElement('div');
+          cmpDiv.style.cssText='margin-top:12px;padding:10px 12px;background:var(--sf2);border:1px solid var(--bd);border-radius:var(--r);opacity:0.85;';
+          const cmpTitle=document.createElement('div');
+          cmpTitle.style.cssText='font-size:10px;color:var(--mu);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;';
+          cmpTitle.textContent='Dernière séance '+sess.type+' — '+fmtS(sameType[0]);
+          cmpDiv.appendChild(cmpTitle);
+          prev.exercises.forEach(exo=>{
+            const row=document.createElement('div');
+            row.style.cssText='display:flex;align-items:baseline;gap:6px;padding:4px 0;border-bottom:1px solid var(--bd);font-size:11px;';
+            const name=document.createElement('span');name.style.cssText='flex:1;color:var(--tx);';name.textContent=exo.name;
+            const reps=document.createElement('span');reps.style.cssText='color:var(--ac);font-family:var(--mono);font-size:11px;';
+            reps.textContent=exo.series.map(s=>s.reps||'—').join(' / ');
+            row.appendChild(name);row.appendChild(reps);
+            cmpDiv.appendChild(row);
+          });
+          sessionCard.appendChild(cmpDiv);
+        }
+      }
     }
     const finBtn=document.createElement('button');finBtn.className='btn-fin';finBtn.textContent='Fin de séance';
     finBtn.onclick=()=>{
