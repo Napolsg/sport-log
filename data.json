@@ -1980,6 +1980,21 @@
               "reps": ""
             }
           ]
+        },
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
         }
       ],
       "type": "A1 — Tirage Pronation",
@@ -1997,7 +2012,8 @@
     "RelevÃÂÃÂÃÂÃÂ© de jambes",
     "RelevÃÂÃÂ© de jambes",
     "RelevÃ© de jambes",
-    "Relevé de jambes"
+    "Relevé de jambes",
+    "Ab Wheel Rollout"
   ],
   "customTemplates": {}
 }
