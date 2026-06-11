@@ -174,7 +174,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v16.1</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v16.5</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -428,14 +428,12 @@ function renderLog(){
 
         // Séances type
         const builtinTemplates={
-          'tpl:A1':[['Tractions Pronation',3],['Dips',3],['Tractions Supination',3],['Pompes pieds levés',3],['Ab Wheel Rollout',3]],
-          'tpl:A2':[['Tractions Supination',3],['Pompes pieds levés',3],['Tractions Pronation',3],['Dips',3],['Ab Wheel Rollout',3]],
-          'tpl:B1':[['Pompes pieds levés',3],['Tractions Pronation',3],['Dips',3],['Tractions Supination',3],['Ab Wheel Rollout',3]],
-          'tpl:B2':[['Dips',3],['Tractions Supination',3],['Pompes pieds levés',3],['Tractions Pronation',3],['Ab Wheel Rollout',3]],
-          'tpl:GC':[['Ab Wheel Rollout',4],['Gainage frontal',2],['Gainage latéral',4],['Relevé de jambes',3],['Pont fessier',3],['Squat',3]],
-          'tpl:GI':[['Ab Wheel Rollout',5],['Touches d\'épaules en planche',3],['Relevé de jambes',3],['Gainage latéral',4],['Pont fessier',3],['Squat',3]],
+          'tpl:A':[['Traction pronation',3],['Dips',3],['Tirage horizontal',3],['Pompes pieds levés',3]],
+          'tpl:B':[['Pompes pieds levés',3],['Traction supination',3],['Dips',3],['Tirage horizontal',3]],
+          'tpl:GC':[['Ab Wheel Rollout',4],['Gainage latéral',4],['Relevé de jambes',3]],
+          'tpl:GI':[['Ab Wheel Rollout',5],['Touches d\'épaules en planche',3],['Relevé de jambes',3],['Gainage latéral',4]],
         };
-        const builtinLabels={'tpl:A1':'A1 — Tirage Pronation','tpl:A2':'A2 — Tirage Supination','tpl:B1':'B1 — Poussée Pompes','tpl:B2':'B2 — Poussée Dips','tpl:GC':'Gainage & Core','tpl:GI':'Gainage Intensif'};
+        const builtinLabels={'tpl:A':'A — Tirage (pronation)','tpl:B':'B — Poussée (supination)','tpl:GC':'Core','tpl:GI':'Core Intensif'};
         const allTemplates=Object.assign({},builtinTemplates,customTemplates);
         const allLabels=Object.assign({},builtinLabels);
         Object.keys(customTemplates).forEach(k=>{allLabels[k]=k.replace('custom:','');});
@@ -498,24 +496,28 @@ function renderLog(){
         }
       }
     }
-    const finBtn=document.createElement('button');finBtn.className='btn-fin';finBtn.textContent='Fin de séance';
+    const finBtn=document.createElement('button');finBtn.className='btn-fin';
+    finBtn.textContent=currentDate<todayKey()?'Terminer la modification':'Fin de séance';
     finBtn.onclick=()=>{
       if(sess.exercises.length===0)return;
+      const isPast=currentDate<todayKey();
       // If session has a type not in builtins or custom, offer to save as template
-      const builtinKeys=['tpl:A1','tpl:A2','tpl:B1','tpl:B2','tpl:GC','tpl:GI'];
+      const builtinKeys=['tpl:A','tpl:B','tpl:GC','tpl:GI'];
       const typeName=sess.type||'';
       const customKey='custom:'+typeName;
-      if(typeName&&!builtinKeys.some(k=>['A1 — Tirage Pronation','A2 — Tirage Supination','B1 — Poussée Pompes','B2 — Poussée Dips','Gainage & Core','Gainage Intensif'].includes(typeName))&&!customTemplates[customKey]){
+      if(!isPast&&typeName&&!['A — Tirage (pronation)','B — Poussée (supination)','Core','Core Intensif'].includes(typeName)&&!customTemplates[customKey]){
         if(confirm('Enregistrer "'+typeName+'" comme modèle de séance ?')){
           customTemplates[customKey]=sess.exercises.map(e=>[e.name,e.series.length]);
           saveLocal();
         }
       }
-      sess.done=true;scheduleSave();renderLog();
+      sess.done=true;
+      if(isPast)currentDate=todayKey();
+      scheduleSave();renderLog();
     };
     sessionCard.appendChild(finBtn);
   }
-  const pastKeys=Object.keys(sessions).filter(k=>k<currentDate&&sessions[k].exercises&&sessions[k].exercises.length>0).sort((a,b)=>b.localeCompare(a));
+  const pastKeys=Object.keys(sessions).filter(k=>k!==currentDate&&sessions[k].exercises&&sessions[k].exercises.length>0).sort((a,b)=>b.localeCompare(a));
   if(pastKeys.length>0){
     const ps=document.createElement('div');ps.className='past-section';
     ps.innerHTML='<div class="past-title">Historique des séances</div>';
@@ -781,19 +783,17 @@ function renderProg(){
 
   // Séances type
   const seances={
-    'A1':{label:'Séance A1',sub:'Tirage priorité pronation',exos:[['Tractions Pronation','3x Max'],['Dips','3x Max'],['Tractions Supination','3x Max'],['Pompes pieds levés','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
-    'A2':{label:'Séance A2',sub:'Tirage priorité supination',exos:[['Tractions Supination','3x Max'],['Pompes pieds levés','3x Max'],['Tractions Pronation','3x Max'],['Dips','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
-    'B1':{label:'Séance B1',sub:'Poussée priorité pompes',exos:[['Pompes pieds levés','3x Max'],['Tractions Pronation','3x Max'],['Dips','3x Max'],['Tractions Supination','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
-    'B2':{label:'Séance B2',sub:'Poussée priorité dips',exos:[['Dips','3x Max'],['Tractions Supination','3x Max'],['Pompes pieds levés','3x Max'],['Tractions Pronation','3x Max'],['Ab Wheel Rollout','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
+    'A':{label:'Séance A',sub:'Priorité tirage — prise pronation',exos:[['Traction pronation','3x Max'],['Dips','3x Max'],['Tirage horizontal','3x Max'],['Pompes pieds levés','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
+    'B':{label:'Séance B',sub:'Priorité poussée — prise supination',exos:[['Pompes pieds levés','3x Max'],['Traction supination','3x Max'],['Dips','3x Max'],['Tirage horizontal','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
   };
 
   const days=[
-    {day:'Lundi',type:'Haut',seance:'A ou B',note:'Alterner : A1 → B1 → A2 → B2 → A1...'},
-    {day:'Mardi',type:'Gainage & Core',exos:[['Ab Wheel Rollout','4x10'],['Gainage frontal','2x1\'30'],['Gainage latéral','4x1\' (2/côté)'],['Relevés de jambes','3x15'],['Pont fessier','3x15 (2s)'],['Squat','3x10']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Lundi',type:'Haut',seance:'A ou B',note:'Alterner : A → B → A → B...'},
+    {day:'Mardi',type:'Core',exos:[['Ab Wheel Rollout','4x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevés de jambes','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
     {day:'Mercredi',type:'Haut',seance:'A ou B',note:'Toujours l\'inverse du Lundi'},
-    {day:'Jeudi',type:'Gainage & Core',exos:[['Ab Wheel Rollout','4x10'],['Gainage frontal','2x1\'30'],['Gainage latéral','4x1\' (2/côté)'],['Relevés de jambes','3x15'],['Pont fessier','3x15 (2s)'],['Squat','3x10']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Jeudi',type:'Core',exos:[['Ab Wheel Rollout','4x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevés de jambes','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
     {day:'Vendredi',type:'Haut',seance:'A ou B',note:'Toujours l\'inverse du Mercredi'},
-    {day:'Samedi',type:'Gainage intensif',exos:[['Ab Wheel Rollout','5x10'],['Touches d\'épaules en planche','3x15'],['Relevés de jambes','3x20'],['Gainage latéral','4x1\' (2/côté)'],['Pont fessier','3x15 (2s)'],['Squat','3x10']],rest:'45 sec entre séries / 2 min entre exercices'},
+    {day:'Samedi',type:'Core intensif',exos:[['Ab Wheel Rollout','5x Max'],['Touches d\'épaules en planche','3x15'],['Relevés de jambes','3x20'],['Gainage latéral','4x1\' (2/côté)']],rest:'45 sec entre séries / 2 min entre exercices'},
     {day:'Dimanche',type:'Repos',exos:null,rest:null},
   ];
 
@@ -827,7 +827,7 @@ function renderProg(){
   const seanceTitle=document.createElement('div');seanceTitle.className='prog-title';seanceTitle.style.marginTop='18px';seanceTitle.textContent='Descriptif séances haut';
   c.appendChild(seanceTitle);
 
-  const altNote=document.createElement('div');altNote.className='prog-alt';altNote.textContent='Ordre : A1 → B1 → A2 → B2 → A1 → B1...';
+  const altNote=document.createElement('div');altNote.className='prog-alt';altNote.textContent='Ordre : A → B → A → B... (toujours l\'inverse de la séance haut précédente)';
   c.appendChild(altNote);
 
   Object.values(seances).forEach(s=>{
