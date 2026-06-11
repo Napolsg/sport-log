@@ -2241,7 +2241,7 @@
         }
       ],
       "type": "Core",
-      "done": false
+      "done": true
     }
   },
   "savedExos": [
