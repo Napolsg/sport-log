@@ -2187,7 +2187,61 @@
       "done": true
     },
     "2026-06-11": {
-      "exercises": []
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": false
     }
   },
   "savedExos": [
@@ -2195,14 +2249,15 @@
     "Dips",
     "Traction pronation",
     "Pompes",
-    "RelevÃÂÃÂ© de jambes",
+    "RelevÃÂÃÂÃÂÃÂ© de jambes",
     "Roue",
+    "RelevÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© de jambes",
     "RelevÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© de jambes",
     "RelevÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© de jambes",
-    "RelevÃÂÃÂÃÂÃÂ© de jambes",
+    "RelevÃÂÃÂ© de jambes",
     "RelevÃÂ© de jambes",
-    "RelevÃ© de jambes",
     "Ab Wheel Rollout",
+    "RelevÃ© de jambes",
     "Relevé de jambes"
   ],
   "customTemplates": {}
