@@ -174,7 +174,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v16.6</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v16.7</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -429,7 +429,7 @@ function renderLog(){
         // Séances type
         const builtinTemplates={
           'tpl:A':[['Traction pronation',3],['Dips',3],['Tirage horizontal',3],['Pompes pieds levés',3]],
-          'tpl:B':[['Tirage horizontal',3],['Pompes pieds levés',3],['Traction supination',3],['Dips',3]],
+          'tpl:B':[['Pompes pieds levés',3],['Tirage horizontal',3],['Dips',3],['Traction supination',3]],
           'tpl:GC':[['Ab Wheel Rollout',4],['Gainage latéral',4],['Relevé de jambes',3]],
           'tpl:GI':[['Ab Wheel Rollout',5],['Touches d\'épaules en planche',3],['Relevé de jambes',3],['Gainage latéral',4]],
         };
@@ -784,7 +784,7 @@ function renderProg(){
   // Séances type
   const seances={
     'A':{label:'Séance A',sub:'Priorité tirage — prise pronation',exos:[['Traction pronation','3x Max'],['Dips','3x Max'],['Tirage horizontal','3x Max'],['Pompes pieds levés','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
-    'B':{label:'Séance B',sub:'Priorité poussée — prise supination',exos:[['Tirage horizontal','3x Max'],['Pompes pieds levés','3x Max'],['Traction supination','3x Max'],['Dips','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
+    'B':{label:'Séance B',sub:'Priorité poussée — prise supination',exos:[['Pompes pieds levés','3x Max'],['Tirage horizontal','3x Max'],['Dips','3x Max'],['Traction supination','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
   };
 
   const days=[
