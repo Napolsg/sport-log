@@ -2793,13 +2793,13 @@
               "reps": "14"
             },
             {
-              "reps": ""
+              "reps": "11"
             }
           ]
         }
       ],
       "type": "Core",
-      "done": false
+      "done": true
     }
   },
   "savedExos": [
