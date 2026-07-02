@@ -2800,6 +2800,72 @@
       ],
       "type": "Core",
       "done": true
+    },
+    "2026-07-02": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        }
+      ],
+      "type": "A — Tirage (pronation)",
+      "done": false
     }
   },
   "savedExos": [
