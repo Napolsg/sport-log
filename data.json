@@ -2988,6 +2988,63 @@
         }
       ],
       "type": "B — Poussée (supination)",
+      "done": true
+    },
+    "2026-07-05": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        }
+      ],
+      "type": "Core",
       "done": false
     }
   },
