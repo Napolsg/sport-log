@@ -3045,7 +3045,7 @@
         }
       ],
       "type": "Core",
-      "done": false
+      "done": true
     },
     "2026-07-06": {
       "exercises": [
@@ -3156,7 +3156,7 @@
           "kg": "",
           "series": [
             {
-              "reps": ""
+              "reps": "15"
             },
             {
               "reps": ""
