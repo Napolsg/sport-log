@@ -3240,16 +3240,16 @@
       "exercises": [
         {
           "name": "Tirage vertical pronation (élastique)",
-          "kg": "",
+          "kg": "50",
           "series": [
             {
               "reps": "17"
             },
             {
-              "reps": ""
+              "reps": "15"
             },
             {
-              "reps": ""
+              "reps": "1"
             }
           ]
         },
