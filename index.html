@@ -174,7 +174,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v16.7</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v16.8</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -430,10 +430,12 @@ function renderLog(){
         const builtinTemplates={
           'tpl:A':[['Traction pronation',3],['Dips',3],['Tirage horizontal',3],['Pompes pieds levés',3]],
           'tpl:B':[['Pompes pieds levés',3],['Tirage horizontal',3],['Dips',3],['Traction supination',3]],
+          'tpl:AE':[['Tirage vertical pronation (élastique)',3],['Développé pectoraux (élastique)',3],['Rowing (élastique)',3],['Pompes élastique',3]],
+          'tpl:BE':[['Pompes élastique',3],['Rowing (élastique)',3],['Développé pectoraux (élastique)',3],['Tirage vertical supination (élastique)',3]],
           'tpl:GC':[['Ab Wheel Rollout',4],['Gainage latéral',4],['Relevé de jambes',3]],
           'tpl:GI':[['Ab Wheel Rollout',5],['Touches d\'épaules en planche',3],['Relevé de jambes',3],['Gainage latéral',4]],
         };
-        const builtinLabels={'tpl:A':'A — Tirage (pronation)','tpl:B':'B — Poussée (supination)','tpl:GC':'Core','tpl:GI':'Core Intensif'};
+        const builtinLabels={'tpl:A':'A — Tirage (pronation)','tpl:B':'B — Poussée (supination)','tpl:AE':'A — Élastique','tpl:BE':'B — Élastique','tpl:GC':'Core','tpl:GI':'Core Intensif'};
         const allTemplates=Object.assign({},builtinTemplates,customTemplates);
         const allLabels=Object.assign({},builtinLabels);
         Object.keys(customTemplates).forEach(k=>{allLabels[k]=k.replace('custom:','');});
@@ -505,7 +507,7 @@ function renderLog(){
       const builtinKeys=['tpl:A','tpl:B','tpl:GC','tpl:GI'];
       const typeName=sess.type||'';
       const customKey='custom:'+typeName;
-      if(!isPast&&typeName&&!['A — Tirage (pronation)','B — Poussée (supination)','Core','Core Intensif'].includes(typeName)&&!customTemplates[customKey]){
+      if(!isPast&&typeName&&!['A — Tirage (pronation)','B — Poussée (supination)','A — Élastique','B — Élastique','Core','Core Intensif'].includes(typeName)&&!customTemplates[customKey]){
         if(confirm('Enregistrer "'+typeName+'" comme modèle de séance ?')){
           customTemplates[customKey]=sess.exercises.map(e=>[e.name,e.series.length]);
           saveLocal();
@@ -785,6 +787,8 @@ function renderProg(){
   const seances={
     'A':{label:'Séance A',sub:'Priorité tirage — prise pronation',exos:[['Traction pronation','3x Max'],['Dips','3x Max'],['Tirage horizontal','3x Max'],['Pompes pieds levés','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
     'B':{label:'Séance B',sub:'Priorité poussée — prise supination',exos:[['Pompes pieds levés','3x Max'],['Tirage horizontal','3x Max'],['Dips','3x Max'],['Traction supination','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
+    'AE':{label:'Séance A — Élastique',sub:'Version voyage (bandes)',exos:[['Tirage vertical pronation','3x Max'],['Développé pectoraux','3x Max'],['Rowing','3x Max'],['Pompes élastique','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
+    'BE':{label:'Séance B — Élastique',sub:'Version voyage (bandes)',exos:[['Pompes élastique','3x Max'],['Rowing','3x Max'],['Développé pectoraux','3x Max'],['Tirage vertical supination','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
   };
 
   const days=[
