@@ -3480,7 +3480,7 @@
         },
         {
           "name": "Rowing (élastique)",
-          "kg": "35",
+          "kg": "35.25",
           "series": [
             {
               "reps": "20"
@@ -3495,7 +3495,7 @@
         },
         {
           "name": "Pompes élastique",
-          "kg": "",
+          "kg": "35",
           "series": [
             {
               "reps": ""
