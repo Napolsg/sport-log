@@ -3690,16 +3690,16 @@
         },
         {
           "name": "Rowing (élastique)",
-          "kg": "",
+          "kg": "35.25",
           "series": [
             {
               "reps": "20"
             },
             {
-              "reps": ""
+              "reps": "20"
             },
             {
-              "reps": ""
+              "reps": "15"
             }
           ]
         },
