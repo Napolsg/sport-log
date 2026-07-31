@@ -3750,6 +3750,72 @@
               "reps": "10"
             },
             {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-07-31": {
+      "exercises": [
+        {
+          "name": "Pompes élastique",
+          "kg": "",
+          "series": [
+            {
+              "reps": "16"
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Rowing (élastique)",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Développé pectoraux (élastique)",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Tirage vertical supination (élastique)",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
               "reps": ""
             },
             {
@@ -3758,7 +3824,7 @@
           ]
         }
       ],
-      "type": "Core",
+      "type": "B — Élastique",
       "done": false
     }
   },
