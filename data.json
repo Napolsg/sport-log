@@ -3774,13 +3774,13 @@
               "reps": "11"
             },
             {
-              "reps": ""
+              "reps": "10"
             }
           ]
         },
         {
           "name": "Rowing (élastique)",
-          "kg": "",
+          "kg": "50",
           "series": [
             {
               "reps": ""
