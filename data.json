@@ -3765,13 +3765,13 @@
       "exercises": [
         {
           "name": "Pompes élastique",
-          "kg": "",
+          "kg": "35",
           "series": [
             {
               "reps": "16"
             },
             {
-              "reps": ""
+              "reps": "11"
             },
             {
               "reps": ""
