@@ -3795,25 +3795,25 @@
         },
         {
           "name": "Développé pectoraux (élastique)",
-          "kg": "",
+          "kg": "50",
           "series": [
             {
               "reps": "20"
             },
             {
-              "reps": ""
+              "reps": "16"
             },
             {
-              "reps": ""
+              "reps": "18"
             }
           ]
         },
         {
           "name": "Tirage vertical supination (élastique)",
-          "kg": "",
+          "kg": "50",
           "series": [
             {
-              "reps": ""
+              "reps": "20"
             },
             {
               "reps": ""
