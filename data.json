@@ -3869,14 +3869,14 @@
     "2026-08-04": {
       "exercises": [
         {
-          "name": "Pompes élastique",
+          "name": "Traction supination",
           "kg": "",
           "series": [
             {
-              "reps": ""
+              "reps": "16"
             },
             {
-              "reps": ""
+              "reps": "11"
             },
             {
               "reps": ""
@@ -3884,11 +3884,11 @@
           ]
         },
         {
-          "name": "Traction supination",
+          "name": "Pompes élastique",
           "kg": "",
           "series": [
             {
-              "reps": "16"
+              "reps": ""
             },
             {
               "reps": ""
