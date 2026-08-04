@@ -3852,6 +3852,57 @@
               "reps": "10"
             },
             {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-08-04": {
+      "exercises": [
+        {
+          "name": "Développé pectoraux (élastique)",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Rowing (élastique)",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Pompes élastique",
+          "kg": "",
+          "series": [
+            {
               "reps": ""
             },
             {
@@ -3863,11 +3914,8 @@
           ]
         }
       ],
-      "type": "Core",
+      "type": "A — Élastique",
       "done": false
-    },
-    "2026-08-04": {
-      "exercises": []
     }
   },
   "savedExos": [
