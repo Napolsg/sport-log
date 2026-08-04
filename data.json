@@ -3885,13 +3885,13 @@
         },
         {
           "name": "Pompes élastique",
-          "kg": "",
+          "kg": "35",
           "series": [
             {
               "reps": "15"
             },
             {
-              "reps": ""
+              "reps": "10"
             },
             {
               "reps": ""
