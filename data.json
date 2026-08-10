@@ -3903,23 +3903,7 @@
       "done": true
     },
     "2026-08-10": {
-      "exercises": [
-        {
-          "name": "Traction pronation",
-          "kg": "",
-          "series": [
-            {
-              "reps": ""
-            },
-            {
-              "reps": ""
-            },
-            {
-              "reps": ""
-            }
-          ]
-        }
-      ],
+      "exercises": [],
       "type": "A — Tirage (pronation)",
       "done": false
     }
