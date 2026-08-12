@@ -3969,6 +3969,21 @@
               "reps": ""
             }
           ]
+        },
+        {
+          "name": "Pompes élastique",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
         }
       ],
       "type": "A — Élastique",
@@ -3989,7 +4004,8 @@
     "RelevÃÂ© de jambes",
     "Ab Wheel Rollout",
     "RelevÃ© de jambes",
-    "Relevé de jambes"
+    "Relevé de jambes",
+    "Pompes élastique"
   ],
   "customTemplates": {}
 }
