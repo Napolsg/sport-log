@@ -4086,7 +4086,7 @@
           "kg": "",
           "series": [
             {
-              "reps": ""
+              "reps": "10"
             },
             {
               "reps": ""
@@ -4102,6 +4102,9 @@
       ],
       "type": "Core",
       "done": false
+    },
+    "2026-08-17": {
+      "exercises": []
     }
   },
   "savedExos": [
