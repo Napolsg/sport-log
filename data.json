@@ -4101,7 +4101,7 @@
         }
       ],
       "type": "Core",
-      "done": false
+      "done": true
     },
     "2026-08-17": {
       "exercises": []
