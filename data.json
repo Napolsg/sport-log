@@ -4158,7 +4158,7 @@
         },
         {
           "name": "Gainage latéral",
-          "kg": "",
+          "kg": "10",
           "series": [
             {
               "reps": ""
