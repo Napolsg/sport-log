@@ -4206,13 +4206,13 @@
               "reps": "13"
             },
             {
-              "reps": ""
+              "reps": "12"
             }
           ]
         }
       ],
       "type": "A — Élastique",
-      "done": false
+      "done": true
     }
   },
   "savedExos": [
