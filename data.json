@@ -4194,6 +4194,21 @@
               "reps": ""
             }
           ]
+        },
+        {
+          "name": "Pompes élastique",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
         }
       ],
       "type": "A — Tirage (pronation)",
