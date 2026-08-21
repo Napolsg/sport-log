@@ -4251,21 +4251,6 @@
               "reps": ""
             }
           ]
-        },
-        {
-          "name": "Relevé de jambes",
-          "kg": "",
-          "series": [
-            {
-              "reps": ""
-            },
-            {
-              "reps": ""
-            },
-            {
-              "reps": ""
-            }
-          ]
         }
       ],
       "type": "Core",
