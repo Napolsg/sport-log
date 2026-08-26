@@ -4440,13 +4440,13 @@
               "reps": "15"
             },
             {
-              "reps": ""
+              "reps": "10"
             }
           ]
         }
       ],
       "type": "Core",
-      "done": false
+      "done": true
     }
   },
   "savedExos": [
