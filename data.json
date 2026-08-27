@@ -4497,13 +4497,13 @@
         },
         {
           "name": "Traction supination",
-          "kg": "",
+          "kg": "8.1",
           "series": [
             {
               "reps": "12"
             },
             {
-              "reps": ""
+              "reps": "8"
             },
             {
               "reps": ""
