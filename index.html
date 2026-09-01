@@ -174,7 +174,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v17.0</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v17.1</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -743,21 +743,21 @@ function renderSessionTypeChart(type,typeMap){
 
   // One chart per exercise
   exoNames.forEach(name=>{
-    let lastKg='';
+    let anyKg=false;
     const pts=keys.map(k=>{
       const exo=sessions[k].exercises.find(e=>e.name===name);
       if(!exo)return null;
-      if(exo.kg)lastKg=exo.kg;
+      if(exo.kg)anyKg=true;
       const tot=exo.series.reduce((s,r)=>s+(parseInt(r.reps)||0),0);
       const mx=Math.max(...exo.series.map(r=>parseInt(r.reps)||0));
-      return{date:fmtS(k),tot,mx};
+      return{date:fmtS(k),tot,mx,kg:exo.kg||''};
     }).filter(Boolean);
     if(pts.length===0)return;
 
-    const W=320,H=110,PL=28,PR=10,PT=10,PB=28,cW=W-PL-PR,cH=H-PT-PB;
+    const W=320,H=118,PL=28,PR=10,PT=20,PB=28,cW=W-PL-PR,cH=H-PT-PB;
     const maxVal=Math.max(...pts.map(d=>d.tot),1);
     const barW=Math.min(28,cW/pts.length*0.6),step=cW/pts.length;
-    let bars='',line='',dots='',labels='',yAxis='';
+    let bars='',line='',dots='',labels='',yAxis='',kgLabels='';
     pts.forEach((d,i)=>{
       const x=PL+i*step+step/2,bH=(d.tot/maxVal)*cH;
       bars+='<rect x="'+(x-barW/2).toFixed(1)+'" y="'+(PT+cH-bH).toFixed(1)+'" width="'+barW+'" height="'+bH.toFixed(1)+'" rx="3" fill="rgba(168,216,168,0.35)" stroke="#a8d8a8" stroke-width="1"/>';
@@ -765,10 +765,11 @@ function renderSessionTypeChart(type,typeMap){
       if(i===0)line+='M'+x.toFixed(1)+','+dy;else line+=' L'+x.toFixed(1)+','+dy;
       dots+='<circle cx="'+x.toFixed(1)+'" cy="'+dy+'" r="3" fill="#e07a7a"/>';
       labels+='<text x="'+x.toFixed(1)+'" y="'+(H-4)+'" text-anchor="middle" fill="#8888a8" font-size="7" font-family="monospace">'+esc(d.date)+'</text>';
+      if(d.kg)kgLabels+='<text x="'+x.toFixed(1)+'" y="'+(PT-6)+'" text-anchor="middle" fill="#d0a860" font-size="8" font-family="monospace" font-weight="600">'+esc(d.kg)+'kg</text>';
     });
     for(let i=0;i<=3;i++){const y=(PT+cH*(1-i/3)).toFixed(1),val=Math.round(maxVal*i/3);yAxis+='<line x1="'+PL+'" y1="'+y+'" x2="'+(W-PR)+'" y2="'+y+'" stroke="rgba(255,255,255,0.05)" stroke-width="1"/><text x="'+(PL-3)+'" y="'+(parseFloat(y)+3).toFixed(1)+'" text-anchor="end" fill="#8888a8" font-size="7" font-family="monospace">'+val+'</text>';}
     const wrap=document.createElement('div');wrap.className='chart-wrap';wrap.style.marginBottom='10px';
-    wrap.innerHTML='<div class="chart-title">'+esc(name)+(lastKg?' <span style="color:var(--mu);font-weight:400">— '+esc(lastKg)+'kg</span>':'')+'</div><svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:'+H+'px;display:block;">'+yAxis+bars+'<path d="'+line+'" fill="none" stroke="#e07a7a" stroke-width="1.5"/>'+dots+labels+'</svg>';
+    wrap.innerHTML='<div class="chart-title">'+esc(name)+'</div><svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:'+H+'px;display:block;">'+yAxis+bars+'<path d="'+line+'" fill="none" stroke="#e07a7a" stroke-width="1.5"/>'+dots+kgLabels+labels+'</svg>';
     area.appendChild(wrap);
   });
 }
