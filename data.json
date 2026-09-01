@@ -3234,7 +3234,1525 @@
         }
       ],
       "type": "B — Poussée (supination)",
+      "done": true
+    },
+    "2026-07-18": {
+      "exercises": [
+        {
+          "name": "Tirage vertical pronation (élastique)",
+          "kg": "50",
+          "series": [
+            {
+              "reps": "17"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Développé pectoraux (élastique)",
+          "kg": "35",
+          "series": [
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "13"
+            }
+          ]
+        },
+        {
+          "name": "Rowing (élastique)",
+          "kg": "35",
+          "series": [
+            {
+              "reps": "17"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "16"
+            }
+          ]
+        },
+        {
+          "name": "Pompes élastique",
+          "kg": "35",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "5"
+            }
+          ]
+        }
+      ],
+      "type": "A — Élastique",
+      "done": true
+    },
+    "2026-07-19": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-07-20": {
+      "exercises": [
+        {
+          "name": "Pompes élastique",
+          "kg": "35",
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Rowing (élastique)",
+          "kg": "35",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "20"
+            }
+          ]
+        },
+        {
+          "name": "Développé pectoraux (élastique)",
+          "kg": "35",
+          "series": [
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "19"
+            }
+          ]
+        },
+        {
+          "name": "Tirage vertical supination (élastique)",
+          "kg": "50",
+          "series": [
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "20"
+            }
+          ]
+        }
+      ],
+      "type": "B — Élastique",
+      "done": true
+    },
+    "2026-07-21": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-07-23": {
+      "exercises": [
+        {
+          "name": "Tirage vertical pronation (élastique)",
+          "kg": "35.25",
+          "series": [
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "20"
+            }
+          ]
+        },
+        {
+          "name": "Développé pectoraux (élastique)",
+          "kg": "35.25",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Rowing (élastique)",
+          "kg": "35.25",
+          "series": [
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "16"
+            }
+          ]
+        },
+        {
+          "name": "Pompes élastique",
+          "kg": "35",
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        }
+      ],
+      "type": "A — Élastique",
+      "done": true
+    },
+    "2026-07-24": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-07-25": {
+      "exercises": [
+        {
+          "name": "Pompes élastique",
+          "kg": "35",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "8"
+            }
+          ]
+        },
+        {
+          "name": "Rowing (élastique)",
+          "kg": "35.25",
+          "series": [
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Développé pectoraux (élastique)",
+          "kg": "35.25",
+          "series": [
+            {
+              "reps": "16"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Tirage vertical supination (élastique)",
+          "kg": "35.25",
+          "series": [
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "16"
+            }
+          ]
+        }
+      ],
+      "type": "B — Élastique",
+      "done": true
+    },
+    "2026-07-27": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-07-29": {
+      "exercises": [
+        {
+          "name": "Tirage vertical pronation (élastique)",
+          "kg": "35.25",
+          "series": [
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "20"
+            }
+          ]
+        },
+        {
+          "name": "Développé pectoraux (élastique)",
+          "kg": "35.25",
+          "series": [
+            {
+              "reps": "16"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Rowing (élastique)",
+          "kg": "35.25",
+          "series": [
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Pompes élastique",
+          "kg": "35",
+          "series": [
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        }
+      ],
+      "type": "A — Élastique",
+      "done": true
+    },
+    "2026-07-30": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-07-31": {
+      "exercises": [
+        {
+          "name": "Pompes élastique",
+          "kg": "35",
+          "series": [
+            {
+              "reps": "16"
+            },
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Rowing (élastique)",
+          "kg": "50",
+          "series": [
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "19"
+            },
+            {
+              "reps": "18"
+            }
+          ]
+        },
+        {
+          "name": "Développé pectoraux (élastique)",
+          "kg": "50",
+          "series": [
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "16"
+            },
+            {
+              "reps": "18"
+            }
+          ]
+        },
+        {
+          "name": "Tirage vertical supination (élastique)",
+          "kg": "50",
+          "series": [
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "20"
+            },
+            {
+              "reps": "20"
+            }
+          ]
+        }
+      ],
+      "type": "B — Élastique",
+      "done": true
+    },
+    "2026-08-03": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-08-04": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "",
+          "series": [
+            {
+              "reps": "16"
+            },
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "8"
+            }
+          ]
+        },
+        {
+          "name": "Pompes élastique",
+          "kg": "35",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "A — Élastique",
+      "done": true
+    },
+    "2026-08-10": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "",
+          "series": [
+            {
+              "reps": "16"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        },
+        {
+          "name": "Pompes élastique",
+          "kg": "35",
+          "series": [
+            {
+              "reps": "16"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "11"
+            }
+          ]
+        },
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        }
+      ],
+      "type": "A — Élastique",
+      "done": true
+    },
+    "2026-08-12": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "",
+          "series": [
+            {
+              "reps": "16"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        },
+        {
+          "name": "Pompes élastique",
+          "kg": "",
+          "series": [
+            {
+              "reps": "16"
+            },
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "A — Élastique",
+      "done": true
+    },
+    "2026-08-13": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-08-14": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "",
+          "series": [
+            {
+              "reps": "16"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        },
+        {
+          "name": "Pompes élastique",
+          "kg": "35",
+          "series": [
+            {
+              "reps": "16"
+            },
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "A — Élastique",
+      "done": true
+    },
+    "2026-08-15": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-08-17": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "",
+          "series": [
+            {
+              "reps": "17"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Pompes élastique",
+          "kg": "",
+          "series": [
+            {
+              "reps": "16"
+            },
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "A — Élastique",
+      "done": true
+    },
+    "2026-08-18": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-08-20": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "",
+          "series": [
+            {
+              "reps": "17"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "11"
+            }
+          ]
+        },
+        {
+          "name": "Pompes élastique",
+          "kg": "",
+          "series": [
+            {
+              "reps": "16"
+            },
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "A — Élastique",
+      "done": true
+    },
+    "2026-08-21": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-08-22": {
+      "exercises": [
+        {
+          "name": "Pompes élastique",
+          "kg": "50",
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "A — Élastique",
+      "done": true
+    },
+    "2026-08-24": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-08-25": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        }
+      ],
+      "type": "A — Tirage (pronation)",
+      "done": true
+    },
+    "2026-08-26": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-08-27": {
+      "exercises": [
+        {
+          "name": "Pompes pieds levés",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "14"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "7"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Traction supination",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        }
+      ],
+      "type": "B — Poussée (supination)",
+      "done": true
+    },
+    "2026-08-28": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "11"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
       "done": false
+    },
+    "2026-08-30": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "8"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "11"
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "7"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        }
+      ],
+      "type": "A — Tirage (pronation)",
+      "done": true
+    },
+    "2026-08-31": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "11"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-09-01": {
+      "exercises": [
+        {
+          "name": "Pompes pieds levés",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Traction supination",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        }
+      ],
+      "type": "B — Poussée (supination)",
+      "done": true
     }
   },
   "savedExos": [
@@ -3251,7 +4769,8 @@
     "RelevÃÂ© de jambes",
     "Ab Wheel Rollout",
     "RelevÃ© de jambes",
-    "Relevé de jambes"
+    "Relevé de jambes",
+    "Pompes élastique"
   ],
   "customTemplates": {}
 }
