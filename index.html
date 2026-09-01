@@ -118,12 +118,12 @@
     /* HISTORY TABLE */
     .hist-day{background:#1e0e0e;border:1px solid #4a1a1a;border-radius:var(--r);padding:12px 14px;margin-bottom:12px;--sf2:#2a1818;--bd:#4a1a1a;--mu:#905050;--ac:#e07070;--tx:#e0c0c0;}
     .hist-day-title{font-size:11px;font-weight:600;letter-spacing:.1em;color:#e07070;text-transform:uppercase;}
-    .hist-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px;table-layout:fixed;}
+    .hist-table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px;table-layout:auto;}
     .hist-table tr{border-bottom:1px solid var(--bd);}
     .hist-table tr:last-child{border-bottom:none;}
-    .ht-name{color:var(--tx);width:15ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 10px 5px 0;font-weight:600;}
+    .ht-name{color:var(--tx);max-width:15ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:5px 10px 5px 0;font-weight:600;width:99%;}
     .ht-kg{color:var(--mu);text-align:right;padding:5px 8px;white-space:nowrap;font-size:11px;width:4ch;}
-    .ht-rep{color:var(--ac);text-align:right;padding:5px 6px;font-weight:600;width:3ch;}
+    .ht-rep{color:var(--ac);text-align:right;padding:5px 6px;font-weight:600;width:3ch;white-space:nowrap;}
 
     /* STATS */
     .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
@@ -174,7 +174,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v16.8</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v17.0</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -395,10 +395,11 @@ function renderLog(){
     const archTitle=document.createElement('div');archTitle.className='arch-title';
     archTitle.textContent='Séance terminée'+(sess.type?' — '+sess.type:'');
     sessionCard.appendChild(archTitle);
+    const maxS=Math.max(1,...sess.exercises.map(e=>e.series.length));
     let t='<table class="hist-table">';
     sess.exercises.forEach(exo=>{
       t+='<tr><td class="ht-name">'+esc(exo.name)+'</td><td class="ht-kg">'+(exo.kg?exo.kg+'kg':'')+'</td>';
-      exo.series.forEach(s=>{t+='<td class="ht-rep">'+(s.reps||'—')+'</td>';});
+      for(let si=0;si<maxS;si++){t+='<td class="ht-rep">'+(exo.series[si]?(exo.series[si].reps||'—'):'')+'</td>';}
       t+='</tr>';
     });
     t+='</table>';
@@ -432,7 +433,7 @@ function renderLog(){
           'tpl:B':[['Pompes pieds levés',3],['Tirage horizontal',3],['Dips',3],['Traction supination',3]],
           'tpl:AE':[['Tirage vertical pronation (élastique)',3],['Développé pectoraux (élastique)',3],['Rowing (élastique)',3],['Pompes élastique',3]],
           'tpl:BE':[['Pompes élastique',3],['Rowing (élastique)',3],['Développé pectoraux (élastique)',3],['Tirage vertical supination (élastique)',3]],
-          'tpl:GC':[['Ab Wheel Rollout',4],['Gainage latéral',4],['Relevé de jambes',3]],
+          'tpl:GC':[['Ab Wheel Rollout',3],['Gainage latéral',4],['Relevé de jambes',3]],
           'tpl:GI':[['Ab Wheel Rollout',5],['Touches d\'épaules en planche',3],['Relevé de jambes',3],['Gainage latéral',4]],
         };
         const builtinLabels={'tpl:A':'A — Tirage (pronation)','tpl:B':'B — Poussée (supination)','tpl:AE':'A — Élastique','tpl:BE':'B — Élastique','tpl:GC':'Core','tpl:GI':'Core Intensif'};
@@ -488,7 +489,8 @@ function renderLog(){
           prev.exercises.forEach(exo=>{
             const row=document.createElement('div');
             row.style.cssText='display:flex;align-items:baseline;gap:6px;padding:4px 0;border-bottom:1px solid var(--bd);font-size:11px;';
-            const name=document.createElement('span');name.style.cssText='flex:1;color:var(--tx);';name.textContent=exo.name;
+            const name=document.createElement('span');name.style.cssText='flex:1;color:var(--tx);';
+            name.textContent=exo.name+(exo.kg?' ('+exo.kg+'kg)':'');
             const reps=document.createElement('span');reps.style.cssText='color:var(--ac);font-family:var(--mono);font-size:11px;';
             reps.textContent=exo.series.map(s=>s.reps||'—').join(' / ');
             row.appendChild(name);row.appendChild(reps);
@@ -534,10 +536,11 @@ function renderLog(){
       pDel.addEventListener('click',()=>{delete sessions[k];scheduleSave();renderLog();});
       phdr.appendChild(plbl);phdr.appendChild(pEdit);phdr.appendChild(pDel);
       dd.appendChild(phdr);
+      const maxS2=Math.max(1,...s2.exercises.map(e=>e.series.length));
       let t='<table class="hist-table">';
       s2.exercises.forEach(exo=>{
         t+='<tr><td class="ht-name">'+esc(exo.name)+'</td><td class="ht-kg">'+(exo.kg?exo.kg+'kg':'')+'</td>';
-        exo.series.forEach(s=>{t+='<td class="ht-rep">'+(s.reps||'—')+'</td>';});
+        for(let si=0;si<maxS2;si++){t+='<td class="ht-rep">'+(exo.series[si]?(exo.series[si].reps||'—'):'')+'</td>';}
         t+='</tr>';
       });
       t+='</table>';
@@ -674,10 +677,11 @@ function renderHistory(){
     delDay.addEventListener('click',()=>{delete sessions[k];scheduleSave();renderHistory();});
     hdr.appendChild(ttl);hdr.appendChild(delDay);
     block.appendChild(hdr);
+    const maxS3=Math.max(1,...sessions[k].exercises.map(e=>e.series.length));
     let t='<table class="hist-table">';
     sessions[k].exercises.forEach(exo=>{
       t+='<tr><td class="ht-name">'+esc(exo.name)+'</td><td class="ht-kg">'+(exo.kg?exo.kg+'kg':'')+'</td>';
-      exo.series.forEach(s=>{t+='<td class="ht-rep">'+(s.reps||'—')+'</td>';});
+      for(let si=0;si<maxS3;si++){t+='<td class="ht-rep">'+(exo.series[si]?(exo.series[si].reps||'—'):'')+'</td>';}
       t+='</tr>';
     });
     t+='</table>';
@@ -739,9 +743,11 @@ function renderSessionTypeChart(type,typeMap){
 
   // One chart per exercise
   exoNames.forEach(name=>{
+    let lastKg='';
     const pts=keys.map(k=>{
       const exo=sessions[k].exercises.find(e=>e.name===name);
       if(!exo)return null;
+      if(exo.kg)lastKg=exo.kg;
       const tot=exo.series.reduce((s,r)=>s+(parseInt(r.reps)||0),0);
       const mx=Math.max(...exo.series.map(r=>parseInt(r.reps)||0));
       return{date:fmtS(k),tot,mx};
@@ -762,7 +768,7 @@ function renderSessionTypeChart(type,typeMap){
     });
     for(let i=0;i<=3;i++){const y=(PT+cH*(1-i/3)).toFixed(1),val=Math.round(maxVal*i/3);yAxis+='<line x1="'+PL+'" y1="'+y+'" x2="'+(W-PR)+'" y2="'+y+'" stroke="rgba(255,255,255,0.05)" stroke-width="1"/><text x="'+(PL-3)+'" y="'+(parseFloat(y)+3).toFixed(1)+'" text-anchor="end" fill="#8888a8" font-size="7" font-family="monospace">'+val+'</text>';}
     const wrap=document.createElement('div');wrap.className='chart-wrap';wrap.style.marginBottom='10px';
-    wrap.innerHTML='<div class="chart-title">'+esc(name)+'</div><svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:'+H+'px;display:block;">'+yAxis+bars+'<path d="'+line+'" fill="none" stroke="#e07a7a" stroke-width="1.5"/>'+dots+labels+'</svg>';
+    wrap.innerHTML='<div class="chart-title">'+esc(name)+(lastKg?' <span style="color:var(--mu);font-weight:400">— '+esc(lastKg)+'kg</span>':'')+'</div><svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:'+H+'px;display:block;">'+yAxis+bars+'<path d="'+line+'" fill="none" stroke="#e07a7a" stroke-width="1.5"/>'+dots+labels+'</svg>';
     area.appendChild(wrap);
   });
 }
@@ -793,9 +799,9 @@ function renderProg(){
 
   const days=[
     {day:'Lundi',type:'Haut',seance:'A ou B',note:'Alterner : A → B → A → B...'},
-    {day:'Mardi',type:'Core',exos:[['Ab Wheel Rollout','4x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevés de jambes','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Mardi',type:'Core',exos:[['Ab Wheel Rollout','3x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevés de jambes','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
     {day:'Mercredi',type:'Haut',seance:'A ou B',note:'Toujours l\'inverse du Lundi'},
-    {day:'Jeudi',type:'Core',exos:[['Ab Wheel Rollout','4x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevés de jambes','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Jeudi',type:'Core',exos:[['Ab Wheel Rollout','3x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevés de jambes','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
     {day:'Vendredi',type:'Haut',seance:'A ou B',note:'Toujours l\'inverse du Mercredi'},
     {day:'Samedi',type:'Core intensif',exos:[['Ab Wheel Rollout','5x Max'],['Touches d\'épaules en planche','3x15'],['Relevés de jambes','3x20'],['Gainage latéral','4x1\' (2/côté)']],rest:'45 sec entre séries / 2 min entre exercices'},
     {day:'Dimanche',type:'Repos',exos:null,rest:null},
