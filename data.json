@@ -4753,6 +4753,552 @@
       ],
       "type": "B — Poussée (supination)",
       "done": true
+    },
+    "2026-09-02": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-09-03": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        }
+      ],
+      "type": "A — Tirage (pronation)",
+      "done": true
+    },
+    "2026-09-04": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-09-05": {
+      "exercises": [
+        {
+          "name": "Pompes pieds levés",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Traction supination",
+          "kg": "8.1",
+          "series": [
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        }
+      ],
+      "type": "B — Poussée (supination)",
+      "done": true
+    },
+    "2026-09-07": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-09-08": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "7"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "6"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "A — Tirage (pronation)",
+      "done": true
+    },
+    "2026-09-15": {
+      "exercises": [
+        {
+          "name": "Pompes pieds levés",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "16"
+            },
+            {
+              "reps": "14"
+            },
+            {
+              "reps": "11"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "14"
+            },
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Traction supination",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "7"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        }
+      ],
+      "type": "B — Poussée (supination)",
+      "done": true
+    },
+    "2026-09-16": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": false
+    },
+    "2026-09-17": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "8"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "14"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": ""
+            }
+          ]
+        }
+      ],
+      "type": "A — Tirage (pronation)",
+      "done": false
     }
   },
   "savedExos": [
