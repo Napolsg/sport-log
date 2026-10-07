@@ -5368,6 +5368,120 @@
       ],
       "type": "Core",
       "done": true
+    },
+    "2026-10-07": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Dead Bug",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Squeeze assis (anneau)",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Squeeze pont fessier (anneau)",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Calf Raise unilatéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": false
     }
   },
   "savedExos": [
