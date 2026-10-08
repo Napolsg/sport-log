@@ -5496,21 +5496,6 @@
               "reps": "4"
             }
           ]
-        },
-        {
-          "name": "Traction supination",
-          "kg": "9.5",
-          "series": [
-            {
-              "reps": ""
-            },
-            {
-              "reps": ""
-            },
-            {
-              "reps": ""
-            }
-          ]
         }
       ],
       "type": "B — Poussée (supination)",
