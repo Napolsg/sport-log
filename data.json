@@ -5562,6 +5562,21 @@
               "reps": "6"
             }
           ]
+        },
+        {
+          "name": "Calf Raise unilatéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
         }
       ],
       "type": "A — Tirage (pronation)",
@@ -5585,7 +5600,8 @@
     "RelevÃ© de jambes",
     "Pompes Ã©lastique",
     "Relevé de jambes",
-    "Pompes élastique"
+    "Pompes élastique",
+    "Calf Raise unilatéral"
   ],
   "customTemplates": {}
 }
