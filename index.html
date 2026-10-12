@@ -174,7 +174,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v18.0</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v18.1</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -429,11 +429,11 @@ function renderLog(){
 
         // Séances type
         const builtinTemplates={
-          'tpl:A':[['Traction pronation',3],['Dips',3],['Tirage horizontal',3],['Pompes pieds levés',3]],
-          'tpl:B':[['Pompes pieds levés',3],['Tirage horizontal',3],['Dips',3],['Traction supination',3]],
-          'tpl:AE':[['Tirage vertical pronation (élastique)',3],['Développé pectoraux (élastique)',3],['Rowing (élastique)',3],['Pompes élastique',3]],
-          'tpl:BE':[['Pompes élastique',3],['Rowing (élastique)',3],['Développé pectoraux (élastique)',3],['Tirage vertical supination (élastique)',3]],
-          'tpl:GC':[['Ab Wheel Rollout',3],['Gainage latéral',4],['Relevé de jambes',3],['Dead Bug',3],['Squeeze assis (anneau)',3],['Squeeze pont fessier (anneau)',3],['Calf Raise unilatéral',3]],
+          'tpl:A':[['Traction pronation',3],['Dips',3],['Tirage horizontal',3],['Pompes pieds levés',3],['Calf Raise unilatéral',3]],
+          'tpl:B':[['Pompes pieds levés',3],['Tirage horizontal',3],['Dips',3],['Traction supination',3],['Calf Raise unilatéral',3]],
+          'tpl:AE':[['Tirage vertical pronation (élastique)',3],['Développé pectoraux (élastique)',3],['Rowing (élastique)',3],['Pompes élastique',3],['Calf Raise unilatéral',3]],
+          'tpl:BE':[['Pompes élastique',3],['Rowing (élastique)',3],['Développé pectoraux (élastique)',3],['Tirage vertical supination (élastique)',3],['Calf Raise unilatéral',3]],
+          'tpl:GC':[['Ab Wheel Rollout',3],['Gainage latéral',4],['Relevé de jambes',3],['Dead Bug',3],['Squeeze assis (anneau)',3],['Squeeze pont fessier (anneau)',3]],
         };
         const builtinLabels={'tpl:A':'A — Tirage (pronation)','tpl:B':'B — Poussée (supination)','tpl:AE':'A — Élastique','tpl:BE':'B — Élastique','tpl:GC':'Core'};
         const allTemplates=Object.assign({},builtinTemplates,customTemplates);
@@ -798,12 +798,12 @@ function renderProg(){
   };
 
   const days=[
-    {day:'Lundi',type:'Haut',seance:'A ou B',note:'Alterner : A → B → A → B...'},
-    {day:'Mardi',type:'Core',exos:[['Ab Wheel Rollout','3x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevé de jambes','3x15'],['Dead Bug','3x10'],['Squeeze assis (anneau)','3x15'],['Squeeze pont fessier (anneau)','3x15'],['Calf Raise unilatéral','3x12']],rest:'1 min entre séries / 2 min entre exercices'},
-    {day:'Mercredi',type:'Haut',seance:'A ou B',note:'Toujours l\'inverse du Lundi'},
-    {day:'Jeudi',type:'Core',exos:[['Ab Wheel Rollout','3x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevé de jambes','3x15'],['Dead Bug','3x10'],['Squeeze assis (anneau)','3x15'],['Squeeze pont fessier (anneau)','3x15'],['Calf Raise unilatéral','3x12']],rest:'1 min entre séries / 2 min entre exercices'},
-    {day:'Vendredi',type:'Haut',seance:'A ou B',note:'Toujours l\'inverse du Mercredi'},
-    {day:'Samedi',type:'Core',exos:[['Ab Wheel Rollout','3x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevé de jambes','3x15'],['Dead Bug','3x10'],['Squeeze assis (anneau)','3x15'],['Squeeze pont fessier (anneau)','3x15'],['Calf Raise unilatéral','3x12']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Lundi',type:'Course + Core',exos:[['Ab Wheel Rollout','3x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevé de jambes','3x15'],['Dead Bug','3x10'],['Squeeze assis (anneau)','3x15'],['Squeeze pont fessier (anneau)','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Mardi',type:'Haut',seance:'A ou B',note:'Alterner : A → B → A → B... + Calf Raise en fin'},
+    {day:'Mercredi',type:'Course + Core',exos:[['Ab Wheel Rollout','3x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevé de jambes','3x15'],['Dead Bug','3x10'],['Squeeze assis (anneau)','3x15'],['Squeeze pont fessier (anneau)','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Jeudi',type:'Haut',seance:'A ou B',note:'Toujours l\'inverse du Mardi + Calf Raise en fin'},
+    {day:'Vendredi',type:'Course + Core',exos:[['Ab Wheel Rollout','3x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevé de jambes','3x15'],['Dead Bug','3x10'],['Squeeze assis (anneau)','3x15'],['Squeeze pont fessier (anneau)','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Samedi',type:'Haut',seance:'A ou B',note:'Toujours l\'inverse du Jeudi + Calf Raise en fin'},
     {day:'Dimanche',type:'Repos',exos:null,rest:null},
   ];
 
