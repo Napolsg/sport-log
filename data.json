@@ -5292,6 +5292,288 @@
               "reps": "12"
             },
             {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "A — Tirage (pronation)",
+      "done": true
+    },
+    "2026-09-18": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Squeeze assis (anneau)",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Squeeze pont fessier (anneau)",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-10-07": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Squeeze assis (anneau)",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Squeeze pont fessier (anneau)",
+          "kg": "",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Calf Raise unilatéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-10-08": {
+      "exercises": [
+        {
+          "name": "Pompes pieds levés",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "14"
+            },
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "6"
+            },
+            {
+              "reps": "4"
+            }
+          ]
+        }
+      ],
+      "type": "B — Poussée (supination)",
+      "done": true
+    },
+    "2026-10-10": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "7"
+            },
+            {
+              "reps": "5"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "8"
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "9.5",
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        },
+        {
+          "name": "Calf Raise unilatéral",
+          "kg": "",
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "12"
+            },
+            {
               "reps": ""
             }
           ]
@@ -5306,17 +5588,20 @@
     "Dips",
     "Traction pronation",
     "Pompes",
-    "RelevÃÂÃÂÃÂÃÂ© de jambes",
+    "RelevÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© de jambes",
     "Roue",
+    "RelevÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© de jambes",
     "RelevÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© de jambes",
     "RelevÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© de jambes",
-    "RelevÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ© de jambes",
+    "RelevÃÂÃÂÃÂÃÂ© de jambes",
     "RelevÃÂÃÂ© de jambes",
-    "RelevÃÂ© de jambes",
     "Ab Wheel Rollout",
+    "RelevÃÂ© de jambes",
     "RelevÃ© de jambes",
+    "Pompes Ã©lastique",
     "Relevé de jambes",
-    "Pompes élastique"
+    "Pompes élastique",
+    "Calf Raise unilatéral"
   ],
   "customTemplates": {}
 }
