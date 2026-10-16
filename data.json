@@ -5883,7 +5883,7 @@
           "kg": "",
           "series": [
             {
-              "reps": ""
+              "reps": "12"
             },
             {
               "reps": ""
@@ -5896,6 +5896,9 @@
       ],
       "type": "A — Tirage (pronation)",
       "done": false
+    },
+    "2026-10-16": {
+      "exercises": []
     }
   },
   "savedExos": [
