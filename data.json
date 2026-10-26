@@ -6405,7 +6405,7 @@
               "reps": "15"
             },
             {
-              "reps": ""
+              "reps": "15"
             }
           ]
         },
@@ -6429,21 +6429,6 @@
         },
         {
           "name": "Relevé de jambes",
-          "kg": "",
-          "series": [
-            {
-              "reps": ""
-            },
-            {
-              "reps": ""
-            },
-            {
-              "reps": ""
-            }
-          ]
-        },
-        {
-          "name": "Dead Bug",
           "kg": "",
           "series": [
             {
