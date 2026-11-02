@@ -6699,7 +6699,7 @@
               "reps": "8"
             },
             {
-              "reps": ""
+              "reps": "5"
             }
           ]
         },
@@ -6721,6 +6721,9 @@
       ],
       "type": "B — Poussée (supination)",
       "done": false
+    },
+    "2026-11-02": {
+      "exercises": []
     }
   },
   "savedExos": [
