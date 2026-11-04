@@ -6926,7 +6926,7 @@
         {
           "name": "Tirage horizontal",
           "kg": "11.9",
-          "ss": false,
+          "ss": true,
           "series": [
             {
               "reps": ""
