@@ -89,6 +89,13 @@
     .exo-card{padding:8px 0;border-bottom:1px solid var(--bd);margin-bottom:0;}
     .exo-card:last-of-type{border-bottom:none;}
     .exo-row{display:flex;align-items:flex-start;gap:5px;}
+    .serie-chip-input.ghost{color:#6fb3e8;font-style:italic;border-style:dashed;border-color:#4a7aa8;}
+    .exo-card.ss-first{border-bottom:none;padding-bottom:2px;border-left:3px solid var(--ac);padding-left:8px;margin-top:6px;}
+    .exo-card.ss-mid{border-bottom:none;padding-top:2px;padding-bottom:2px;border-left:3px solid var(--ac);padding-left:8px;}
+    .exo-card.ss-last{border-left:3px solid var(--ac);padding-left:8px;margin-bottom:6px;padding-top:2px;}
+    .ss-tag{font-size:9px;letter-spacing:.1em;color:var(--ac);text-transform:uppercase;margin-bottom:2px;font-family:var(--mono);}
+    .bss{background:transparent;border:1px solid var(--bd);border-radius:4px;cursor:pointer;color:var(--mu);font-size:11px;padding:2px 5px;line-height:1;flex-shrink:0;align-self:center;font-family:var(--mono);}
+    .bss.on{color:var(--bg);background:var(--ac);border-color:var(--ac);}
     .exo-name-wrap{display:flex;align-items:center;gap:4px;flex:1;min-width:0;align-self:center;}
     .exo-chips-wrap{display:flex;align-items:center;gap:4px;}
     .exo-name{font-size:14px;font-weight:600;color:var(--tx);white-space:normal;word-break:break-word;line-height:1.3;}
@@ -174,7 +181,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v18.1</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v18.7</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -194,7 +201,19 @@ const OWNER='napolsg',REPO='sport-log',FILE='data.json';
 const DAYS=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
 const MONTHS=['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
 let sessions={},savedExos=[],customTemplates={},currentDate=todayKey(),activeTab='log',saveTimer=null,activeStatsType=null;
-let tInterval=null,tSecs=90,tRunning=false,tTarget=90,activeStatsExo=null,tStartTime=null,tStartSecs=90;
+// Force estimée (Epley) : charge x (1 + reps/30). Charge = poids de corps x part soulevée + lest
+let statsMode='force';
+// Exercices de gainage : la valeur saisie est un temps en secondes
+function isTimeExo(n){return /^gainage/i.test(n||'');}
+const bwFactor={'Traction pronation':1,'Traction supination':1,'Tractions Pronation':1,'Tractions Supination':1,'Dips':1,'Pompes pieds levés':0.7,'Pompes':0.7,'Tirage horizontal':0.6};
+function getBW(){try{const v=parseFloat(localStorage.getItem('sl_bw'));return v>0?v:75;}catch(e){return 75;}}
+function e1rm(name,kg,series){
+  const f=bwFactor[name];if(f===undefined)return null;
+  const load=getBW()*f+(parseFloat(kg)||0);
+  let best=0;series.forEach(r=>{const n=parseInt(r.reps)||0;if(n>0)best=Math.max(best,load*(1+n/30));});
+  return best>0?best:null;
+}
+let tInterval=null,tSecs=120,tRunning=false,tTarget=120,activeStatsExo=null,tStartTime=null,tStartSecs=120;
 let ghToken=null,fileSha=null,syncing=false;
 
 function todayKey(){return new Date().toISOString().slice(0,10);}
@@ -279,16 +298,17 @@ function startTimer(target){
   tTarget=target;tSecs=target;tStartTime=Date.now();tStartSecs=target;
   updT();
   tRunning=true;
+  holdScreen();
   tInterval=setInterval(()=>{
     const elapsed=Math.floor((Date.now()-tStartTime)/1000);
     tSecs=Math.max(0,tStartSecs-elapsed);
     updT();
-    if(_audioCtx&&_audioCtx.state==='suspended')_audioCtx.resume();
+    if(_audioCtx&&_audioCtx.state!=='running'&&_audioCtx.state!=='closed')_audioCtx.resume().catch(()=>{});
     if(tSecs<=0){beep();if(navigator.vibrate)navigator.vibrate([200,100,200,100,400]);stopTimer();}
   },500);
   updTimerBtns();
 }
-function stopTimer(){tRunning=false;clearInterval(tInterval);updTimerBtns();}
+function stopTimer(){tRunning=false;clearInterval(tInterval);releaseScreen();updTimerBtns();}
 function resetTimer(){stopTimer();tSecs=tTarget;updT();}
 function updT(){
   const mEl=document.getElementById('td-min'),sEl=document.getElementById('td-sec'),sel=document.getElementById('timer-sel'),colon=document.getElementById('td-colon');
@@ -310,23 +330,54 @@ function updTimerBtns(){
   if(br)br.className='bt';
 }
 let _audioCtx=null;
+// Garde l'écran allumé pendant le chrono (sinon iOS suspend l'appli et le bip ne sonne pas)
+let _wl=null;
+async function holdScreen(){try{if('wakeLock' in navigator&&!_wl){_wl=await navigator.wakeLock.request('screen');_wl.addEventListener('release',()=>{_wl=null;});}}catch(e){_wl=null;}}
+function releaseScreen(){try{if(_wl){_wl.release();_wl=null;}}catch(e){_wl=null;}}
 function getAudioCtx(){
-  // Always create fresh context if none or closed
+  // Toujours recréer le contexte s'il est fermé
   if(!_audioCtx||_audioCtx.state==='closed'){
     _audioCtx=new(window.AudioContext||window.webkitAudioContext)();
   }
   return _audioCtx;
 }
+// Bip en fichier audio HTML (WAV généré) : sonne même en mode silencieux sur iPhone, contrairement à Web Audio
+let _htmlBeep=null,_htmlUnlocked=false;
+function makeBeepWav(){
+  const sr=22050,n=Math.floor(sr*1.3),buf=new ArrayBuffer(44+n*2),v=new DataView(buf);
+  const ws=(o,t)=>{for(let i=0;i<t.length;i++)v.setUint8(o+i,t.charCodeAt(i));};
+  ws(0,'RIFF');v.setUint32(4,36+n*2,true);ws(8,'WAVE');ws(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);v.setUint32(24,sr,true);v.setUint32(28,sr*2,true);v.setUint16(32,2,true);v.setUint16(34,16,true);ws(36,'data');v.setUint32(40,n*2,true);
+  const tones=[[880,0],[1100,0.4],[1320,0.8]];
+  for(let i=0;i<n;i++){
+    const t=i/sr;let x=0;
+    tones.forEach(([f,st])=>{const lt=t-st;if(lt>=0&&lt<0.4){x+=Math.sin(2*Math.PI*f*lt)*Math.min(lt/0.05,1)*Math.exp(-lt*6)*0.7;}});
+    v.setInt16(44+i*2,Math.max(-1,Math.min(1,x))*32767,true);
+  }
+  return URL.createObjectURL(new Blob([buf],{type:'audio/wav'}));
+}
+function getHtmlBeep(){
+  if(!_htmlBeep){_htmlBeep=new Audio(makeBeepWav());_htmlBeep.preload='auto';_htmlBeep.setAttribute('playsinline','');}
+  return _htmlBeep;
+}
 function unlockAudio(){
+  try{if(navigator.audioSession)navigator.audioSession.type='playback';}catch(e){}
   try{
     const c=getAudioCtx();
-    if(c.state==='suspended')c.resume();
+    if(c.state!=='running')c.resume().catch(()=>{});
     const buf=c.createBuffer(1,1,22050);
     const src=c.createBufferSource();src.buffer=buf;src.connect(c.destination);src.start(0);
   }catch(e){}
+  try{
+    if(!_htmlUnlocked){
+      const a=getHtmlBeep();a.muted=true;
+      const pr=a.play();
+      if(pr&&pr.then)pr.then(()=>{a.pause();a.currentTime=0;a.muted=false;_htmlUnlocked=true;}).catch(()=>{a.muted=false;});
+    }
+  }catch(e){}
 }
-document.addEventListener('touchstart',unlockAudio,{passive:true});
-function beep(){
+// iOS ne débloque le son que sur touchend / click (pas touchstart)
+['touchend','click'].forEach(ev=>document.addEventListener(ev,unlockAudio,{passive:true}));
+function webBeep(){
   try{
     const c=getAudioCtx();
     const play=()=>{
@@ -341,8 +392,16 @@ function beep(){
         o.start(now+t);o.stop(now+t+0.4);
       });
     };
-    if(c.state==='suspended'){c.resume().then(play);}else{play();}
+    // 'interrupted' (iOS) ou 'suspended' : on relance le contexte avant de jouer
+    if(c.state!=='running'){c.resume().then(play).catch(play);}else{play();}
   }catch(e){console.warn('beep',e);}
+}
+function beep(){
+  try{
+    const a=getHtmlBeep();a.muted=false;a.currentTime=0;
+    const pr=a.play();
+    if(pr&&pr.catch)pr.catch(()=>webBeep());
+  }catch(e){webBeep();}
 }
 
 function renderTimerWidget(){
@@ -377,7 +436,21 @@ function renderTimerWidget(){
   return div;
 }
 
+// Valeurs de la séance précédente (même exercice) affichées en bleu italique tant que la série n'est pas saisie
+let _ghostMemo={};
+function ghostFor(name,si){
+  const sess=sessions[currentDate]||{};
+  const key=name+'|'+currentDate+'|'+(sess.type||'');
+  if(!(key in _ghostMemo)){
+    const cand=Object.keys(sessions).filter(k=>k<currentDate&&sessions[k].exercises&&sessions[k].exercises.some(e=>e.name===name&&e.series.some(x=>x.reps))).sort((a,b)=>b.localeCompare(a));
+    const same=cand.find(k=>sess.type&&sessions[k].type===sess.type);
+    const k=same||cand[0];
+    _ghostMemo[key]=k?sessions[k].exercises.find(e=>e.name===name).series.map(x=>x.reps||''):[];
+  }
+  return _ghostMemo[key][si]||'';
+}
 function renderLog(){
+  _ghostMemo={};
   const sess=getSess(currentDate),c=document.getElementById('content');c.innerHTML='';
   c.appendChild(renderTimerWidget());
 
@@ -431,11 +504,13 @@ function renderLog(){
         const builtinTemplates={
           'tpl:A':[['Traction pronation',3],['Dips',3],['Tirage horizontal',3],['Pompes pieds levés',3],['Calf Raise unilatéral',3]],
           'tpl:B':[['Pompes pieds levés',3],['Tirage horizontal',3],['Dips',3],['Traction supination',3],['Calf Raise unilatéral',3]],
+          'tpl:SA':[['Traction pronation',3,1],['Dips',3],['Traction supination',3,1],['Pompes pieds levés',3],['Tirage horizontal',3],['Calf Raise unilatéral',3]],
+          'tpl:SB':[['Traction supination',3,1],['Pompes pieds levés',3],['Traction pronation',3,1],['Dips',3],['Tirage horizontal',3],['Calf Raise unilatéral',3]],
           'tpl:AE':[['Tirage vertical pronation (élastique)',3],['Développé pectoraux (élastique)',3],['Rowing (élastique)',3],['Pompes élastique',3],['Calf Raise unilatéral',3]],
           'tpl:BE':[['Pompes élastique',3],['Rowing (élastique)',3],['Développé pectoraux (élastique)',3],['Tirage vertical supination (élastique)',3],['Calf Raise unilatéral',3]],
-          'tpl:GC':[['Ab Wheel Rollout',3],['Gainage latéral',4],['Relevé de jambes',3],['Dead Bug',3],['Squeeze assis (anneau)',3],['Squeeze pont fessier (anneau)',3]],
+          'tpl:GC':[['Ab Wheel Rollout',3],['Gainage latéral',2],['Relevé de jambes',3],['Dead Bug',3],['Squeeze assis (anneau)',3],['Squeeze pont fessier (anneau)',3]],
         };
-        const builtinLabels={'tpl:A':'A — Tirage (pronation)','tpl:B':'B — Poussée (supination)','tpl:AE':'A — Élastique','tpl:BE':'B — Élastique','tpl:GC':'Core'};
+        const builtinLabels={'tpl:A':'A — Tirage (pronation)','tpl:B':'B — Poussée (supination)','tpl:SA':'A — Superset','tpl:SB':'B — Superset','tpl:AE':'A — Élastique','tpl:BE':'B — Élastique','tpl:GC':'Core'};
         const allTemplates=Object.assign({},builtinTemplates,customTemplates);
         const allLabels=Object.assign({},builtinLabels);
         Object.keys(customTemplates).forEach(k=>{allLabels[k]=k.replace('custom:','');});
@@ -454,7 +529,7 @@ function renderLog(){
           const k=sel.value;if(!k)return;
           const s=getSess(currentDate);
           const tpl=allTemplates[k];
-          s.exercises=tpl.map(([name,nb])=>({name,kg:'',series:Array.from({length:nb},()=>({reps:''}))}));
+          s.exercises=tpl.map(([name,nb,ss])=>({name,kg:'',ss:!!ss,series:Array.from({length:nb},()=>({reps:''}))}));
           s.type=allLabels[k]||k.replace('custom:','');
           s.done=false;scheduleSave();renderLog();
         });
@@ -505,12 +580,12 @@ function renderLog(){
       if(sess.exercises.length===0)return;
       const isPast=currentDate<todayKey();
       // If session has a type not in builtins or custom, offer to save as template
-      const builtinKeys=['tpl:A','tpl:B','tpl:GC'];
+      const builtinKeys=['tpl:A','tpl:B','tpl:SA','tpl:SB','tpl:GC'];
       const typeName=sess.type||'';
       const customKey='custom:'+typeName;
-      if(!isPast&&typeName&&!['A — Tirage (pronation)','B — Poussée (supination)','A — Élastique','B — Élastique','Core'].includes(typeName)&&!customTemplates[customKey]){
+      if(!isPast&&typeName&&!['A — Tirage (pronation)','B — Poussée (supination)','A — Superset','B — Superset','A — Élastique','B — Élastique','Core'].includes(typeName)&&!customTemplates[customKey]){
         if(confirm('Enregistrer "'+typeName+'" comme modèle de séance ?')){
-          customTemplates[customKey]=sess.exercises.map(e=>[e.name,e.series.length]);
+          customTemplates[customKey]=sess.exercises.map(e=>e.ss?[e.name,e.series.length,1]:[e.name,e.series.length]);
           saveLocal();
         }
       }
@@ -552,12 +627,18 @@ function renderLog(){
 
 function buildExoCard(exo,ei){
   const card=document.createElement('div');card.className='exo-card';
+  const _exos=getSess(currentDate).exercises;
+  const _prevSS=ei>0&&_exos[ei-1]&&_exos[ei-1].ss;
+  if(exo.ss&&!_prevSS){card.classList.add('ss-first');const tg=document.createElement('div');tg.className='ss-tag';tg.textContent='⇄ Superset';card.appendChild(tg);}
+  else if(exo.ss&&_prevSS)card.classList.add('ss-mid');
+  else if(_prevSS)card.classList.add('ss-last');
   const row=document.createElement('div');row.className='exo-row';row.id='sl-'+ei;
   const nameSpan=document.createElement('span');nameSpan.className='exo-name';nameSpan.textContent=exo.name;
   const wInp=document.createElement('input');wInp.type='number';wInp.className='weight-input';wInp.inputMode='decimal';wInp.min='0';wInp.step='0.5';wInp.placeholder='kg';wInp.value=exo.kg||'';
   wInp.addEventListener('input',()=>{exo.kg=wInp.value;scheduleSave();});
   const nameWrap=document.createElement('div');nameWrap.className='exo-name-wrap';
   nameWrap.appendChild(nameSpan);
+  if(isTimeExo(exo.name)){const u=document.createElement('span');u.textContent='sec';u.style.cssText='font-size:9px;color:var(--ac);border:1px solid var(--bd);border-radius:3px;padding:1px 4px;flex-shrink:0;letter-spacing:.05em;';nameWrap.appendChild(u);}
   row.appendChild(nameWrap);
   row.appendChild(wInp);
   const chipsWrap=document.createElement('div');chipsWrap.className='exo-chips-wrap';
@@ -567,13 +648,19 @@ function buildExoCard(exo,ei){
   chipsWrap.appendChild(addBtn);
   const moveWrap=document.createElement('div');moveWrap.className='bmove';moveWrap.style.alignSelf='center';moveWrap.style.marginTop='0';
   const upBtn=document.createElement('button');upBtn.textContent='▲';upBtn.style.cssText='background:transparent;border:none;cursor:pointer;color:var(--mu);font-size:10px;padding:1px;line-height:1;font-family:var(--mono);';
-  upBtn.onclick=()=>{const exos=getSess(currentDate).exercises;if(ei===0)return;[exos[ei-1],exos[ei]]=[exos[ei],exos[ei-1]];scheduleSave();renderLog();};
+  upBtn.onclick=()=>{const exos=getSess(currentDate).exercises;if(ei===0)return;[exos[ei-1],exos[ei]]=[exos[ei],exos[ei-1]];for(let k=ei-2;k<=ei;k++)if(exos[k])exos[k].ss=false;scheduleSave();renderLog();};
   const downBtn=document.createElement('button');downBtn.textContent='▼';downBtn.style.cssText='background:transparent;border:none;cursor:pointer;color:var(--mu);font-size:10px;padding:1px;line-height:1;font-family:var(--mono);';
-  downBtn.onclick=()=>{const exos=getSess(currentDate).exercises;if(ei===exos.length-1)return;[exos[ei+1],exos[ei]]=[exos[ei],exos[ei+1]];scheduleSave();renderLog();};
+  downBtn.onclick=()=>{const exos=getSess(currentDate).exercises;if(ei===exos.length-1)return;[exos[ei+1],exos[ei]]=[exos[ei],exos[ei+1]];for(let k=ei-1;k<=ei+1;k++)if(exos[k])exos[k].ss=false;scheduleSave();renderLog();};
   moveWrap.appendChild(upBtn);moveWrap.appendChild(downBtn);
   const delBtn=document.createElement('button');delBtn.className='bdel';delBtn.textContent='✕';
-  delBtn.onclick=()=>{getSess(currentDate).exercises.splice(ei,1);scheduleSave();renderLog();};
-  row.appendChild(chipsWrap);row.appendChild(moveWrap);row.appendChild(delBtn);
+  delBtn.onclick=()=>{const ex=getSess(currentDate).exercises;if(ei>0&&ex[ei-1].ss)ex[ei-1].ss=false;ex.splice(ei,1);scheduleSave();renderLog();};
+  row.appendChild(chipsWrap);
+  if(ei<_exos.length-1){
+    const ssBtn=document.createElement('button');ssBtn.className='bss'+(exo.ss?' on':'');ssBtn.textContent='⇄';ssBtn.title='Superset avec l\'exercice suivant';
+    ssBtn.onclick=()=>{exo.ss=!exo.ss;scheduleSave();renderLog();};
+    row.appendChild(ssBtn);
+  }
+  row.appendChild(moveWrap);row.appendChild(delBtn);
   card.appendChild(row);
   return card;
 }
@@ -582,9 +669,21 @@ function buildSerieChip(exo,ei,si){
   const wrap=document.createElement('div');wrap.className='serie-chip-wrap';wrap.id='sc-'+ei+'-'+si;
   const num=document.createElement('span');num.className='serie-chip-num';num.textContent=si+1;
   const sel=document.createElement('select');sel.className='serie-chip-input';
-  const dflt=document.createElement('option');dflt.value='';dflt.textContent='';dflt.disabled=true;dflt.selected=!exo.series[si].reps;sel.appendChild(dflt);
-  for(let i=1;i<=50;i++){const o=document.createElement('option');o.value=i;o.textContent=i;if(String(i)===String(exo.series[si].reps))o.selected=true;sel.appendChild(o);}
-  sel.addEventListener('change',()=>{exo.series[si].reps=sel.value;scheduleSave();});
+  const dflt=document.createElement('option');dflt.value='';dflt.disabled=true;dflt.selected=!exo.series[si].reps;
+  const gh=exo.series[si].reps?'':ghostFor(exo.name,si);
+  dflt.textContent=gh;dflt.hidden=true;if(gh)sel.classList.add('ghost');
+  sel.appendChild(dflt);
+  const opts=[];
+  if(isTimeExo(exo.name)){for(let i=5;i<=300;i+=5)opts.push(i);}else{for(let i=1;i<=50;i++)opts.push(i);}
+  const curV=parseInt(exo.series[si].reps);
+  if(curV&&!opts.includes(curV)){opts.push(curV);opts.sort((a,b)=>a-b);}
+  opts.forEach(i=>{const o=document.createElement('option');o.value=i;o.textContent=i;if(String(i)===String(exo.series[si].reps))o.selected=true;sel.appendChild(o);});
+  sel.addEventListener('change',()=>{
+    exo.series[si].reps=sel.value;scheduleSave();sel.classList.remove('ghost');
+    // Superset : fin d'un tour (dernier exercice du groupe) -> repos de 2 min
+    const ex=getSess(currentDate).exercises;
+    if(ex[ei]===exo&&ei>0&&ex[ei-1].ss&&!exo.ss&&sel.value&&!tRunning&&currentDate===todayKey()){unlockAudio();startTimer(120);}
+  });
   const delBtn=document.createElement('button');delBtn.className='btn-del-serie';delBtn.textContent='✕';
   delBtn.onclick=()=>{
     if(exo.series.length===1)return;
@@ -693,13 +792,22 @@ function renderStats(){
   const c=document.getElementById('content');c.innerHTML='';
   const keys=Object.keys(sessions).filter(k=>sessions[k].exercises&&sessions[k].exercises.length>0);
   let totalSeries=0,totalReps=0;const exoCount={};
-  keys.forEach(k=>{sessions[k].exercises.forEach(exo=>{exoCount[exo.name]=(exoCount[exo.name]||0)+1;exo.series.forEach(s=>{totalSeries++;if(s.reps)totalReps+=parseInt(s.reps)||0;});});});
+  keys.forEach(k=>{sessions[k].exercises.forEach(exo=>{exoCount[exo.name]=(exoCount[exo.name]||0)+1;exo.series.forEach(s=>{totalSeries++;if(s.reps&&!isTimeExo(exo.name))totalReps+=parseInt(s.reps)||0;});});});
   const g=document.createElement('div');g.className='stat-grid';
   g.innerHTML='<div class="stat-card"><div class="stat-lbl">Séances</div><div class="stat-val">'+keys.length+'</div></div><div class="stat-card"><div class="stat-lbl">Séries</div><div class="stat-val">'+totalSeries+'</div></div><div class="stat-card"><div class="stat-lbl">Répétitions</div><div class="stat-val">'+totalReps+'</div></div><div class="stat-card"><div class="stat-lbl">Exercices</div><div class="stat-val">'+Object.keys(exoCount).length+'</div></div>';
   c.appendChild(g);
 
   // Session type stats
   const typeTitle=document.createElement('div');typeTitle.className='sec-title';typeTitle.textContent='Progression par type de séance';c.appendChild(typeTitle);
+  const ctl=document.createElement('div');ctl.style.cssText='display:flex;align-items:center;gap:6px;margin-bottom:10px;flex-wrap:wrap;';
+  const mkBtn=(lbl,mode)=>{const b=document.createElement('button');b.textContent=lbl;b.className='bss'+(statsMode===mode?' on':'');b.style.cssText='padding:5px 9px;font-size:11px;';b.onclick=()=>{statsMode=mode;renderStats();};return b;};
+  ctl.appendChild(mkBtn('Force estimée','force'));ctl.appendChild(mkBtn('Reps','reps'));
+  const bwWrap=document.createElement('span');bwWrap.style.cssText='margin-left:auto;font-size:10px;color:var(--mu);display:flex;align-items:center;gap:4px;';
+  bwWrap.innerHTML='Poids de corps <input type="number" id="bw-in" inputmode="decimal" step="0.5" min="30" value="'+getBW()+'" style="width:56px;background:var(--sf2);border:1px solid var(--bd);color:var(--ac);font-family:var(--mono);font-size:12px;padding:4px 6px;border-radius:4px;outline:none;"> kg';
+  ctl.appendChild(bwWrap);c.appendChild(ctl);
+  const bwIn=ctl.querySelector('#bw-in');
+  bwIn.addEventListener('change',()=>{const v=parseFloat(bwIn.value);if(v>0){try{localStorage.setItem('sl_bw',String(v));}catch(e){}renderStats();}});
+  if(statsMode==='force'){const nt=document.createElement('div');nt.style.cssText='font-size:10px;color:var(--mu);margin-bottom:10px;line-height:1.4;';nt.textContent='Force estimée (kg) = (poids de corps × part soulevée + lest) × (1 + reps / 30), meilleure série de la séance. Pompes ×0,7 et tirage horizontal ×0,6 sont des approximations : compare les tendances, pas les valeurs absolues. Les exercices de gainage restent en reps.';c.appendChild(nt);}
 
   // Gather all session types
   const typeMap={};
@@ -742,6 +850,36 @@ function renderSessionTypeChart(type,typeMap){
 
   // One chart per exercise
   exoNames.forEach(name=>{
+    if(statsMode==='force'&&bwFactor[name]!==undefined){
+      const fp=keys.map(k=>{
+        const exo=sessions[k].exercises.find(e=>e.name===name);
+        if(!exo)return null;
+        const v=e1rm(name,exo.kg,exo.series);
+        return v===null?null:{date:fmtS(k),v,kg:exo.kg||''};
+      }).filter(Boolean);
+      if(fp.length>=1){
+        const W=320,H=118,PL=32,PR=10,PT=20,PB=28,cW=W-PL-PR,cH=H-PT-PB;
+        const mn=Math.min(...fp.map(d=>d.v)),mx=Math.max(...fp.map(d=>d.v));
+        const pad=(mx-mn)*0.25||5,lo=mn-pad,hi=mx+pad;
+        const step=cW/fp.length;
+        const yOf=v=>PT+cH*(1-(v-lo)/(hi-lo));
+        let line='',dots='',lab='',dl='',yAx='',kgl='';
+        fp.forEach((d,i)=>{
+          const x=PL+i*step+step/2,y=yOf(d.v);
+          line+=(i===0?'M':' L')+x.toFixed(1)+','+y.toFixed(1);
+          dots+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3" fill="#a8d8a8"/>';
+          lab+='<text x="'+x.toFixed(1)+'" y="'+(y+11).toFixed(1)+'" text-anchor="middle" fill="#a8d8a8" font-size="7" font-family="monospace">'+Math.round(d.v)+'</text>';
+          dl+='<text x="'+x.toFixed(1)+'" y="'+(H-4)+'" text-anchor="middle" fill="#8888a8" font-size="7" font-family="monospace">'+esc(d.date)+'</text>';
+          if(d.kg)kgl+='<text x="'+x.toFixed(1)+'" y="'+(PT-6)+'" text-anchor="middle" fill="#d0a860" font-size="8" font-family="monospace" font-weight="600">'+esc(d.kg)+'kg</text>';
+        });
+        for(let i=0;i<=3;i++){const val=lo+(hi-lo)*i/3,y=yOf(val).toFixed(1);yAx+='<line x1="'+PL+'" y1="'+y+'" x2="'+(W-PR)+'" y2="'+y+'" stroke="rgba(255,255,255,0.05)" stroke-width="1"/><text x="'+(PL-3)+'" y="'+(parseFloat(y)+3).toFixed(1)+'" text-anchor="end" fill="#8888a8" font-size="7" font-family="monospace">'+Math.round(val)+'</text>';}
+        const first=fp[0].v,last=fp[fp.length-1].v,pct=((last/first-1)*100);
+        const wrap=document.createElement('div');wrap.className='chart-wrap';wrap.style.marginBottom='10px';
+        wrap.innerHTML='<div class="chart-title">'+esc(name)+' — force estimée <span style="color:var(--mu);font-size:10px;">('+(pct>=0?'+':'')+pct.toFixed(1)+'% depuis la 1re séance)</span></div><svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:'+H+'px;display:block;">'+yAx+'<path d="'+line+'" fill="none" stroke="#a8d8a8" stroke-width="1.5"/>'+dots+lab+kgl+dl+'</svg>';
+        area.appendChild(wrap);
+        return;
+      }
+    }
     let anyKg=false;
     const pts=keys.map(k=>{
       const exo=sessions[k].exercises.find(e=>e.name===name);
@@ -768,7 +906,7 @@ function renderSessionTypeChart(type,typeMap){
     });
     for(let i=0;i<=3;i++){const y=(PT+cH*(1-i/3)).toFixed(1),val=Math.round(maxVal*i/3);yAxis+='<line x1="'+PL+'" y1="'+y+'" x2="'+(W-PR)+'" y2="'+y+'" stroke="rgba(255,255,255,0.05)" stroke-width="1"/><text x="'+(PL-3)+'" y="'+(parseFloat(y)+3).toFixed(1)+'" text-anchor="end" fill="#8888a8" font-size="7" font-family="monospace">'+val+'</text>';}
     const wrap=document.createElement('div');wrap.className='chart-wrap';wrap.style.marginBottom='10px';
-    wrap.innerHTML='<div class="chart-title">'+esc(name)+'</div><svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:'+H+'px;display:block;">'+yAxis+bars+'<path d="'+line+'" fill="none" stroke="#e07a7a" stroke-width="1.5"/>'+dots+kgLabels+labels+'</svg>';
+    wrap.innerHTML='<div class="chart-title">'+esc(name)+(isTimeExo(name)?' <span style="color:var(--mu);font-size:10px;">(secondes)</span>':'')+'</div><svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:'+H+'px;display:block;">'+yAxis+bars+'<path d="'+line+'" fill="none" stroke="#e07a7a" stroke-width="1.5"/>'+dots+kgLabels+labels+'</svg>';
     area.appendChild(wrap);
   });
 }
@@ -793,16 +931,18 @@ function renderProg(){
   const seances={
     'A':{label:'Séance A',sub:'Priorité tirage — prise pronation',exos:[['Traction pronation','3x Max'],['Dips','3x Max'],['Tirage horizontal','3x Max'],['Pompes pieds levés','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
     'B':{label:'Séance B',sub:'Priorité poussée — prise supination',exos:[['Pompes pieds levés','3x Max'],['Tirage horizontal','3x Max'],['Dips','3x Max'],['Traction supination','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
+    'SA':{label:'Séance A — Superset',sub:'Tractions pronation puis supination (~35 min)',exos:[['⇄ Traction pronation + Dips','3 tours'],['⇄ Traction supination + Pompes pieds levés','3 tours'],['Tirage horizontal','3x Max'],['Calf Raise unilatéral','3 séries']],rest:'Pas de repos dans un tour / 2 min après chaque tour'},
+    'SB':{label:'Séance B — Superset',sub:'Même structure, supination en premier',exos:[['⇄ Traction supination + Pompes pieds levés','3 tours'],['⇄ Traction pronation + Dips','3 tours'],['Tirage horizontal','3x Max'],['Calf Raise unilatéral','3 séries']],rest:'Pas de repos dans un tour / 2 min après chaque tour'},
     'AE':{label:'Séance A — Élastique',sub:'Version voyage (bandes)',exos:[['Tirage vertical pronation','3x Max'],['Développé pectoraux','3x Max'],['Rowing','3x Max'],['Pompes élastique','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
     'BE':{label:'Séance B — Élastique',sub:'Version voyage (bandes)',exos:[['Pompes élastique','3x Max'],['Rowing','3x Max'],['Développé pectoraux','3x Max'],['Tirage vertical supination','3x Max']],rest:'2 min entre séries / 3 min entre exercices'},
   };
 
   const days=[
-    {day:'Lundi',type:'Course + Core',exos:[['Ab Wheel Rollout','3x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevé de jambes','3x15'],['Dead Bug','3x10'],['Squeeze assis (anneau)','3x15'],['Squeeze pont fessier (anneau)','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Lundi',type:'Course + Core',exos:[['Ab Wheel Rollout','3x Max'],['Gainage latéral','2x (1\' D + 1\' G)'],['Relevé de jambes','3x15'],['Dead Bug','3x10'],['Squeeze assis (anneau)','3x15'],['Squeeze pont fessier (anneau)','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
     {day:'Mardi',type:'Haut',seance:'A ou B',note:'Alterner : A → B → A → B... + Calf Raise en fin'},
-    {day:'Mercredi',type:'Course + Core',exos:[['Ab Wheel Rollout','3x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevé de jambes','3x15'],['Dead Bug','3x10'],['Squeeze assis (anneau)','3x15'],['Squeeze pont fessier (anneau)','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Mercredi',type:'Course + Core',exos:[['Ab Wheel Rollout','3x Max'],['Gainage latéral','2x (1\' D + 1\' G)'],['Relevé de jambes','3x15'],['Dead Bug','3x10'],['Squeeze assis (anneau)','3x15'],['Squeeze pont fessier (anneau)','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
     {day:'Jeudi',type:'Haut',seance:'A ou B',note:'Toujours l\'inverse du Mardi + Calf Raise en fin'},
-    {day:'Vendredi',type:'Course + Core',exos:[['Ab Wheel Rollout','3x Max'],['Gainage latéral','4x1\' (2/côté)'],['Relevé de jambes','3x15'],['Dead Bug','3x10'],['Squeeze assis (anneau)','3x15'],['Squeeze pont fessier (anneau)','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
+    {day:'Vendredi',type:'Course + Core',exos:[['Ab Wheel Rollout','3x Max'],['Gainage latéral','2x (1\' D + 1\' G)'],['Relevé de jambes','3x15'],['Dead Bug','3x10'],['Squeeze assis (anneau)','3x15'],['Squeeze pont fessier (anneau)','3x15']],rest:'1 min entre séries / 2 min entre exercices'},
     {day:'Samedi',type:'Haut',seance:'A ou B',note:'Toujours l\'inverse du Jeudi + Calf Raise en fin'},
     {day:'Dimanche',type:'Repos',exos:null,rest:null},
   ];
@@ -883,6 +1023,7 @@ document.addEventListener('visibilitychange',function(){
     tSecs=Math.max(0,tStartSecs-elapsed);
     updT();
     if(tSecs<=0){beep();stopTimer();}
+    else holdScreen();
   }
 });
 document.addEventListener('click',function(e){var ar=document.querySelector('.add-exo');if(ar&&!ar.contains(e.target))hideDD();});
