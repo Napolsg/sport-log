@@ -7137,6 +7137,108 @@
       ],
       "type": "A — Superset",
       "done": false
+    },
+    "2026-11-09": {
+      "exercises": [
+        {
+          "name": "Traction supination",
+          "kg": "",
+          "ss": true,
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Traction pronation",
+          "kg": "",
+          "ss": true,
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Calf Raise unilatéral",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        }
+      ],
+      "type": "B — Superset",
+      "done": false
     }
   },
   "savedExos": [
