@@ -7295,7 +7295,7 @@
       "exercises": [
         {
           "name": "Traction pronation",
-          "kg": "",
+          "kg": "11",
           "ss": true,
           "series": [
             {
@@ -7315,7 +7315,7 @@
           "ss": false,
           "series": [
             {
-              "reps": ""
+              "reps": "10"
             },
             {
               "reps": ""
