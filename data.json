@@ -7104,7 +7104,7 @@
         },
         {
           "name": "Tirage horizontal",
-          "kg": "19",
+          "kg": "12.9",
           "ss": false,
           "series": [
             {
@@ -7136,7 +7136,7 @@
         }
       ],
       "type": "A — Superset",
-      "done": false
+      "done": true
     },
     "2026-11-09": {
       "exercises": [
