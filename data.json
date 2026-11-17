@@ -7292,7 +7292,90 @@
       "done": true
     },
     "2026-11-17": {
-      "exercises": []
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        },
+        {
+          "name": "Calf Raise unilatéral",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            },
+            {
+              "reps": ""
+            }
+          ]
+        }
+      ],
+      "type": "A — Tirage (pronation)",
+      "done": false
     }
   },
   "savedExos": [
