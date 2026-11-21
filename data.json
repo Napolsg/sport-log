@@ -7516,7 +7516,7 @@
           "ss": false,
           "series": [
             {
-              "reps": ""
+              "reps": "12"
             },
             {
               "reps": ""
@@ -7630,7 +7630,7 @@
         }
       ],
       "type": "A — Superset",
-      "done": false
+      "done": true
     }
   },
   "savedExos": [
