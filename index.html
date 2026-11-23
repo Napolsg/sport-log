@@ -181,7 +181,7 @@
 <body>
 <div class="app">
   <div class="hdr">
-    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v18.7</span></div>
+    <div class="hdr-l"><h1>Sport Log</h1><span class="ver">v18.8</span></div>
     <div style="display:flex;gap:6px;align-items:center;">
       <button class="sync-btn" id="sync-btn" onclick="syncNow()">↑↓ sync</button>
       <button class="sync-btn" onclick="resetToken()">token</button>
@@ -360,7 +360,8 @@ function getHtmlBeep(){
   return _htmlBeep;
 }
 function unlockAudio(){
-  try{if(navigator.audioSession)navigator.audioSession.type='playback';}catch(e){}
+  // transient = bip court par-dessus les autres apps (la musique baisse un instant au lieu de se mettre en pause)
+  try{if(navigator.audioSession)navigator.audioSession.type='transient';}catch(e){}
   try{
     const c=getAudioCtx();
     if(c.state!=='running')c.resume().catch(()=>{});
