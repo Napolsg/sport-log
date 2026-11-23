@@ -6480,7 +6480,7 @@
       "exercises": [
         {
           "name": "Traction pronation",
-          "kg": "9.5",
+          "kg": "10.5",
           "series": [
             {
               "reps": "13"
@@ -6495,7 +6495,7 @@
         },
         {
           "name": "Dips",
-          "kg": "9.5",
+          "kg": "10.5",
           "series": [
             {
               "reps": "13"
@@ -6510,7 +6510,7 @@
         },
         {
           "name": "Tirage horizontal",
-          "kg": "9.5",
+          "kg": "10.5",
           "series": [
             {
               "reps": "14"
@@ -6525,7 +6525,7 @@
         },
         {
           "name": "Pompes pieds levés",
-          "kg": "9.5",
+          "kg": "10.5",
           "series": [
             {
               "reps": "15"
@@ -6645,7 +6645,7 @@
       "exercises": [
         {
           "name": "Pompes pieds levés",
-          "kg": "11.9",
+          "kg": "12.9",
           "series": [
             {
               "reps": "11"
@@ -6660,7 +6660,7 @@
         },
         {
           "name": "Tirage horizontal",
-          "kg": "11.9",
+          "kg": "12.9",
           "series": [
             {
               "reps": "12"
@@ -6675,7 +6675,7 @@
         },
         {
           "name": "Dips",
-          "kg": "11.9",
+          "kg": "12.9",
           "series": [
             {
               "reps": "10"
@@ -6690,7 +6690,7 @@
         },
         {
           "name": "Traction supination",
-          "kg": "9.5",
+          "kg": "10.5",
           "series": [
             {
               "reps": "12"
@@ -6726,7 +6726,7 @@
       "exercises": [
         {
           "name": "Traction pronation",
-          "kg": "11.9",
+          "kg": "12.9",
           "series": [
             {
               "reps": "10"
@@ -6741,7 +6741,7 @@
         },
         {
           "name": "Dips",
-          "kg": "11.9",
+          "kg": "12.9",
           "series": [
             {
               "reps": "10"
@@ -6756,7 +6756,7 @@
         },
         {
           "name": "Tirage horizontal",
-          "kg": "11.9",
+          "kg": "12.9",
           "series": [
             {
               "reps": "12"
@@ -6771,7 +6771,7 @@
         },
         {
           "name": "Pompes pieds levés",
-          "kg": "11.9",
+          "kg": "12.9",
           "series": [
             {
               "reps": "10"
@@ -6825,22 +6825,16 @@
           "kg": "",
           "series": [
             {
-              "reps": "10"
+              "reps": "60"
             },
             {
-              "reps": "10"
-            },
-            {
-              "reps": "10"
-            },
-            {
-              "reps": "10"
+              "reps": "60"
             }
           ]
         },
         {
           "name": "Relevé de jambes",
-          "kg": "",
+          "kg": "2",
           "series": [
             {
               "reps": "15"
@@ -6855,7 +6849,871 @@
         }
       ],
       "type": "Core",
-      "done": false
+      "done": true
+    },
+    "2026-11-04": {
+      "exercises": [
+        {
+          "name": "Traction supination",
+          "kg": "12.9",
+          "ss": true,
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "12.9",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        },
+        {
+          "name": "Traction pronation",
+          "kg": "12.9",
+          "ss": true,
+          "series": [
+            {
+              "reps": "7"
+            },
+            {
+              "reps": "4"
+            },
+            {
+              "reps": "4"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "12.9",
+          "ss": false,
+          "series": [
+            {
+              "reps": "6"
+            },
+            {
+              "reps": "4"
+            },
+            {
+              "reps": "4"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "12.9",
+          "ss": false,
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "8"
+            }
+          ]
+        },
+        {
+          "name": "Calf Raise unilatéral",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "B — Superset",
+      "done": true
+    },
+    "2026-11-05": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "60"
+            },
+            {
+              "reps": "60"
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "2",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        },
+        {
+          "name": "Squeeze assis (anneau)",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Squeeze pont fessier (anneau)",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-11-06": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "12.9",
+          "ss": true,
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "12.9",
+          "ss": false,
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        },
+        {
+          "name": "Traction supination",
+          "kg": "5.7",
+          "ss": true,
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "5.7",
+          "ss": false,
+          "series": [
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "12.9",
+          "ss": false,
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "8"
+            }
+          ]
+        },
+        {
+          "name": "Calf Raise unilatéral",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "A — Superset",
+      "done": true
+    },
+    "2026-11-09": {
+      "exercises": [
+        {
+          "name": "Traction supination",
+          "kg": "12.9",
+          "ss": true,
+          "series": [
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "8"
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "12.9",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "11"
+            }
+          ]
+        },
+        {
+          "name": "Traction pronation",
+          "kg": "5.7",
+          "ss": true,
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "7"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "5.7",
+          "ss": false,
+          "series": [
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "7"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "12.9",
+          "ss": false,
+          "series": [
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Calf Raise unilatéral",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "B — Superset",
+      "done": true
+    },
+    "2026-11-10": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "60"
+            },
+            {
+              "reps": "60"
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "2",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-11-17": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "12.9",
+          "ss": true,
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "12.9",
+          "ss": false,
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        },
+        {
+          "name": "Traction supination",
+          "kg": "5.7",
+          "ss": true,
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "5.7",
+          "ss": false,
+          "series": [
+            {
+              "reps": "14"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "12.9",
+          "ss": false,
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        }
+      ],
+      "type": "A — Superset",
+      "done": true
+    },
+    "2026-11-18": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "60"
+            },
+            {
+              "reps": "60"
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "3",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "10"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
+    },
+    "2026-11-19": {
+      "exercises": [
+        {
+          "name": "Traction supination",
+          "kg": "12.9",
+          "ss": true,
+          "series": [
+            {
+              "reps": "14"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "8"
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "12.9",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "11"
+            }
+          ]
+        },
+        {
+          "name": "Traction pronation",
+          "kg": "5.7",
+          "ss": true,
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "7"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "5.7",
+          "ss": false,
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "7"
+            },
+            {
+              "reps": "6"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "12.9",
+          "ss": false,
+          "series": [
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Calf Raise unilatéral",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "B — Superset",
+      "done": true
+    },
+    "2026-11-21": {
+      "exercises": [
+        {
+          "name": "Traction pronation",
+          "kg": "12.9",
+          "ss": true,
+          "series": [
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "8"
+            }
+          ]
+        },
+        {
+          "name": "Dips",
+          "kg": "12.9",
+          "ss": false,
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "9"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Traction supination",
+          "kg": "5.7",
+          "ss": true,
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "8"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Pompes pieds levés",
+          "kg": "5.7",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "9"
+            }
+          ]
+        },
+        {
+          "name": "Tirage horizontal",
+          "kg": "11.9",
+          "ss": false,
+          "series": [
+            {
+              "reps": "11"
+            },
+            {
+              "reps": "10"
+            },
+            {
+              "reps": "7"
+            }
+          ]
+        },
+        {
+          "name": "Calf Raise unilatéral",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "12"
+            },
+            {
+              "reps": "12"
+            }
+          ]
+        }
+      ],
+      "type": "A — Superset",
+      "done": true
+    },
+    "2026-11-22": {
+      "exercises": [
+        {
+          "name": "Ab Wheel Rollout",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Gainage latéral",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "60"
+            },
+            {
+              "reps": "60"
+            }
+          ]
+        },
+        {
+          "name": "Relevé de jambes",
+          "kg": "3",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "13"
+            },
+            {
+              "reps": "11"
+            }
+          ]
+        },
+        {
+          "name": "Squeeze assis (anneau)",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        },
+        {
+          "name": "Squeeze pont fessier (anneau)",
+          "kg": "",
+          "ss": false,
+          "series": [
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            },
+            {
+              "reps": "15"
+            }
+          ]
+        }
+      ],
+      "type": "Core",
+      "done": true
     }
   },
   "savedExos": [
