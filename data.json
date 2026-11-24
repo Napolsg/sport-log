@@ -7847,26 +7847,10 @@
               "reps": "60"
             }
           ]
-        },
-        {
-          "name": "Relevé de jambes",
-          "kg": "",
-          "ss": false,
-          "series": [
-            {
-              "reps": ""
-            },
-            {
-              "reps": ""
-            },
-            {
-              "reps": ""
-            }
-          ]
         }
       ],
       "type": "Core",
-      "done": false
+      "done": true
     }
   },
   "savedExos": [
