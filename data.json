@@ -7825,7 +7825,7 @@
           "ss": false,
           "series": [
             {
-              "reps": ""
+              "reps": "15"
             },
             {
               "reps": ""
@@ -7850,22 +7850,6 @@
         },
         {
           "name": "Relevé de jambes",
-          "kg": "",
-          "ss": false,
-          "series": [
-            {
-              "reps": ""
-            },
-            {
-              "reps": ""
-            },
-            {
-              "reps": ""
-            }
-          ]
-        },
-        {
-          "name": "Squeeze pont fessier (anneau)",
           "kg": "",
           "ss": false,
           "series": [
